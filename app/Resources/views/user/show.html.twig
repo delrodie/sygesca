@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Usernamecanonical</th>
+                <td>{{ user.usernameCanonical }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Emailcanonical</th>
+                <td>{{ user.emailCanonical }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{% if user.enabled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Salt</th>
+                <td>{{ user.salt }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Lastlogin</th>
+                <td>{% if user.lastLogin %}{{ user.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Confirmationtoken</th>
+                <td>{{ user.confirmationToken }}</td>
+            </tr>
+            <tr>
+                <th>Passwordrequestedat</th>
+                <td>{% if user.passwordRequestedAt %}{{ user.passwordRequestedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Logincount</th>
+                <td>{{ user.loginCount }}</td>
+            </tr>
+            <tr>
+                <th>Firstlogin</th>
+                <td>{% if user.firstLogin %}{{ user.firstLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_user_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_user_edit', { 'id': user.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

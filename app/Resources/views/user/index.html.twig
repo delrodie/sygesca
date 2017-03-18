@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Users list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Usernamecanonical</th>
+                <th>Email</th>
+                <th>Emailcanonical</th>
+                <th>Enabled</th>
+                <th>Salt</th>
+                <th>Password</th>
+                <th>Lastlogin</th>
+                <th>Confirmationtoken</th>
+                <th>Passwordrequestedat</th>
+                <th>Roles</th>
+                <th>Logincount</th>
+                <th>Firstlogin</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('admin_user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
+                <td>{{ user.usernameCanonical }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.emailCanonical }}</td>
+                <td>{% if user.enabled %}Yes{% else %}No{% endif %}</td>
+                <td>{{ user.salt }}</td>
+                <td>{{ user.password }}</td>
+                <td>{% if user.lastLogin %}{{ user.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ user.confirmationToken }}</td>
+                <td>{% if user.passwordRequestedAt %}{{ user.passwordRequestedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
+                <td>{{ user.loginCount }}</td>
+                <td>{% if user.firstLogin %}{{ user.firstLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ user.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_user_show', { 'id': user.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_user_edit', { 'id': user.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_user_new') }}">Create a new user</a>
+        </li>
+    </ul>
+{% endblock %}

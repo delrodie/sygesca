@@ -16,4 +16,23 @@ class Group extends BaseGroup
      * @ORM\GeneratedValue(strategy="AUTO")
      */
      protected $id;
+
+     /**
+      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="groups")
+      *
+      */ protected $users;
+
+      public function __construct($name = '', $roles = array())
+      {
+          $this->name = $name;
+            $this->roles = $roles;
+        }
+
+        public function __toString() {
+            return $this->getName();
+        }
+
+        function getUsers() {
+            return $this->users;
+        }
 }
