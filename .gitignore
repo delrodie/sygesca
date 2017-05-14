@@ -16,3 +16,4 @@
 /web/bundles/
 /src/AppBundle/Entity/*~
 /.idea/
+/app/Resources/views/default/notification.json

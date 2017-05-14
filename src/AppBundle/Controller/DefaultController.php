@@ -13,28 +13,42 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-      $session = $request->getSession();
+        $session = $request->getSession();
         $userIp = $request->getClientIp();
 
-        $user = $this->getUser();
+        // Si la session user_connecte n'existe alors logger user vient de se connecter
+        // sinon user consulte le tableau de bord
+        if (!$session->has('userConnecte')) {
+          $user = $this->getUser();
+          $notification = $this->get('monolog.logger.notification');
+          $notification->notice($user.' vient de se connecté sur la plateforme avec l\'ip: '.$userIp);
 
-      $date = new \DateTime();
-        //$datet = new \DateTimeZone('Europe/Paris');
+          $date = new \DateTime();
+          //$datet = new \DateTimeZone('Europe/Paris');
 
-        // Envoie de mail de notification à l'administrateur
-        $message = \Swift_Message::newInstance()
-                  ->setSubject('ARFISGED Notifications')
-                  ->setFrom('noreply@arfis.com')
-                  ->setTo('delrodieamoikon@gmail.com')
-                  ->setBody(
-                  $this->renderView('emails/connexion.html.twig', array(
-                      'user' => $user,
-                      'ip' => $userIp,
-                      'date_connexion'  => $date->format('D d M Y h:i:s'),
-                    )),
-                      'text/html'
-                  );
-        $this->get('mailer')->send($message);
+          // Envoie de mail de notification à l'administrateur
+          $message = \Swift_Message::newInstance()
+                    ->setSubject('SYGESCA Notifications')
+                    ->setFrom('noreply@arfis.com')
+                    ->setTo('delrodieamoikon@gmail.com')
+                    ->setBody(
+                    $this->renderView('emails/connexion.html.twig', array(
+                        'user' => $user,
+                        'ip' => $userIp,
+                        'date_connexion'  => $date->format('D d M Y h:i:s'),
+                      )),
+                        'text/html'
+                    );
+          $this->get('mailer')->send($message);
+
+          // Enregistrement de la session
+          $session->set('userConnecte', $this->getUser());
+
+        } else {
+          $user = $this->getUser();
+          $notification = $this->get('monolog.logger.notification');
+          $notification->notice($user.' a consulté le tableau de bord .');
+        }
 
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,

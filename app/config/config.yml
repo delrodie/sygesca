@@ -99,3 +99,17 @@ fos_user:
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
+
+services:
+    json:
+        class: Monolog\Formatter\JsonFormatter
+
+monolog:
+    channels: [notification]
+    handlers:
+        notification:
+            level: notice
+            type:  stream
+            path:  '%kernel.logs_dir%/../../app/Resources/views/default/notification.json'
+            formatter: json
+            channels: [notification]
