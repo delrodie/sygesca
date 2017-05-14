@@ -1,6 +1,17 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="fos_user_user_show">
+  <br>
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+
+    <br>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-8">
+        <a href="{{ path('homepage') }}">
+          <span class="btn btn-block btn-default fa fa-home text-primary" style="font-size: 1.5em"></span>
+        </a>
+      </div>
+    </div>
+
 </div>

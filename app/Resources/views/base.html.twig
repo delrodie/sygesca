@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}SYGESCA{% endblock %}</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('ressources/img/logo.png')}}">
 
     {% block stylesheets %}
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700|Roboto:300,400,700" rel="stylesheet">
@@ -192,19 +192,19 @@
                   <span class="pull-right">
                     <img class="img-circle img-user media-object" src="{{ asset('ressources/img/avatar.png')}}" alt="Profile Picture">
                   </span>
-                  <div class="username hidden-xs">Delrodie</div>
+                  <div class="username hidden-xs">{{ 'layout.user'|trans({'%username%': app.user.username}, 'FOSUserBundle')|title }}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right with-arrow">
                   <!-- User dropdown menu -->
                   <ul class="head-list">
                     <li>
-                      <a href="#">
+                      <a href="{{ path('fos_user_change_password')}}">
                         <i class="fa fa-cog fa-fw"></i>
                         Changer mot de passe
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="{{ path('fos_user_security_logout')}}">
                         <i class="fa fa-sign-out fa-fw"></i>
                         Deconnexion
                       </a>

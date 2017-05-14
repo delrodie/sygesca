@@ -1,4 +1,6 @@
-{% extends "@FOSUser/layout.html.twig" %}
+{% extends "LoginLayout.html.twig" %}
+
+{% block title %}Réinitialisation du mot de passe{% endblock %}
 
 {% block fos_user_content %}
 {% include "@FOSUser/Resetting/request_content.html.twig" %}

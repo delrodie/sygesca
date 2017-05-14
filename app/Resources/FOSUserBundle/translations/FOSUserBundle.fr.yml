@@ -40,7 +40,7 @@ registration:
             Bonjour %username% !
 
             Pour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%
-            
+
             Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.
 
             Cordialement,
@@ -75,6 +75,7 @@ layout:
     login: Connexion
     register: Inscription
     logged_in_as: 'Connecté en tant que %username%'
+    user: '%username%'
 form:
     group_name: 'Nom du groupe'
     username: 'Nom d''utilisateur'
