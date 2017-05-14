@@ -1,0 +1,28 @@
+/**
+ * Pour la gestion des 
+ */
+
+.bordereau-entete img{
+	float: left;
+	width: 50px;
+}
+.bordereau-entete .ascci{
+	text-transform: uppercase;
+	font-weight: bold;
+	padding-top: 5px;
+	padding-left: 60px;
+}
+
+.bordereau-entete .contact{
+	padding-top: 5px;
+	padding-left: 60px;
+}
+
+.bordereau-entete .numero{
+	padding-top: 10px;
+}
+
+.bordereau-titre{
+	text-decoration: underline;
+	font-size: 1.2em;
+}

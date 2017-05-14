@@ -1,76 +1,382 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
-            </div>
-
-            <div id="status">
-                <p>
-                    <svg id="icon-status" width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1671 566q0 40-28 68l-724 724-136 136q-28 28-68 28t-68-28l-136-136-362-362q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295 656-657q28-28 68-28t68 28l136 136q28 28 28 68z" fill="#759E1A"/></svg>
-
-                    Your application is now ready. You can start working on it at:
-                    <code>{{ base_dir }}</code>
-                </p>
-            </div>
-
-            <div id="next">
-                <h2>What's next?</h2>
-                <p>
-                    <svg id="icon-book" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="-12.5 9 64 64" enable-background="new -12.5 9 64 64" xml:space="preserve">
-                        <path fill="#AAA" d="M6.8,40.8c2.4,0.8,4.5-0.7,4.9-2.5c0.2-1.2-0.3-2.1-1.3-3.2l-0.8-0.8c-0.4-0.5-0.6-1.3-0.2-1.9
-                            c0.4-0.5,0.9-0.8,1.8-0.5c1.3,0.4,1.9,1.3,2.9,2.2c-0.4,1.4-0.7,2.9-0.9,4.2l-0.2,1c-0.7,4-1.3,6.2-2.7,7.5
-                            c-0.3,0.3-0.7,0.5-1.3,0.6c-0.3,0-0.4-0.3-0.4-0.3c0-0.3,0.2-0.3,0.3-0.4c0.2-0.1,0.5-0.3,0.4-0.8c0-0.7-0.6-1.3-1.3-1.3
-                            c-0.6,0-1.4,0.6-1.4,1.7s1,1.9,2.4,1.8c0.8,0,2.5-0.3,4.2-2.5c2-2.5,2.5-5.4,2.9-7.4l0.5-2.8c0.3,0,0.5,0.1,0.8,0.1
-                            c2.4,0.1,3.7-1.3,3.7-2.3c0-0.6-0.3-1.2-0.9-1.2c-0.4,0-0.8,0.3-1,0.8c-0.1,0.6,0.8,1.1,0.1,1.5c-0.5,0.3-1.4,0.6-2.7,0.4l0.3-1.3
-                            c0.5-2.6,1-5.7,3.2-5.8c0.2,0,0.8,0,0.8,0.4c0,0.2,0,0.2-0.2,0.5c-0.2,0.3-0.3,0.4-0.2,0.7c0,0.7,0.5,1.1,1.2,1.1
-                            c0.9,0,1.2-1,1.2-1.4c0-1.2-1.2-1.8-2.6-1.8c-1.5,0.1-2.8,0.9-3.7,2.1c-1.1,1.3-1.8,2.9-2.3,4.5c-0.9-0.8-1.6-1.8-3.1-2.3
-                            c-1.1-0.7-2.3-0.5-3.4,0.3c-0.5,0.4-0.8,1-1,1.6c-0.4,1.5,0.4,2.9,0.8,3.4l0.9,1c0.2,0.2,0.6,0.8,0.4,1.5c-0.3,0.8-1.2,1.3-2.1,1
-                            c-0.4-0.2-1-0.5-0.9-0.9c0.1-0.2,0.2-0.3,0.3-0.5s0.1-0.3,0.1-0.3c0.2-0.6-0.1-1.4-0.7-1.6c-0.6-0.2-1.2,0-1.3,0.8
-                            C4.3,38.4,4.7,40,6.8,40.8z M46.1,20.9c0-4.2-3.2-7.5-7.1-7.5h-3.8C34.8,10.8,32.7,9,30.2,9L-2.3,9.1c-2.8,0.1-4.9,2.4-4.9,5.4
-                            L-7,58.6c0,4.8,8.1,13.9,11.6,14.1l34.7-0.1c3.9,0,7-3.4,7-7.6L46.1,20.9z M-0.3,36.4c0-8.6,6.5-15.6,14.5-15.6
-                            c8,0,14.5,7,14.5,15.6S22.1,52,14.2,52C6.1,52-0.3,45-0.3,36.4z M42.1,65.1c0,1.8-1.5,3.1-3.1,3.1H4.6c-0.7,0-3-1.8-4.5-4.4h30.4
-                            c2.8,0,5-2.4,5-5.4V17.9h3.7c1.6,0,2.9,1.4,2.9,3.1V65.1L42.1,65.1z"/>
-                    </svg>
-
-                    Read the documentation to learn
-                    <a href="http://symfony.com/doc/{{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION')[:3] }}/page_creation.html">
-                        How to create your first page in Symfony
-                    </a>
-                </p>
-            </div>
-
-        </div>
-    </div>
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/morris-js/morris.min.css')}}" rel="stylesheet">
 {% endblock %}
 
-{% block stylesheets %}
-<style>
-    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
-    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 21px; margin-bottom: 1em; }
-    p { margin: 0 0 1em 0; }
-    a { color: #0000F0; }
-    a:hover { text-decoration: none; }
-    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
-    #container { padding: 2em; }
-    #welcome, #status { margin-bottom: 2em; }
-    #welcome h1 span { display: block; font-size: 75%; }
-    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
-    #icon-book { display: none; }
+{% block body %}
+<div class="pageheader">
+  <h3>
+    <i class="fa fa-home"></i>
+    Tableau de bord
+  </h3>
+  <div class="breadcrumb-wrapper">
+    <span class="label"></span>
+    <ol class="breadcrumb">
+      <li>
+        <a href="#">
+          Accueil
+        </a>
+      </li>
+      <li class="active">
+        Tableau de bord
+      </li>
+    </ol>
+  </div>
+</div>
+<div id="page-content">
+  <!--statistiques -->
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-10">
+              <h3 class="mar-no">
+                <span class="counter">1.450</span>
+              </h3>
+              <p>Jeunes</p>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2">
+              <i class="fa fa-users fa-lg text-info"></i>
+            </div>
+          </div>
+          <div class="progress progress-striped progress-sm">
+            <div style="width: 72.5%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar">
+              <span class="sr-only">72.5% Complete</span>
+            </div>
+          </div>
+          <p>
+            72.5% de l'effectif total
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-10">
+              <h3 class="mar-no">
+                <span class="counter">550</span>
+              </h3>
+              <p>Adultes</p>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2">
+              <i class="fa fa-users fa-lg text-info"></i>
+            </div>
+          </div>
+          <div class="progress progress-striped progress-sm">
+            <div style="width: 27.5%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar">
+              <span class="sr-only">27.5% Complete</span>
+            </div>
+          </div>
+          <p>
+            27.5% de l'effectif total
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="panel widget">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-10">
+              <h3 class="mar-no">
+                <span class="counter">600</span>
+              </h3>
+              <p>Femmes</p>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2">
+              <i class="fa fa-female fa-3x text-pink"></i>
+            </div>
+          </div>
+          <div class="progress progress-striped progress-sm">
+            <div style="width: 30%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-pink">
+              <span class="sr-only">30% Complete</span>
+            </div>
+          </div>
+          <p>
+            30% de l'effectif total
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="panel widget">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-10">
+              <h3 class="mar-no">
+                <span class="counter">1.400</span>
+              </h3>
+              <p>Hommes</p>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2">
+              <i class="fa fa-male fa-3x"></i>
+            </div>
+          </div>
+          <div class="progress progress-striped progress-sm">
+            <div style="width: 70%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-dark">
+              <span class="sr-only">70% Complete</span>
+            </div>
+          </div>
+          <p>
+            70% de l'eefectif total
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Unités -->
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-10">
+              <h3 class="mar-no">
+                <span class="counter">571</span>
+              </h3>
+              <p>Louveteaux</p>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2">
+              <i class="fa fa-users fa-lg" style="color: #ffcf00"></i>
+            </div>
+          </div>
+          <div class="progress progress-striped progress-sm">
+            <div style="width: 28.6%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar" style="color: #ffcf00">
+              <span class="sr-only">28.6% Complete</span>
+            </div>
+          </div>
+          <p>
+            28.6% de l'effectif total des jeunes
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-10">
+              <h3 class="mar-no">
+                <span class="counter">650</span>
+              </h3>
+              <p>Eclaireurs</p>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2">
+              <i class="fa fa-users fa-lg text-success"></i>
+            </div>
+          </div>
+          <div class="progress progress-striped progress-sm">
+            <div style="width: 32.5%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-success">
+              <span class="sr-only">32.5% Complete</span>
+            </div>
+          </div>
+          <p>
+            32.5% de l'effectif total des jeunes
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="panel widget">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-10">
+              <h3 class="mar-no">
+                <span class="counter">452</span>
+              </h3>
+              <p>Cheminos</p>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2">
+              <i class="fa fa-users fa-lg text-warning"></i>
+            </div>
+          </div>
+          <div class="progress progress-striped progress-sm">
+            <div style="width: 22.6%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-warning">
+              <span class="sr-only">22.6% Complete</span>
+            </div>
+          </div>
+          <p>
+            22.6% de l'effectif total des jeunes
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="panel widget">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-10">
+              <h3 class="mar-no">
+                <span class="counter">327</span>
+              </h3>
+              <p>Routiers</p>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2">
+              <i class="fa fa-users fa-lg text-danger"></i>
+            </div>
+          </div>
+          <div class="progress progress-striped progress-sm">
+            <div style="width: 16.4%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-danger">
+              <span class="sr-only">16.4% Complete</span>
+            </div>
+          </div>
+          <p>
+            16.4% de l'effectif total des jeunes
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    @media (min-width: 768px) {
-        #wrapper { width: 80%; margin: 2em auto; }
-        #icon-book { display: inline-block; }
-        #status a, #next a { display: block; }
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">Histogramme des cotisants 2016-2017</h3>
+        </div>
+        <div class="panel-body">
+          <div id="demo-morris-bar" style="height:350px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
-    }
-</style>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Tableaux
+          </h3>
+        </div>
+        <div class="panel-body">
+          <!--Default Tabs (Left Aligned)-->
+          <!--===================================================-->
+          <div class="tab-base">
+            <!--Nav Tabs-->
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a data-toggle="tab" href="#demo-lft-tab-1">
+                  Statistiques globales régions
+                </a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#demo-lft-tab-2">Statistiques adultes</a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#demo-lft-tab-3">Statistiques jeunes</a>
+              </li>
+            </ul>
+            <!--Tabs Content-->
+            <div class="tab-content">
+              <div id="demo-lft-tab-1" class="tab-pane fade active in">
+                <!--Hover Rows-->
+                <!--===================================================-->
+                <table class="table table-hover table-vcenter">
+                  <thead>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">Regions</th>
+                      <th class="text-center">Totaux</th>
+                      <th class="hidden-xs text-center">Adultes</th>
+                      <th class="hidden-xs text-center">Jeunes</th>
+                      <th class="hidden-xs text-center">Hommes</th>
+                      <th class="hidden-xs text-center">Femmes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>ABIDJAN</td>
+                      <td class="text-center">2.500</td>
+                      <td class="hidden-xs text-center">750</td>
+                      <td class="hidden-xs text-center">1.750</td>
+                      <td class="hidden-xs text-center">1.600</td>
+                      <td class="hidden-xs text-center">900</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!--===================================================-->
+                <!--End Hover Rows-->
+              </div>
+              <div id="demo-lft-tab-2" class="tab-pane fade">
+                <!--===================================================-->
+                <table class="table table-hover table-vcenter">
+                  <thead>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">Regions</th>
+                      <th class="text-center">Totaux</th>
+                      <th class="hidden-xs text-center">Meutes</th>
+                      <th class="hidden-xs text-center">Troupes</th>
+                      <th class="hidden-xs text-center">Generations</th>
+                      <th class="hidden-xs text-center">Communautés</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>ABIDJAN</td>
+                      <td class="text-center">2.500</td>
+                      <td class="hidden-xs text-center">750</td>
+                      <td class="hidden-xs text-center">1.750</td>
+                      <td class="hidden-xs text-center">1.600</td>
+                      <td class="hidden-xs text-center">900</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!--===================================================-->
+                <!-- End Foo Table - Filtering -->
+              </div>
+              <div id="demo-lft-tab-3" class="tab-pane fade">
+                <!--Hover Rows-->
+                <!--===================================================-->
+                <table class="table table-hover table-vcenter">
+                  <thead>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">Regions</th>
+                      <th class="text-center">Totaux</th>
+                      <th class="hidden-xs text-center">Meutes</th>
+                      <th class="hidden-xs text-center">Troupes</th>
+                      <th class="hidden-xs text-center">Generations</th>
+                      <th class="hidden-xs text-center">Communautés</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>ABIDJAN</td>
+                      <td class="text-center">2.500</td>
+                      <td class="hidden-xs text-center">750</td>
+                      <td class="hidden-xs text-center">1.750</td>
+                      <td class="hidden-xs text-center">1.600</td>
+                      <td class="hidden-xs text-center">900</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!--===================================================-->
+                <!--End Hover Rows-->
+              </div>
+            </div>
+          </div>
+          <!--===================================================-->
+          <!--End Default Tabs (Left Aligned)-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/morris-js/morris.min.js')}}"></script>
+<script src="{{ asset('ressources/plugins/morris-js/raphael-js/raphael.min.js')}}"></script>
+<script src="{{ asset('ressources/js/demo/charts-morris.js')}}"></script>
 {% endblock %}
