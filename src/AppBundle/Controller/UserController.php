@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('AppBundle:User')->findAll();
+        $users = $em->getRepository('AppBundle:User')->getUser();
 
         $utilisateur = $this->getUser();
         $notification = $this->get('monolog.logger.notification');
