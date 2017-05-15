@@ -25,7 +25,7 @@ class Region
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=15, unique=true)
+     * @ORM\Column(name="nom", type="string", length=20, unique=true)
      */
     private $nom;
 
