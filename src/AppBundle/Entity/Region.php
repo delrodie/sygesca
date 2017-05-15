@@ -300,4 +300,8 @@ class Region
     {
         return $this->gestionnaires;
     }
+
+    public function __toString() {
+        return $this->getNom();
+    }
 }

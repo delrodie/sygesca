@@ -63,5 +63,52 @@ $(document).ready(function() {
                     }
                 }
             }
+        }),
+        $("#gestionnaireForm").bootstrapValidator({
+            framework: "bootstrap",
+            icon: {
+                valid: "glyphicon glyphicon-ok",
+                invalid: "glyphicon glyphicon-remove",
+                validating: "glyphicon glyphicon-refresh"
+            },
+            fields: {
+                'appbundle_gestionnaire[user]': {
+                    validators: {
+                        notEmpty: { message: "Veuillez selectionner l'utilisateur." },
+                        //stringLength: { min: 5, max: 15, message: "Ce champ doit avoir au moins 5 caractères" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_gestionnaire[region]': {
+                    validators: {
+                        notEmpty: { message: "Veuillez selectionner la région." },
+                        //stringLength: { min: 5, max: 15, message: "Ce champ doit avoir au moins 5 caractères" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_gestionnaire[fonction]': {
+                    validators: {
+                        notEmpty: { message: "La fonction est obligatoire." },
+                        //different: { value: "chef", message: "La fonction doit être différente de chef" }
+                    }
+                },
+                'appbundle_gestionnaire[nom]': {
+                    validators: {
+                        notEmpty: { message: "Le nom de famille est obligatoire." }
+                    }
+                },
+                'appbundle_gestionnaire[prenoms]': {
+                    validators: {
+                        notEmpty: { message: "Le prenom est obligatoire." }
+                    }
+                },
+                'appbundle_gestionnaire[contact]': {
+                    validators: {
+                        notEmpty: { message: "Le contact téléphonique est obligatoire." },
+                        stringLength: { min: 8, max: 8, message: "Ce numéro de téléphone doit comporter 8 chiffres" },
+                        regexp: { regexp: /^[Z0-9\.]+$/, message: "Ce champ doit être uniquement numérique" }
+                    }
+                }
+            }
         })
 });
