@@ -6,12 +6,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Region
+ * District
  *
- * @ORM\Table(name="region")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\RegionRepository")
+ * @ORM\Table(name="district")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DistrictRepository")
  */
-class Region
+class District
 {
     /**
      * @var int
@@ -25,22 +25,22 @@ class Region
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=20, unique=true)
+     * @ORM\Column(name="nom", type="string", length=75, unique=true)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=2, nullable=true)
+     * @ORM\Column(name="doyenne", type="string", length=125, nullable=true)
      */
-    private $code;
+    private $doyenne;
 
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"code","nom"})
-     * @ORM\Column(name="slug", type="string", length=20)
+     * @Gedmo\Slug(fields={"nom","doyenne"})
+     * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
 
@@ -76,15 +76,11 @@ class Region
      */
     private $modifieLe;
 
-    /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Gestionnaire", mappedBy="region")
-    */
-    private $gestionnaires;
-
-    /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\District", mappedBy="region")
-    */
-    private $districts;
+  /**
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Region", inversedBy="districts")
+   * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
+   */
+   private $region;
 
 
     /**
@@ -102,7 +98,7 @@ class Region
      *
      * @param string $nom
      *
-     * @return Region
+     * @return District
      */
     public function setNom($nom)
     {
@@ -122,27 +118,27 @@ class Region
     }
 
     /**
-     * Set code
+     * Set doyenne
      *
-     * @param string $code
+     * @param string $doyenne
      *
-     * @return Region
+     * @return District
      */
-    public function setCode($code)
+    public function setDoyenne($doyenne)
     {
-        $this->code = $code;
+        $this->doyenne = $doyenne;
 
         return $this;
     }
 
     /**
-     * Get code
+     * Get doyenne
      *
      * @return string
      */
-    public function getCode()
+    public function getDoyenne()
     {
-        return $this->code;
+        return $this->doyenne;
     }
 
     /**
@@ -150,7 +146,7 @@ class Region
      *
      * @param string $slug
      *
-     * @return Region
+     * @return District
      */
     public function setSlug($slug)
     {
@@ -174,7 +170,7 @@ class Region
      *
      * @param string $publiePar
      *
-     * @return Region
+     * @return District
      */
     public function setPubliePar($publiePar)
     {
@@ -198,7 +194,7 @@ class Region
      *
      * @param string $modifiePar
      *
-     * @return Region
+     * @return District
      */
     public function setModifiePar($modifiePar)
     {
@@ -222,7 +218,7 @@ class Region
      *
      * @param \DateTime $publieLe
      *
-     * @return Region
+     * @return District
      */
     public function setPublieLe($publieLe)
     {
@@ -246,7 +242,7 @@ class Region
      *
      * @param \DateTime $modifieLe
      *
-     * @return Region
+     * @return District
      */
     public function setModifieLe($modifieLe)
     {
@@ -264,83 +260,28 @@ class Region
     {
         return $this->modifieLe;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->gestionnaires = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add gestionnaire
+     * Set region
      *
-     * @param \AppBundle\Entity\Gestionnaire $gestionnaire
+     * @param \AppBundle\Entity\Region $region
      *
-     * @return Region
+     * @return District
      */
-    public function addGestionnaire(\AppBundle\Entity\Gestionnaire $gestionnaire)
+    public function setRegion(\AppBundle\Entity\Region $region = null)
     {
-        $this->gestionnaires[] = $gestionnaire;
+        $this->region = $region;
 
         return $this;
     }
 
     /**
-     * Remove gestionnaire
+     * Get region
      *
-     * @param \AppBundle\Entity\Gestionnaire $gestionnaire
+     * @return \AppBundle\Entity\Region
      */
-    public function removeGestionnaire(\AppBundle\Entity\Gestionnaire $gestionnaire)
+    public function getRegion()
     {
-        $this->gestionnaires->removeElement($gestionnaire);
-    }
-
-    /**
-     * Get gestionnaires
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGestionnaires()
-    {
-        return $this->gestionnaires;
-    }
-
-    public function __toString() {
-        return $this->getNom();
-    }
-
-    /**
-     * Add district
-     *
-     * @param \AppBundle\Entity\District $district
-     *
-     * @return Region
-     */
-    public function addDistrict(\AppBundle\Entity\District $district)
-    {
-        $this->districts[] = $district;
-
-        return $this;
-    }
-
-    /**
-     * Remove district
-     *
-     * @param \AppBundle\Entity\District $district
-     */
-    public function removeDistrict(\AppBundle\Entity\District $district)
-    {
-        $this->districts->removeElement($district);
-    }
-
-    /**
-     * Get districts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDistricts()
-    {
-        return $this->districts;
+        return $this->region;
     }
 }
