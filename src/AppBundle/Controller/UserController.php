@@ -26,6 +26,10 @@ class UserController extends Controller
 
         $users = $em->getRepository('AppBundle:User')->findAll();
 
+        $utilisateur = $this->getUser();
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($utilisateur.' a consulté la liste des utilisateurs .');
+
         return $this->render('user/index.html.twig', array(
             'users' => $users,
         ));
@@ -55,8 +59,18 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush($user);
 
+            $this->addFlash('notice', "L'utilisateur ".$user->getUsername()." a été crée avec succès.!");
+
+            $utilisateur = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($utilisateur.' a enregistré le nouvel utilisateur '.$user->getUsername());
+
             return $this->redirectToRoute('admin_user_index');
         }
+
+        $utilisateur = $this->getUser();
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($utilisateur.' a consulté la page d\'enregistrement des utilisateurs .');
 
         return $this->render('user/new.html.twig', array(
             'user' => $user,
@@ -94,15 +108,23 @@ class UserController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
           //$user->setEnabled(true);
-        //Encodage du mot de passe
-        $encoder = $this->container->get('security.password_encoder');
-        $encoded = $encoder->encodePassword($user, $user->getPassword());
-        $user->setPassword($encoded);
+          //Encodage du mot de passe
+          $encoder = $this->container->get('security.password_encoder');
+          $encoded = $encoder->encodePassword($user, $user->getPassword());
+          $user->setPassword($encoded);
 
           $this->getDoctrine()->getManager()->flush();
 
+          $utilisateur = $this->getUser();
+          $notification = $this->get('monolog.logger.notification');
+          $notification->notice($utilisateur.' a modifié l\'utilisateur '.$user->getUsername());
+
           return $this->redirectToRoute('admin_user_index');
         }
+
+        $utilisateur = $this->getUser();
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($utilisateur.' a envisagé modifier l\'utilisateur '.$user->getUsername());
 
         return $this->render('user/edit.html.twig', array(
             'user' => $user,
@@ -126,6 +148,10 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
+
+            $utilisateur = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($utilisateur.' a supprimé l\'utilisateur '.$user->getUsername());
         }
 
         return $this->redirectToRoute('admin_user_index');
