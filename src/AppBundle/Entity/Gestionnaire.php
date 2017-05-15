@@ -6,12 +6,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Region
+ * Gestionnaire
  *
- * @ORM\Table(name="region")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\RegionRepository")
+ * @ORM\Table(name="gestionnaire")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\GestionnaireRepository")
  */
-class Region
+class Gestionnaire
 {
     /**
      * @var int
@@ -25,22 +25,36 @@ class Region
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=20, unique=true)
+     * @ORM\Column(name="nom", type="string", length=25)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=2, nullable=true)
+     * @ORM\Column(name="prenoms", type="string", length=125, nullable=true)
      */
-    private $code;
+    private $prenoms;
 
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"code","nom"})
-     * @ORM\Column(name="slug", type="string", length=20)
+     * @ORM\Column(name="fonction", type="string", length=255, nullable=true)
+     */
+    private $fonction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact", type="string", length=25, nullable=true)
+     */
+    private $contact;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"nom","prenoms","contact"})
+     * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
 
@@ -77,9 +91,15 @@ class Region
     private $modifieLe;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Gestionnaire", mappedBy="region")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     */
+     private $user;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Region", inversedBy="gestionnaires")
+    * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
     */
-    private $gestionnaires;
+    private $region;
 
 
     /**
@@ -97,7 +117,7 @@ class Region
      *
      * @param string $nom
      *
-     * @return Region
+     * @return Gestionnaire
      */
     public function setNom($nom)
     {
@@ -117,27 +137,75 @@ class Region
     }
 
     /**
-     * Set code
+     * Set prenoms
      *
-     * @param string $code
+     * @param string $prenoms
      *
-     * @return Region
+     * @return Gestionnaire
      */
-    public function setCode($code)
+    public function setPrenoms($prenoms)
     {
-        $this->code = $code;
+        $this->prenoms = $prenoms;
 
         return $this;
     }
 
     /**
-     * Get code
+     * Get prenoms
      *
      * @return string
      */
-    public function getCode()
+    public function getPrenoms()
     {
-        return $this->code;
+        return $this->prenoms;
+    }
+
+    /**
+     * Set fonction
+     *
+     * @param string $fonction
+     *
+     * @return Gestionnaire
+     */
+    public function setFonction($fonction)
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    /**
+     * Get fonction
+     *
+     * @return string
+     */
+    public function getFonction()
+    {
+        return $this->fonction;
+    }
+
+    /**
+     * Set contact
+     *
+     * @param string $contact
+     *
+     * @return Gestionnaire
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return string
+     */
+    public function getContact()
+    {
+        return $this->contact;
     }
 
     /**
@@ -145,7 +213,7 @@ class Region
      *
      * @param string $slug
      *
-     * @return Region
+     * @return Gestionnaire
      */
     public function setSlug($slug)
     {
@@ -169,7 +237,7 @@ class Region
      *
      * @param string $publiePar
      *
-     * @return Region
+     * @return Gestionnaire
      */
     public function setPubliePar($publiePar)
     {
@@ -193,7 +261,7 @@ class Region
      *
      * @param string $modifiePar
      *
-     * @return Region
+     * @return Gestionnaire
      */
     public function setModifiePar($modifiePar)
     {
@@ -217,7 +285,7 @@ class Region
      *
      * @param \DateTime $publieLe
      *
-     * @return Region
+     * @return Gestionnaire
      */
     public function setPublieLe($publieLe)
     {
@@ -241,7 +309,7 @@ class Region
      *
      * @param \DateTime $modifieLe
      *
-     * @return Region
+     * @return Gestionnaire
      */
     public function setModifieLe($modifieLe)
     {
@@ -259,49 +327,52 @@ class Region
     {
         return $this->modifieLe;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->gestionnaires = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add gestionnaire
+     * Set user
      *
-     * @param \AppBundle\Entity\Gestionnaire $gestionnaire
+     * @param \AppBundle\Entity\User $user
      *
-     * @return Region
+     * @return Gestionnaire
      */
-    public function addGestionnaire(\AppBundle\Entity\Gestionnaire $gestionnaire)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->gestionnaires[] = $gestionnaire;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Remove gestionnaire
+     * Get user
      *
-     * @param \AppBundle\Entity\Gestionnaire $gestionnaire
+     * @return \AppBundle\Entity\User
      */
-    public function removeGestionnaire(\AppBundle\Entity\Gestionnaire $gestionnaire)
+    public function getUser()
     {
-        $this->gestionnaires->removeElement($gestionnaire);
+        return $this->user;
     }
 
     /**
-     * Get gestionnaires
+     * Set region
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \AppBundle\Entity\Region $region
+     *
+     * @return Gestionnaire
      */
-    public function getGestionnaires()
+    public function setRegion(\AppBundle\Entity\Region $region = null)
     {
-        return $this->gestionnaires;
+        $this->region = $region;
+
+        return $this;
     }
 
-    public function __toString() {
-        return $this->getNom();
+    /**
+     * Get region
+     *
+     * @return \AppBundle\Entity\Region
+     */
+    public function getRegion()
+    {
+        return $this->region;
     }
 }
