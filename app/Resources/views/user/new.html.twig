@@ -1,16 +1,109 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Enregistrement des utilisateurs{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-    <h1>User creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Gestion des Utilisateurs</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
         <li>
-            <a href="{{ path('admin_user_index') }}">Back to the list</a>
+          <a href="#">Accueil</a>
         </li>
-    </ul>
+        <li>
+          <a href="#">Sécurité</a>
+        </li>
+        <li class="active">Utilisateur</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="page-content">
+
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-9">
+        <a href="{{ path('admin_user_index')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Liste des utilisateurs</button>
+        </a>
+      </div>
+    </div>
+    <br>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Enregistrement des utilisateurs</h3>
+      </div>
+      {{ form_start(form, { 'attr': {'class': 'form-vertical', 'id': 'userForm' }}) }}
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Nom utilisateur  <span style="color: red">*</span></label>
+                    {{ form_widget(form.username) }}
+                    {{ form_errors(form.username) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Email  <span style="color: red">*</span></label>
+                    {{ form_widget(form.email) }}
+                    {{ form_errors(form.email) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Mot de passe  <span style="color: red">*</span></label>
+                    {{ form_widget(form.password) }}
+                    {{ form_errors(form.password) }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="form-group">
+                    <label class="control-label">Roles  <span style="color: red"></span></label>
+                    {{ form_widget(form.roles) }}
+                    {{ form_errors(form.roles) }}
+                  </div>
+                </div>
+                  <div class="col-sm-3">
+                    <!--<div class="form-group disabled">
+                      <label class="control-label">Roles  <span style="color: red"></span></label>
+                      {{ form_widget(form.enabled) }}
+                      {{ form_errors(form.enabled) }}
+                    </div>-->
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-7 col-sm-offset-3 text-right">
+              {{ form_rest(form)}}
+              <button class="btn btn-default" type="reset">Annuler</button>
+              <button class="btn btn-primary" type="submit">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
+<script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
 {% endblock %}

@@ -1,21 +1,113 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Modification de l'utilisateur {{ user.username|capitalize }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-    <h1>User edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Gestion des Utilisateurs</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
         <li>
-            <a href="{{ path('admin_user_index') }}">Back to the list</a>
+          <a href="#">Accueil</a>
         </li>
         <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+          <a href="#">Sécurité</a>
         </li>
-    </ul>
+        <li class="active">Utilisateur</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="page-content">
+
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-9">
+        <a href="{{ path('admin_user_index')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Liste des utilisateurs</button>
+        </a>
+      </div>
+    </div>
+    <br>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Modification de l'utilisateur {{ user.username|capitalize }}</h3>
+      </div>
+      {{ form_start(edit_form, { 'attr': {'class': 'form-vertical', 'id': 'userForm' }}) }}
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Nom utilisateur  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.username) }}
+                    {{ form_errors(edit_form.username) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Email  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.email) }}
+                    {{ form_errors(edit_form.email) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Mot de passe  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.password, { 'attr': {'class': 'form-control', 'value': user.password }}) }}
+                    {{ form_errors(edit_form.password) }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="form-group">
+                    <label class="control-label">Roles  <span style="color: red"></span></label>
+                    {{ form_widget(edit_form.roles) }}
+                    {{ form_errors(edit_form.roles) }}
+                  </div>
+                </div>
+                  <div class="col-sm-4">
+                    <div class="form-group"><br>
+                      <div class="checkbox">
+                        <label class="form-checkbox form-icon btn btn-default btn-labeled active">
+                          {{ form_widget(edit_form.enabled) }}
+                          {{ form_errors(edit_form.enabled) }}
+                          Activez/désactivez ce compte.
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-7 col-sm-offset-3 text-right">
+              {{ form_rest(edit_form)}}
+              <a href="{{ path('admin_user_index')}}" class="btn btn-default">Annuler</a>
+              <button class="btn btn-primary" type="submit">Modifier</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
+<script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
 {% endblock %}
