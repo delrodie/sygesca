@@ -110,5 +110,22 @@ $(document).ready(function() {
                     }
                 }
             }
+        }),
+        $("#districtForm").bootstrapValidator({
+            framework: "bootstrap",
+            icon: {
+                valid: "glyphicon glyphicon-ok",
+                invalid: "glyphicon glyphicon-remove",
+                validating: "glyphicon glyphicon-refresh"
+            },
+            fields: {
+                'appbundle_district[nom]': {
+                    validators: {
+                        notEmpty: { message: "Le nom du district est obligatoire." },
+                        stringLength: { min: 2, max: 75, message: "Veuillez donner le nom sans la mention 'DISTRICT'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                }
+            }
         })
 });

@@ -10,4 +10,39 @@ namespace AppBundle\Repository;
  */
 class RegionRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+    * Fonction de recherche de la region
+    * par son ID
+    *
+    * Author: Delrodie AMOIKON
+    * Date: 28/02/2017
+    * Since: v1.0
+    */
+    public function getRegionNom($user)
+    {
+       //die($user);
+        $em = $this->getEntityManager();
+
+        $qb = $this->createQueryBuilder('r')
+                   ->innerjoin('r.gestionnaires', 'g')
+                   ->innerjoin('g.user', 'u')
+                   ->where('u.id = :user')
+                   ->setParameter('user', $user);
+         return $qb;
+    }
+
+    /**
+     * Reherche de la region concernée par la selection
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 16/05/2017 07:13
+     */
+    public function getRegionNomById($region)
+    {
+        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('r')
+                   ->where('r.id = :region')
+                   ->setParameter('region', $region);
+        return $qb;
+    }
 }
