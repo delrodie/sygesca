@@ -10,4 +10,52 @@ namespace AppBundle\Repository;
  */
 class DistrictRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+  * Fonction de recherche des districts concernés par la region
+  *
+  * Author: Delrodie AMOIKON
+  * Date: 01/03/2017
+  * Since: v1.0
+  */
+  public function findByRegion($region)
+  {
+      $em = $this->getEntityManager();
+      $qb = $em->createQuery('
+          SELECT d
+          FROM AppBundle:District d
+          JOIN d.region r
+          WHERE r.nom LIKE :id
+      ')->setParameter('id', '%'.$region.'%')
+      ;
+      try {
+
+          return $qb->getResult();
+
+      } catch (NoResultException $e) {
+          return $e;
+      }
+  }
+
+  /**
+  * Fonction de recherche des districts
+  * concernés par la region
+  *
+  * Author: Delrodie AMOIKON
+  * Date: 01/03/2017
+  * Since: v1.0
+  */
+  public function getByRegion($user)
+  {
+     //die($user);
+      $em = $this->getEntityManager();
+
+      $qb = $this->createQueryBuilder('d')
+                 ->innerjoin('d.region', 'r')
+                 ->innerjoin('r.gestionnaires', 'g')
+                 ->innerjoin('g.user', 'u')
+                 ->where('u.id = :user')
+                 ->orderBy('d.denommination', 'ASC')
+                 ->setParameter('user', $user);
+       return $qb;
+  }
 }
