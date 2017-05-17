@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Form\RegionType;
+
 /**
  * RegionRepository
  *
@@ -12,7 +14,7 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
 {
   /**
     * Fonction de recherche de la region
-    * par son ID
+    * par son ID pour DistrictType.php
     *
     * Author: Delrodie AMOIKON
     * Date: 28/02/2017

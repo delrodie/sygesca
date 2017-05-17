@@ -127,5 +127,29 @@ $(document).ready(function() {
                     }
                 }
             }
+        }),
+        $("#groupeForm").bootstrapValidator({
+            framework: "bootstrap",
+            icon: {
+                valid: "glyphicon glyphicon-ok",
+                invalid: "glyphicon glyphicon-remove",
+                validating: "glyphicon glyphicon-refresh"
+            },
+            fields: {
+                'appbundle_groupe[paroisse]': {
+                    validators: {
+                        notEmpty: { message: "Le nom de la paroisse est obligatoire." },
+                        stringLength: { min: 6, max: 75, message: "Veuillez donner le nom de la paroisse sans la mention 'PAROISSE'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_groupe[localite]': {
+                    validators: {
+                        notEmpty: { message: "Le nom de la localité est obligatoire." },
+                        //stringLength: { min: 2, max: 75, message: "Veuillez donner le nom de la paroisse sans la mention 'PAROISSE'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                }
+            }
         })
 });
