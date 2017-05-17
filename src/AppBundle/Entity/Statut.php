@@ -28,6 +28,11 @@ class Statut
      */
     private $libelle;
 
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Scout", mappedBy="statut")
+    */
+    private $scouts;
+
 
     /**
      * Get id
@@ -62,5 +67,49 @@ class Statut
     {
         return $this->libelle;
     }
-}
 
+    public function __toString() {
+        return $this->getLibelle();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scouts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add scout
+     *
+     * @param \AppBundle\Entity\Scout $scout
+     *
+     * @return Statut
+     */
+    public function addScout(\AppBundle\Entity\Scout $scout)
+    {
+        $this->scouts[] = $scout;
+
+        return $this;
+    }
+
+    /**
+     * Remove scout
+     *
+     * @param \AppBundle\Entity\Scout $scout
+     */
+    public function removeScout(\AppBundle\Entity\Scout $scout)
+    {
+        $this->scouts->removeElement($scout);
+    }
+
+    /**
+     * Get scouts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getScouts()
+    {
+        return $this->scouts;
+    }
+}

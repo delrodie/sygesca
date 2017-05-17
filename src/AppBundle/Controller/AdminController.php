@@ -65,6 +65,9 @@ class AdminController extends Controller
             //return $this->redirectToRoute('region_show', array('id' => $region->getId()));
         }
 
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($user.' a consulté la liste des groupes.');
+
         // Liste de tous les groupes
         $groupes = $em->getRepository('AppBundle:Groupe')->findAll();
         $region = NULL;
