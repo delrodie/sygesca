@@ -6,12 +6,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * District
+ * Groupe
  *
- * @ORM\Table(name="district")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DistrictRepository")
+ * @ORM\Table(name="groupe")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\GroupeRepository")
  */
-class District
+class Groupe
 {
     /**
      * @var int
@@ -25,21 +25,21 @@ class District
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=75, unique=true)
+     * @ORM\Column(name="paroisse", type="string", length=125)
      */
-    private $nom;
+    private $paroisse;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="doyenne", type="string", length=125, nullable=true)
+     * @ORM\Column(name="localite", type="string", length=125, nullable=true)
      */
-    private $doyenne;
+    private $localite;
 
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"nom","doyenne"})
+     * @Gedmo\Slug(fields={"paroisse","localite"})
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
@@ -77,15 +77,10 @@ class District
     private $modifieLe;
 
   /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Region", inversedBy="districts")
-   * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\District", inversedBy="groupes")
+   * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
    */
-   private $region;
-
-   /**
-   * @ORM\OneToMany(targetEntity="AppBundle\Entity\Groupe", mappedBy="district")
-   */
-   private $groupes;
+   private $district;
 
 
     /**
@@ -99,51 +94,51 @@ class District
     }
 
     /**
-     * Set nom
+     * Set paroisse
      *
-     * @param string $nom
+     * @param string $paroisse
      *
-     * @return District
+     * @return Groupe
      */
-    public function setNom($nom)
+    public function setParoisse($paroisse)
     {
-        $this->nom = $nom;
+        $this->paroisse = $paroisse;
 
         return $this;
     }
 
     /**
-     * Get nom
+     * Get paroisse
      *
      * @return string
      */
-    public function getNom()
+    public function getParoisse()
     {
-        return $this->nom;
+        return $this->paroisse;
     }
 
     /**
-     * Set doyenne
+     * Set localite
      *
-     * @param string $doyenne
+     * @param string $localite
      *
-     * @return District
+     * @return Groupe
      */
-    public function setDoyenne($doyenne)
+    public function setLocalite($localite)
     {
-        $this->doyenne = $doyenne;
+        $this->localite = $localite;
 
         return $this;
     }
 
     /**
-     * Get doyenne
+     * Get localite
      *
      * @return string
      */
-    public function getDoyenne()
+    public function getLocalite()
     {
-        return $this->doyenne;
+        return $this->localite;
     }
 
     /**
@@ -151,7 +146,7 @@ class District
      *
      * @param string $slug
      *
-     * @return District
+     * @return Groupe
      */
     public function setSlug($slug)
     {
@@ -175,7 +170,7 @@ class District
      *
      * @param string $publiePar
      *
-     * @return District
+     * @return Groupe
      */
     public function setPubliePar($publiePar)
     {
@@ -199,7 +194,7 @@ class District
      *
      * @param string $modifiePar
      *
-     * @return District
+     * @return Groupe
      */
     public function setModifiePar($modifiePar)
     {
@@ -223,7 +218,7 @@ class District
      *
      * @param \DateTime $publieLe
      *
-     * @return District
+     * @return Groupe
      */
     public function setPublieLe($publieLe)
     {
@@ -247,7 +242,7 @@ class District
      *
      * @param \DateTime $modifieLe
      *
-     * @return District
+     * @return Groupe
      */
     public function setModifieLe($modifieLe)
     {
@@ -267,71 +262,26 @@ class District
     }
 
     /**
-     * Set region
+     * Set district
      *
-     * @param \AppBundle\Entity\Region $region
+     * @param \AppBundle\Entity\District $district
      *
-     * @return District
+     * @return Groupe
      */
-    public function setRegion(\AppBundle\Entity\Region $region = null)
+    public function setDistrict(\AppBundle\Entity\District $district = null)
     {
-        $this->region = $region;
+        $this->district = $district;
 
         return $this;
     }
 
     /**
-     * Get region
+     * Get district
      *
-     * @return \AppBundle\Entity\Region
+     * @return \AppBundle\Entity\District
      */
-    public function getRegion()
+    public function getDistrict()
     {
-        return $this->region;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add groupe
-     *
-     * @param \AppBundle\Entity\Groupe $groupe
-     *
-     * @return District
-     */
-    public function addGroupe(\AppBundle\Entity\Groupe $groupe)
-    {
-        $this->groupes[] = $groupe;
-
-        return $this;
-    }
-
-    /**
-     * Remove groupe
-     *
-     * @param \AppBundle\Entity\Groupe $groupe
-     */
-    public function removeGroupe(\AppBundle\Entity\Groupe $groupe)
-    {
-        $this->groupes->removeElement($groupe);
-    }
-
-    /**
-     * Get groupes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGroupes()
-    {
-        return $this->groupes;
-    }    
-
-    public function __toString() {
-        return $this->getNom();
+        return $this->district;
     }
 }

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Groupe</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ groupe.id }}</td>
+            </tr>
+            <tr>
+                <th>Paroisse</th>
+                <td>{{ groupe.paroisse }}</td>
+            </tr>
+            <tr>
+                <th>Localite</th>
+                <td>{{ groupe.localite }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ groupe.slug }}</td>
+            </tr>
+            <tr>
+                <th>Publiepar</th>
+                <td>{{ groupe.publiePar }}</td>
+            </tr>
+            <tr>
+                <th>Modifiepar</th>
+                <td>{{ groupe.modifiePar }}</td>
+            </tr>
+            <tr>
+                <th>Publiele</th>
+                <td>{{ groupe.publieLe }}</td>
+            </tr>
+            <tr>
+                <th>Modifiele</th>
+                <td>{{ groupe.modifieLe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('groupe_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('groupe_edit', { 'id': groupe.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

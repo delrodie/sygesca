@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Form\RegionType;
+
 /**
  * RegionRepository
  *
@@ -12,7 +14,7 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
 {
   /**
     * Fonction de recherche de la region
-    * par son ID
+    * par son ID pour DistrictType.php
     *
     * Author: Delrodie AMOIKON
     * Date: 28/02/2017
@@ -43,6 +45,21 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('r')
                    ->where('r.id = :region')
                    ->setParameter('region', $region);
+        return $qb;
+    }
+
+    /**
+     * Liste de toutes les régions
+     *
+     * @author Delrodie AMOIKON
+     * @version v1.0 17/05/2017
+     */
+    public function findListeRegion()
+    {
+        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('r')
+                   ->where('r.id > 3')
+                   ->orderBy('r.nom', 'ASC');
         return $qb;
     }
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des districts{% endblock %}
+{% block title %}Gestion des groupes{% endblock %}
 
 {% block stylesheets %}
 {{ parent() }}
@@ -10,13 +10,13 @@
 
 {% block body %}
   <div class="pageheader">
-    <h3><i class="fa fa-home"></i>  Gestion des districts</h3>
+    <h3><i class="fa fa-home"></i>  Gestion des groupes</h3>
     <div class="breadcrumb-wrapper">
       <span class="label"></span>
       <ol class="breadcrumb">
         <li><a href="#">Accueil</a></li>
         <li><a href="#">Gestions</a></li>
-        <li class="active">District</li>
+        <li class="active">Groupes</li>
       </ol>
     </div>
   </div>
@@ -49,12 +49,20 @@
         {% endfor %}
         <!-- \Message -->
         <br>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-9">
+        <a href="{{ path('district_index')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-reply-all">Retour à la liste des districts</button>
+        </a>
+      </div>
+    </div>
+    <br>
 
     <div class="row">
       <div class="col-sm-6">
         <div class="panel">
           <div class="panel-heading">
-            <h3 class="panel-title">Liste des districts</h3>
+            <h3 class="panel-title">Liste des groupes</h3>
           </div>
           <div class="panel-body">
             <div class="table-responsive">
@@ -62,21 +70,21 @@
                 <thead>
                   <tr>
                     <th class="text-center">#</th>
-                    <th class="text-center">Districts</th>
-                    <th class="text-center">Doyennés</th>
+                    <th class="text-center">Groupes</th>
+                    <th class="text-center">Localités</th>
                     <th class="text-center">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for district in districts %}
+                  {% for groupe in groupes %}
                   <tr>
                     <td class="text-right">{{ loop.index }}</td>
-                    <td class="text-left">{{ district.nom }}</td>
-                    <td>{{ district.doyenne }}</td>
+                    <td class="text-left">{{ groupe.paroisse }}</td>
+                    <td>{{ groupe.localite }}</td>
                     <td class="text-center">
-                      <a href="{{ path('groupe_index', {'districtID': district.id })}}" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Voir les groupes"><i class="fa fa-search"></i></a>
+                      <a href="#" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Voir les scouts"><i class="fa fa-search"></i></a>
                       |
-                      <a href="{{ path('district_edit', {'slug': district.slug })}}" class="btn-link add-tooltip" data-placement="top" data-toggle="tooltip" data-original-title="Modifier le district"><i class="fa fa-edit"></i></a>
+                      <a href="{{ path('groupe_edit', {'slug': groupe.slug, 'districtID': district })}}" class="btn-link add-tooltip" data-placement="top" data-toggle="tooltip" data-original-title="Modifier le groupe"><i class="fa fa-edit"></i></a>
                     </td>
                   </tr>
                   {% endfor %}
@@ -91,14 +99,14 @@
           <div class="panel-heading">
             <h3 class="panel-title">Enregistrement</h3>
           </div>
-          {{ form_start(form, { 'attr': {'class': 'form-vertical', 'id': 'districtForm' }}) }}
+          {{ form_start(form, { 'attr': {'class': 'form-vertical', 'id': 'groupeForm' }}) }}
             <div class="panel-body">
               <div class="row">
                 <div class="col-xs-10 col-xs-offset-1">
                   <div class="form-group">
-                    <label class="control-label">Region</label>
-                    {{ form_widget(form.region) }}
-                    {{ form_errors(form.region) }}
+                    <label class="control-label">District</label>
+                    {{ form_widget(form.district) }}
+                    {{ form_errors(form.district) }}
                   </div>
                 </div>
               </div>
@@ -106,17 +114,17 @@
                 <div class="col-xs-10 col-xs-offset-1">
                   <div class="form-group">
                     <label class="control-label">Nom <span style="color: red;">*</span></label>
-                    {{ form_widget(form.nom) }}
-                    {{ form_errors(form.nom) }}
+                    {{ form_widget(form.paroisse) }}
+                    {{ form_errors(form.paroisse) }}
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xs-10 col-xs-offset-1">
                   <div class="form-group">
-                    <label class="control-label">Doyenné</label>
-                    {{ form_widget(form.doyenne) }}
-                    {{ form_errors(form.doyenne) }}
+                    <label class="control-label">Localité</label>
+                    {{ form_widget(form.localite) }}
+                    {{ form_errors(form.localite) }}
                   </div>
                 </div>
               </div>
