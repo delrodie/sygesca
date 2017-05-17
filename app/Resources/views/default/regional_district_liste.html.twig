@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des districts de {{ region.nom|title }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/demo/jquery-steps.min.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div class="pageheader">
+    <h5>
+      <i class="fa fa-home"></i>Liste des districts de {{ region.nom|title }}</h5>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Gestions</a></li>
+        <li class="active">Groupes</li>
+      </ol>
+    </div>
+  </div>
+  <div id="page-content">
+    <br>
+      <!-- Message -->
+        {% for flash_message in app.session.flashBag.get('notice') %}
+          {% if flash_message %}
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2">
+              <div class="alert alert-info media fade in">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <div class="media-left">
+                  <span class="icon-wrap icon-wrap-xs icon-circle alert-icon">
+                    <i class="fa fa-check fa-lg"></i>
+                  </span>
+                </div>
+                <div class="media-body">
+                  <p></p>
+                    <h4 class="alert-title" style="color: green">
+                      {{ flash_message }}
+                    </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+        <!-- \Message -->
+        {% if (is_granted('ROLE_ADMIN')) %}
+        <br>
+        <div class="row">
+          <div class="col-xs-3 col-xs-offset-9">
+            <a href="{{ path('admin_user_new')}}" title="">
+              <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un nouveau district</button>
+            </a>
+          </div>
+        </div>
+        <br>
+        {% endif %}
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="tab-base tab-stacked-left">
+          <ul class="nav nav-tabs">
+            {% for district in districts %}
+              {% if (loop.index == 1) %}
+                <li class="active"><a data-toggle="tab" href="#{{ district.slug}}">{{ district.nom }}</a></li>
+              {% else %}
+                <li><a data-toggle="tab" href="#{{ district.slug}}">{{ district.nom }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          <div class="tab-content">
+            {% for district in districts %}
+              {% if (loop.index == 1) %}
+                <div id="{{ district.slug }}" class="tab-pane fade active in">
+                  <h4 class="text-center">LISTE DES GROUPES DU DISTRICT {{ district.nom|upper }}</h4>
+                  {{ render(url('regional_groupe_liste', {'district': district.id }))}}
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-12 text-right">
+                      <a href="{{ path('groupe_index', {'districtID': district.id })}}" class="btn btn-primary">Ajouter un groupe</a>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div id="{{ district.slug }}" class="tab-pane fade">
+                  <h4 class="text-center">LISTE DES GROUPES DU DISTRICT {{ district.nom|upper }}</h4>
+                  {{ render(url('regional_groupe_liste', {'district': district.id }))}}
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-12 text-right">
+                      <a href="{{ path('groupe_index', {'districtID': district.id })}}" class="btn btn-primary">Ajouter un groupe</a>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/jquery-steps/jquery-steps.min.js')}}"></script>
+<script src="{{ asset('ressources/js/demo/ui-nested-lists.js')}}"></script>
+{% endblock %}

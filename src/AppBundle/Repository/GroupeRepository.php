@@ -10,4 +10,24 @@ namespace AppBundle\Repository;
  */
 class GroupeRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Liste des groupes par la région
+     *
+     * @author Delrodie AMOIKON
+     * @version v1.0 17/05/2017 16:59
+     */
+    public function getListeGroupeParRegion($regionID)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQuery('
+              SELECT g, d, r
+              FROM AppBundle:Groupe g
+              JOIN g.district d
+              JOIN d.region r
+              WHERE r.id = :regionID
+              ORDER BY g.paroisse ASC
+        ')->setParameter('regionID', $regionID)
+        ;
+        return $qb->getResult();
+    }
 }

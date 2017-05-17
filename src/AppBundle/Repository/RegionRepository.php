@@ -47,4 +47,19 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
                    ->setParameter('region', $region);
         return $qb;
     }
+
+    /**
+     * Liste de toutes les régions
+     *
+     * @author Delrodie AMOIKON
+     * @version v1.0 17/05/2017
+     */
+    public function findListeRegion()
+    {
+        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('r')
+                   ->where('r.id > 3')
+                   ->orderBy('r.nom', 'ASC');
+        return $qb;
+    }
 }

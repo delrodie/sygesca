@@ -28,30 +28,21 @@ class GroupeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        /*
-         * Si district n'appartient pas à la region de l'user alors accès réfusé
-         * récupération des roles de l'utilisateur
-         * Si role role[0] est ROLE_USER alors chercher la région
-         */
+        // récupération des roles de l'utilisateur
+        // Si role role[0] est ROLE_USER alors chercher la région
         $roles[] = $user->getRoles();
         if ($roles[0][0] === 'ROLE_USER') {
-          $gestionnaire = $em->getRepository('AppBundle:Gestionnaire')->findOneBy(array('user' => $user));
+          $region = $em->getRepository('AppBundle:Gestionnaire')->findOneBy(array('user' => $user));
 
           // Si user n'appartient à aucune région alors accès refusé
           // Sinon si user est à l'équipe nationale (Id = 1) alors renvoie à la page administrateur
-          if (($gestionnaire === NULL)) {
+          if (($region === NULL)) {
             throw new AccessDeniedException();
-          } elseif (($gestionnaire->getRegion()->getId() === 1)) {
-            return $this->redirectToRoute('district_admin_index');
-          } else{
-            // Si region du district est different de region du gestionnaire alors accès refusé
-            $district = $em->getRepository('AppBundle:District')->findOneById($districtID);
-            if (($gestionnaire->getRegion()->getId()) != ($district->getRegion()->getId())) {
-              throw new AccessDeniedException();
-            }
+          } elseif (($region->getRegion()->getId() === 1)) {
+            return $this->redirectToRoute('admin_groupe_liste');
           }
         }else {
-          return $this->redirectToRoute('district_admin_index');
+          return $this->redirectToRoute('admin_groupe_liste');
         }
 
         $groupe = new Groupe();
