@@ -64,4 +64,40 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getResult();
     }
 
+    /**
+     * Verification de l'existence du scout dans le système
+     * Renvoie de la region s'il existe
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 18/05/2017 09:12
+     */
+    public function uniciteScout($nom, $prenoms, $date, $lieu)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQuery('
+                SELECT r, d, g, s
+                FROM AppBundle:Scout s
+                JOIN s.groupe g
+                JOIN g.district d
+                JOIN d.region r
+                WHERE s.nom = :nom
+                AND s.prenoms = :prenoms
+                AND s.datenaiss = :datenaissance
+                AND s.lieunaiss = :lieu
+        ')->setParameters(array(
+              'nom' => $nom,
+              'prenoms' => $prenoms,
+              'datenaissance' => $date,
+              'lieu'  => $lieu
+        ))
+        ;
+        if ($qb->getResult()) {
+          return $qb->getSingleResult();
+        } else {
+          return NULL;
+        }
+
+
+    }
+
 }

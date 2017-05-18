@@ -69,11 +69,11 @@
               <th class="text-center mini-desktop">Groupes</th>
               <th class="text-center">Matricules</th>
               <th class="text-center">Noms & prenoms</th>
-              <th class="text-center mini-desktop">D. naissances</th>
-              <th class="text-center mini-desktop">Genres</th>
+              <th class="text-center mini-desktop">Naissances</th>
+              <th class="text-center">Genres</th>
               <th class="text-center">Statuts</th>
-              <th class="text-center mini-desktop">Branches</th>
-              <th class="text-center mini-desktop"></th>
+              <th class="text-center">Branches</th>
+              <th class="text-center mini-desktop">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -87,8 +87,8 @@
                     <td class="text-center">{{ scout.sexe }}</td>
                     <td>{{ scout.statut }}</td>
                     <td>{{ scout.branche }}</td>
-                    <td>
-                      <a href="#" title="Détails"><i class="fa fa-search"></i></a> |
+                    <td class="text-center">
+                      <a href="{{ path('scout_show', {'slug': scout.slug })}}" title="Détails"><i class="fa fa-search"></i></a> |
                       <a href="{{ path('scout_edit', {'slug': scout.slug })}}" title="Modifier"><i class="fa fa-edit"></i></a>
                     </td>
                 </tr>

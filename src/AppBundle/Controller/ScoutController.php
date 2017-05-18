@@ -74,23 +74,43 @@ class ScoutController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            // Recueration du code de la région
-            $region = $em->getRepository('AppBundle:Region')->getRegionCode($scout->getGroupe());
+            // L'unicite du scout dans le système
+            // si nom et prenoms et datenaissance existe alors ce scout deja identifé a nom region
+            $nom = $scout->getNom(); $prenoms = $scout->getPrenoms();
+            $date = $scout->getDatenaiss(); $lieu = $scout->getLieunaiss();
+            $verif = $em->getRepository('AppBundle:Scout')->uniciteScout($nom, $prenoms, $date, $lieu);
 
-            // Generation du matricule du scout
-            $code = $em->getRepository('AppBundle:Scout')->generationCode();
+            if ($verif) {
 
-            // Generation d'une lettre aleatoire
-            $lettre = $em->getRepository('AppBundle:Scout')->generationLettre();
+              $editForm = $this->createForm('AppBundle\Form\ScoutType', $scout, array('user' => $user));
+              $editForm->handleRequest($request);
 
-            $matricule = $region.''.$code.''.$lettre;
-            // Creation en dur de la valeur
+              $nom = $scout->getNom(); $prenoms = $scout->getPrenoms();
+              $region = $verif->getGroupe()->getDistrict()->getRegion()->getNom();
+              $identite = $scout->getNom()." ".$scout->getPrenoms();
+              $naissance = " née le ".$scout->getDatenaiss()." à ".$scout->getLieunaiss();
+              $message = $identite." ".$naissance." est déjà enregistré(e) à ".$region.".<br> Veuillez
+                          faire une demande de transfert, pour valider sa cotisation.";
+
+              $this->addFlash('notice', $message);
+
+                return $this->render('default/scout_existe.html.twig', array(
+                    'verif' => $verif,
+                    'scout' => $scout,
+                    'form' => $editForm->createView(),
+                ));
+            }
+
+            // Generation du matricule
+            $matricule = $this->container->get('scout_matricule')->matricule($scout->getGroupe()); // Service
             $scout->setMatricule($matricule);
+
+            $this->addFlash('notice', $scout->getNom()." ".$scout->getPrenoms(). " a été enregisté(e) avec succès.");
 
             $em->persist($scout);
             $em->flush();
 
-            return $this->redirectToRoute('scout_index');
+            return $this->redirectToRoute('scout_show', array('slug'  => $scout->getSlug()));
         }
 
         return $this->render('scout/new.html.twig', array(
@@ -102,7 +122,7 @@ class ScoutController extends Controller
     /**
      * Finds and displays a scout entity.
      *
-     * @Route("/{id}", name="scout_show")
+     * @Route("/{slug}", name="scout_show")
      * @Method("GET")
      */
     public function showAction(Scout $scout)
@@ -132,7 +152,9 @@ class ScoutController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('scout_index');
+            $this->addFlash('notice', $scout->getNom()." ".$scout->getPrenoms(). " a été modifié(e) avec succès.");
+
+            return $this->redirectToRoute('scout_show', array('slug'  => $scout->getSlug()));
         }
 
         return $this->render('scout/edit.html.twig', array(

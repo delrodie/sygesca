@@ -1,84 +1,174 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ scout.nom|upper }} {{ scout.prenoms|title }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-    <h1>Scout</h1>
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Gestion des scouts</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">Accueil</a>
+        </li>
+        <li>
+          <a href="#">Gestions</a>
+        </li>
+        <li class="active">Scouts</li>
+      </ol>
+    </div>
+  </div>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ scout.id }}</td>
-            </tr>
-            <tr>
-                <th>Matricule</th>
-                <td>{{ scout.matricule }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ scout.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenoms</th>
-                <td>{{ scout.prenoms }}</td>
-            </tr>
-            <tr>
-                <th>Datenaiss</th>
-                <td>{{ scout.datenaiss }}</td>
-            </tr>
-            <tr>
-                <th>Lieunaiss</th>
-                <td>{{ scout.lieunaiss }}</td>
-            </tr>
-            <tr>
-                <th>Sexe</th>
-                <td>{{ scout.sexe }}</td>
-            </tr>
-            <tr>
-                <th>Nationalite</th>
-                <td>{{ scout.nationalite }}</td>
-            </tr>
-            <tr>
-                <th>Contact</th>
-                <td>{{ scout.contact }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ scout.email }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ scout.slug }}</td>
-            </tr>
-            <tr>
-                <th>Publiepar</th>
-                <td>{{ scout.publiePar }}</td>
-            </tr>
-            <tr>
-                <th>Modifiepar</th>
-                <td>{{ scout.modifiePar }}</td>
-            </tr>
-            <tr>
-                <th>Publiele</th>
-                <td>{{ scout.publieLe }}</td>
-            </tr>
-            <tr>
-                <th>Modifiele</th>
-                <td>{{ scout.modifieLe }}</td>
-            </tr>
-        </tbody>
-    </table>
+  <div id="page-content">
+    <!-- Message -->
+      {% for flash_message in app.session.flashBag.get('notice') %}
+        {% if flash_message %}
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-info media fade in">
+              <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+              <div class="media-left">
+                <span class="icon-wrap icon-wrap-xs icon-circle alert-icon">
+                  <i class="fa fa-check fa-lg"></i>
+                </span>
+              </div>
+              <div class="media-body">
+                <p></p>
+                  <h4 class="alert-title">
+                    {{ flash_message|raw }}
+                  </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+      <!-- \Message -->
+    <br>
 
-    <ul>
-        <li>
-            <a href="{{ path('scout_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('scout_edit', { 'id': scout.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          {{ scout.nom|upper }} {{ scout.prenoms|title }}
+          (<span class="text-danger">{{ scout.matricule }}</span>)
+        </h3>
+      </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Groupe  <span style="color: red"></span></label>
+                    <input type="text" value="{{ scout.groupe }}" class="form-control" readonly="readonly">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Branche  <span style="color: red"></span></label>
+                    <input type="text" value="{{ scout.branche }}" class="form-control" readonly="readonly">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Statut  <span style="color: red"></span></label>
+                    <input type="text" value="{{ scout.statut }}" class="form-control" readonly="readonly">
+                  </div>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Nom   <span style="color: red"></span></label>
+                      <input type="text" value="{{ scout.nom|upper }}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Prenoms  <span style="color: red"></span></label>
+                      <input type="text" value="{{ scout.prenoms|title }}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Genre  <span style="color: red"></span></label>
+                      {% if (scout.sexe == 'M') %}
+                        <input type="text" value="Masculin" class="form-control" readonly="readonly">
+                      {% else %}
+                        <input type="text" value="Feminin" class="form-control" readonly="readonly">
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Date de naissance   <span style="color: red"></span></label>
+                      <input type="text" value="{{ scout.datenaiss }}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Lieu de naisse  <span style="color: red"></span></label>
+                      <input type="text" value="{{ scout.lieunaiss }}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Nationalité  <span style="color: red"></span></label>
+                      <input type="text" value="{{ scout.nationalite }}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Contact   <span style="color: red"></span></label>
+                      <input type="text" value="{{ scout.contact }}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Email  <span style="color: red"></span></label>
+                      <input type="text" value="{{ scout.email }}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Matricule  <span style="color: red"></span></label>
+                      <strong><input type="text" value="{{ scout.matricule }}" class="form-control" readonly="readonly"></strong>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-7 col-sm-offset-5 text-right">
+              <a href="{{ path('scout_index')}}" title="">
+                <button class="btn btn-default btn-labeled fa fa-list">Liste des scouts</button>
+              </a>
+              <a href="{{ path('scout_new')}}" title="">
+                <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un Scout</button>
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
+<script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
 {% endblock %}
