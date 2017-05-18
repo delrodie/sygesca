@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification des scouts{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Gestion des scouts</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">Accueil</a>
+        </li>
+        <li>
+          <a href="#">Gestions</a>
+        </li>
+        <li class="active">Scouts</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="page-content">
+
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-9">
+        <a href="{{ path('scout_index')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Liste des scouts</button>
+        </a>
+      </div>
+    </div>
+    <br>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Modification</h3>
+      </div>
+      {{ form_start(edit_form, { 'attr': {'class': 'form-vertical', 'id': 'scoutForm' }}) }}
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Groupe  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.groupe) }}
+                    {{ form_errors(edit_form.groupe) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Branche  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.branche) }}
+                    {{ form_errors(edit_form.branche) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Statut  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.statut) }}
+                    {{ form_errors(edit_form.statut) }}
+                  </div>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Nom   <span style="color: red">*</span></label>
+                      {{ form_widget(edit_form.nom) }}
+                      {{ form_errors(edit_form.nom) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Prenoms  <span style="color: red">*</span></label>
+                      {{ form_widget(edit_form.prenoms) }}
+                      {{ form_errors(edit_form.prenoms) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Genre  <span style="color: red">*</span></label>
+                      {{ form_widget(edit_form.sexe) }}
+                      {{ form_errors(edit_form.sexe) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Date de naissance   <span style="color: red">*</span></label>
+                      {{ form_widget(edit_form.datenaiss) }}
+                      {{ form_errors(edit_form.datenaiss) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Lieu de naisse  <span style="color: red">*</span></label>
+                      {{ form_widget(edit_form.lieunaiss) }}
+                      {{ form_errors(edit_form.lieunaiss) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Nationalité  <span style="color: red"></span></label>
+                      {{ form_widget(edit_form.nationalite) }}
+                      {{ form_errors(edit_form.nationalite) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Contact   <span style="color: red"></span></label>
+                      {{ form_widget(edit_form.contact) }}
+                      {{ form_errors(edit_form.contact) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Email  <span style="color: red"></span></label>
+                      {{ form_widget(edit_form.email) }}
+                      {{ form_errors(edit_form.email) }}
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-7 col-sm-offset-3 text-right">
+              {{ form_rest(edit_form)}}
+              <a href="{{ path('scout_index')}}" class="btn btn-default">Annuler</a>
+              <button class="btn btn-primary" type="submit">Modifier</button>
+            </div>
+          </div>
+        </div>
+      {{ form_end(edit_form)}}
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
+<script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
+{% endblock %}

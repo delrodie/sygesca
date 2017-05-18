@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement des scouts{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Gestion des scouts</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">Accueil</a>
+        </li>
+        <li>
+          <a href="#">Gestions</a>
+        </li>
+        <li class="active">Scouts</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="page-content">
+
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-9">
+        <a href="{{ path('scout_index')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Liste des scouts</button>
+        </a>
+      </div>
+    </div>
+    <br>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Enregistrement des scouts</h3>
+      </div>
+      {{ form_start(form, { 'attr': {'class': 'form-vertical', 'id': 'scoutForm' }}) }}
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Groupe  <span style="color: red">*</span></label>
+                    {{ form_widget(form.groupe) }}
+                    {{ form_errors(form.groupe) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Branche  <span style="color: red">*</span></label>
+                    {{ form_widget(form.branche) }}
+                    {{ form_errors(form.branche) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Statut  <span style="color: red">*</span></label>
+                    {{ form_widget(form.statut) }}
+                    {{ form_errors(form.statut) }}
+                  </div>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Nom   <span style="color: red">*</span></label>
+                      {{ form_widget(form.nom) }}
+                      {{ form_errors(form.nom) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Prenoms  <span style="color: red">*</span></label>
+                      {{ form_widget(form.prenoms) }}
+                      {{ form_errors(form.prenoms) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Genre  <span style="color: red">*</span></label>
+                      {{ form_widget(form.sexe) }}
+                      {{ form_errors(form.sexe) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Date de naissance   <span style="color: red">*</span></label>
+                      {{ form_widget(form.datenaiss) }}
+                      {{ form_errors(form.datenaiss) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Lieu de naisse  <span style="color: red">*</span></label>
+                      {{ form_widget(form.lieunaiss) }}
+                      {{ form_errors(form.lieunaiss) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Nationalité  <span style="color: red"></span></label>
+                      {{ form_widget(form.nationalite) }}
+                      {{ form_errors(form.nationalite) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Contact   <span style="color: red"></span></label>
+                      {{ form_widget(form.contact) }}
+                      {{ form_errors(form.contact) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Email  <span style="color: red"></span></label>
+                      {{ form_widget(form.email) }}
+                      {{ form_errors(form.email) }}
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-7 col-sm-offset-3 text-right">
+              {{ form_rest(form)}}
+              <button class="btn btn-default" type="reset">Annuler</button>
+              <button class="btn btn-primary" type="submit">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      {{ form_end(form)}}
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
+<script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
+{% endblock %}

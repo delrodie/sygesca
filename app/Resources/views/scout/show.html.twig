@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Scout</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ scout.id }}</td>
+            </tr>
+            <tr>
+                <th>Matricule</th>
+                <td>{{ scout.matricule }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ scout.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenoms</th>
+                <td>{{ scout.prenoms }}</td>
+            </tr>
+            <tr>
+                <th>Datenaiss</th>
+                <td>{{ scout.datenaiss }}</td>
+            </tr>
+            <tr>
+                <th>Lieunaiss</th>
+                <td>{{ scout.lieunaiss }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ scout.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Nationalite</th>
+                <td>{{ scout.nationalite }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ scout.contact }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ scout.email }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ scout.slug }}</td>
+            </tr>
+            <tr>
+                <th>Publiepar</th>
+                <td>{{ scout.publiePar }}</td>
+            </tr>
+            <tr>
+                <th>Modifiepar</th>
+                <td>{{ scout.modifiePar }}</td>
+            </tr>
+            <tr>
+                <th>Publiele</th>
+                <td>{{ scout.publieLe }}</td>
+            </tr>
+            <tr>
+                <th>Modifiele</th>
+                <td>{{ scout.modifieLe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('scout_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('scout_edit', { 'id': scout.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
