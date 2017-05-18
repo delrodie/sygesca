@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des scouts{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/datatables/media/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Liste des scouts</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Gestion</a></li>
+        <li class="active">Scouts</li>
+      </ol>
+    </div>
+  </div>
+  <div id="page-content">
+    <br>
+      <!-- Message -->
+        {% for flash_message in app.session.flashBag.get('notice') %}
+          {% if flash_message %}
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2">
+              <div class="alert alert-info media fade in">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <div class="media-left">
+                  <span class="icon-wrap icon-wrap-xs icon-circle alert-icon">
+                    <i class="fa fa-check fa-lg"></i>
+                  </span>
+                </div>
+                <div class="media-body">
+                  <p></p>
+                    <h4 class="alert-title" style="color: green">
+                      {{ flash_message }}
+                    </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+        <!-- \Message -->
+        <br>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-9">
+        <a href="{{ path('scout_new')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un nouveau scout</button>
+        </a>
+      </div>
+    </div>
+    <br>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Liste des scouts</h3>
+      </div>
+      <div class="panel-body">
+        <table id="demo-dt-basic" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="text-center">#</th>
+              <th class="text-center mini-desktop">Groupes</th>
+              <th class="text-center">Matricules</th>
+              <th class="text-center">Noms & prenoms</th>
+              <th class="text-center mini-desktop">Naissances</th>
+              <th class="text-center">Genres</th>
+              <th class="text-center">Statuts</th>
+              <th class="text-center">Branches</th>
+              <th class="text-center mini-desktop">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for scout in scouts %}
+                <tr>
+                    <td class="text-right">{{ loop.index }}</td>
+                    <td>{{ scout.groupe }}</td>
+                    <td class="text-center">{{ scout.matricule }}</td>
+                    <td>{{ scout.nom|upper }} {{ scout.prenoms|title }}</td>
+                    <td class="text-center">{{ scout.datenaiss }}</td>
+                    <td class="text-center">{{ scout.sexe }}</td>
+                    <td>{{ scout.statut }}</td>
+                    <td>{{ scout.branche }}</td>
+                    <td class="text-center">
+                      <a href="{{ path('scout_show', {'slug': scout.slug })}}" title="Détails"><i class="fa fa-search"></i></a> |
+                      <a href="{{ path('scout_edit', {'slug': scout.slug })}}" title="Modifier"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/datatables/media/js/jquery.dataTables.js')}}"></script>
+<script src="{{ asset('ressources/plugins/datatables/media/js/dataTables.bootstrap.js')}}"></script>
+<script src="{{ asset('ressources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ asset('ressources/js/demo/tables-datatables.js')}}"></script>
+{% endblock %}

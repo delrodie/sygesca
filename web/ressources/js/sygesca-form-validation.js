@@ -151,5 +151,76 @@ $(document).ready(function() {
                     }
                 }
             }
+        }),
+        $("#scoutForm").bootstrapValidator({
+            framework: "bootstrap",
+            icon: {
+                valid: "glyphicon glyphicon-ok",
+                invalid: "glyphicon glyphicon-remove",
+                validating: "glyphicon glyphicon-refresh"
+            },
+            fields: {
+                'appbundle_scout[groupe]': {
+                    validators: {
+                        notEmpty: { message: "Le groupe du scout est obligatoire." },
+                        //stringLength: { min: 6, max: 75, message: "Veuillez donner le nom de la paroisse sans la mention 'PAROISSE'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_scout[branche]': {
+                    validators: {
+                        notEmpty: { message: "L'unité du scout est obligatoire." },
+                        //stringLength: { min: 2, max: 75, message: "Veuillez donner le nom de la paroisse sans la mention 'PAROISSE'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_scout[statut]': {
+                    validators: {
+                        notEmpty: { message: "Le statut du scout est obligatoire." },
+                        //stringLength: { min: 2, max: 75, message: "Veuillez donner le nom de la paroisse sans la mention 'PAROISSE'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_scout[nom]': {
+                    validators: {
+                        notEmpty: { message: "Le nom de famille du scout est obligatoire." },
+                        //stringLength: { min: 2, max: 75, message: "Veuillez donner le nom de la paroisse sans la mention 'PAROISSE'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_scout[prenoms]': {
+                    validators: {
+                        notEmpty: { message: "Le(s) prenom(s) du scout est(sont) obligatoire(s)." },
+                        //stringLength: { min: 2, max: 75, message: "Veuillez donner le nom de la paroisse sans la mention 'PAROISSE'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_scout[datenaiss]': {
+                    validators: {
+                        notEmpty: { message: "La date de naissance  du scout est obligatoire." },
+                        stringLength: { min: 10, max: 10, message: "La date de naissance doit être au format jj-mm-aaaa (ex: 22-02-1941)" },
+                        regexp: { regexp: /^[Z0-9-\.]+$/, message: "La date de naissance doit être au format jj-mm-aaaa (ex: 22-02-1941)" }
+                    }
+                },
+                'appbundle_scout[lieunaiss]': {
+                    validators: {
+                        notEmpty: { message: "Le lieu de naissance du scout est obligatoire." },
+                        //stringLength: { min: 2, max: 75, message: "Veuillez donner le nom de la paroisse sans la mention 'PAROISSE'" },
+                        //regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                'appbundle_scout[contact]': {
+                    validators: {
+                        //notEmpty: { message: "Le contact téléphonique est obligatoire." },
+                        stringLength: { min: 8, max: 8, message: "Ce numéro de téléphone doit comporter 8 chiffres" },
+                        regexp: { regexp: /^[Z0-9\.]+$/, message: "Ce champ doit être uniquement numérique" }
+                    }
+                },
+                'appbundle_scout[email]': {
+                    validators: {
+                        emailAddress: { message: "L'adresse entrée n'est pas une adresse email valide" }
+                    }
+                }
+            }
         })
 });

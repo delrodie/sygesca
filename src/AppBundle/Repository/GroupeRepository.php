@@ -30,4 +30,27 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         ;
         return $qb->getResult();
     }
+
+    /**
+     * Fonction de recherche des groupes
+     * concernés par la region
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 17/05/2017 22:13
+     */
+    public function getGroupeByRegion($user)
+    {
+       //die($user);
+        $em = $this->getEntityManager();
+
+        $qb = $this->createQueryBuilder('p')
+                   ->innerjoin('p.district', 'd')
+                   ->innerjoin('d.region', 'r')
+                   ->innerjoin('r.gestionnaires', 'g')
+                   ->innerjoin('g.user', 'u')
+                   ->where('u.id = :user')
+                   ->orderBy('p.paroisse', 'ASC')
+                   ->setParameter('user', $user);
+         return $qb;
+    }
 }

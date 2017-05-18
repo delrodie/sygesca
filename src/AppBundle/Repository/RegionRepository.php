@@ -62,4 +62,33 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
                    ->orderBy('r.nom', 'ASC');
         return $qb;
     }
+
+    /**
+     * Fonction de recherche du code de la région du scout
+     * par son ID
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 17/05/2017 22:32
+     */
+    public function getRegionCode($id)
+    {
+         $em = $this->getEntityManager();
+         $qb = $em->createQuery('
+             SELECT r.code as code
+             FROM AppBundle:Groupe g
+             JOIN g.district d
+             JOIN d.region r
+             WHERE g.id = :id
+         ')->setParameter('id', $id)
+         ;
+         try {
+             $code = $qb->getSingleResult();
+             foreach ($code as $key => $value) {
+                 return $value;
+             }
+
+         } catch (NoResultException $e) {
+             return $e;
+         }
+    }
 }
