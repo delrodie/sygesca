@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement des cotisations{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Gestion des cotisations</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">Accueil</a>
+        </li>
+        <li>
+          <a href="#">Paramètres</a>
+        </li>
+        <li class="active">Cotisation</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="page-content">
+
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-9">
+        <a href="{{ path('admin_cotisation_index')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Liste des cotisations</button>
+        </a>
+      </div>
+    </div>
+    <br>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Enregistrement des cotiations</h3>
+      </div>
+      {{ form_start(form, { 'attr': {'class': 'form-vertical', 'id': 'cotisationForm' }}) }}
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Année scoute  <span style="color: red">*</span></label>
+                    {{ form_widget(form.annee) }}
+                    {{ form_errors(form.annee) }}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="control-label">Cadre  <span style="color: red">*</span></label>
+                    {{ form_widget(form.cadre) }}
+                    {{ form_errors(form.cadre) }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">CD, Equipe de district  <span style="color: red">*</span></label>
+                    {{ form_widget(form.district) }}
+                    {{ form_errors(form.district) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">CU, Equipe de groupe  <span style="color: red">*</span></label>
+                    {{ form_widget(form.groupe) }}
+                    {{ form_errors(form.groupe) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Jeune  <span style="color: red">*</span></label>
+                    {{ form_widget(form.jeune) }}
+                    {{ form_errors(form.jeune) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-7 col-sm-offset-3 text-right">
+              {{ form_rest(form)}}
+              <button class="btn btn-default" type="reset">Annuler</button>
+              <button class="btn btn-primary" type="submit">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
+<script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
+{% endblock %}

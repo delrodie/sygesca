@@ -222,5 +222,50 @@ $(document).ready(function() {
                     }
                 }
             }
+        }),
+        $("#cotisationForm").bootstrapValidator({
+            framework: "bootstrap",
+            icon: {
+                valid: "glyphicon glyphicon-ok",
+                invalid: "glyphicon glyphicon-remove",
+                validating: "glyphicon glyphicon-refresh"
+            },
+            fields: {
+                'appbundle_cotisation[annee]': {
+                    validators: {
+                        notEmpty: { message: "L'année scoute est obligatoire." },
+                        stringLength: { min: 9, max: 9, message: "exemple: 2016-2017" },
+                        regexp: { regexp: /^[Z0-9-\.]+$/, message: "L'année doit être au format 2016-2017" }
+                    }
+                },
+                'appbundle_cotisation[cadre]': {
+                    validators: {
+                        notEmpty: { message: "Le montant de cotisation des cadres est obligatoire." },
+                        stringLength: { min: 4, max: 5, message: "Veuillez entrer sans espace ni separateur de millier" },
+                        regexp: { regexp: /^[Z0-9\.]+$/, message: "Le montant doit être uniquement numérique, sans espace ni point" }
+                    }
+                },
+                'appbundle_cotisation[district]': {
+                    validators: {
+                        notEmpty: { message: "Le montant de cotisation des CD et de leurs equipes est obligatoire." },
+                        stringLength: { min: 4, max: 5, message: "Veuillez entrer sans espace ni separateur de millier" },
+                        regexp: { regexp: /^[Z0-9\.]+$/, message: "Le montant doit être uniquement numérique, sans espace ni point" }
+                    }
+                },
+                'appbundle_cotisation[groupe]': {
+                    validators: {
+                        notEmpty: { message: "Le montant de cotisation des chefs d'unités est obligatoire." },
+                        stringLength: { min: 4, max: 5, message: "Veuillez entrer sans espace ni separateur de millier" },
+                        regexp: { regexp: /^[Z0-9\.]+$/, message: "Le montant doit être uniquement numérique, sans espace ni point" }
+                    }
+                },
+                'appbundle_cotisation[jeune]': {
+                    validators: {
+                        notEmpty: { message: "Le montant de cotisation des jeunes est obligatoire." },
+                        stringLength: { min: 4, max: 5, message: "Veuillez entrer sans espace ni separateur de millier" },
+                        regexp: { regexp: /^[Z0-9\.]+$/, message: "Le montant doit être uniquement numérique, sans espace ni point" }
+                    }
+                }
+            }
         })
 });
