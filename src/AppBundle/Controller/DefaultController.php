@@ -54,4 +54,21 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
     }
+
+    /**
+     * Liste des cotisations
+     *
+     * @Route("/cotisation/liste", name="cotisation_liste")
+     */
+    public function cotisationAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        $cotisations = $em->getRepository('AppBundle:Cotisation')->findAll();
+
+        return $this->render('default/cotisation_liste.html.twig', array(
+            'cotisations' => $cotisations,
+        ));
+    }
 }
