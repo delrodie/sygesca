@@ -1,6 +1,6 @@
 {% for cotisation in cotisations %}
 <li>
-  <a href="#">
+  <a href="{{ path('bordereau_index', {'cotisation': cotisation.slug})}}">
     <i class="fa fa-caret-right"></i>{{ cotisation.annee }}
   </a>
 </li>

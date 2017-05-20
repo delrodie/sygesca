@@ -104,6 +104,8 @@ class ScoutController extends Controller
             // Generation du matricule
             $matricule = $this->container->get('scout_matricule')->matricule($scout->getGroupe()); // Service
             $scout->setMatricule($matricule);
+            $scout->setCotisation(0);
+            $scout->setNumero(0);
 
             $this->addFlash('notice', $scout->getNom()." ".$scout->getPrenoms(). " a été enregisté(e) avec succès.");
 

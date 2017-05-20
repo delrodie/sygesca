@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class CotisationRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Selection de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 19/05/2017 04:05
+     */
+    public function getCotisationAnnee($cotisation)
+    {
+        //$em =$this->getEntityManager();
+        $qb = $this->createQueryBuilder('c')
+                   ->where('c.annee = :cotisation')
+                   ->setParameter('cotisation', $cotisation);
+        return $qb;
+    }
 }

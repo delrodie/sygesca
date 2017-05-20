@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bordereau {{ bordereau.numero }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/css/sygesca.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Gestion des Bordereaux</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">Accueil</a>
+        </li>
+        <li>
+          <a href="#">Gestion</a>
+        </li>
+        <li class="active">Bordereaux</li>
+      </ol>
+    </div>
+  </div>
+  <div id="page-content">
+
+    <div class="invoice-wrapper">
+      <section class="invoice-container">
+        <div class="invoice-inner">
+          <div class="row entete">
+            <div class="col-xs-8">
+              <div class="bordereau-entete">
+                <img src="{{ asset('ressources/img/logo.png')}}" alt="">
+                <div class="ascci">
+                  Association des Scouts Catholiques de Côte d'Ivoire
+                </div>
+                <div class="contact">
+                  01 BP 959 ABIDJAN 01 -
+                  <strong>Tél</strong>
+                  : 20-22-35-22 -
+                  <strong>Fax</strong>
+                  : 20-21-03-35 -
+                  <strong>Email</strong>
+                  : assciinter@yahoo.fr
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-4 text-right bordereau-entete">
+              <div class="numero">
+                Bordereau N°:
+                <strong>{{ bordereau.numero }}</strong>
+              </div>
+              <div class="annee">
+                Année :
+                <strong>{{ assurance.annee }}</strong>
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-xs-4">
+              <address>
+                Région:
+                <strong>ABIDJAN</strong>
+              </address>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              Louveteau, Eclaireur, Cheminot, Routiers:
+              <strong>{{ assurance.jeune|number_format('0','','.')}} FCFA</strong>
+            </div>
+            <div class="col-xs-7">
+              Assistant d'unité, Chef d'unité, Equipe de groupe, Chef de groupe:
+              <strong>{{ assurance.groupe|number_format('0','','.') }} FCFA</strong>
+            </div>
+            <div class="col-xs-5">
+              Cadre: CD,equipe de district:
+              <strong>{{ assurance.district|number_format('0','','.') }} FCFA</strong>
+            </div>
+            <div class="col-xs-12">
+              CR; Eq R; C N;Eq N; Aumonier N ; CND; Conseil des Aines; C Aux Comptes:
+              <strong>{{ assurance.cadre|number_format('0','','.') }} FCFA</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 pad-top">
+              <div class="panel panel-defaul">
+                <div class="panel-body">
+                  <div class="able-responsive">
+                    <table class="table table-condensed">
+                      <thead>
+                        <tr>
+                          <td class="text-center">
+                            <strong>#</strong>
+                          </td>
+                          <td class="text-center">
+                            <strong>Matricule</strong>
+                          </td>
+                          <td class="text-center">
+                            <strong>Nom et prénoms</strong>
+                          </td>
+                          <td class="text-center">
+                            <strong>Genres</strong>
+                          </td>
+                          <td class="text-center">
+                            <strong>Naissance</strong>
+                          </td>
+                          <td class="text-center">
+                            <strong>Fonction</strong>
+                          </td>
+                          <td class="text-center">
+                            <strong>Branche</strong>
+                          </td>
+                          <td class="text-center">
+                            <strong>Montant</strong>
+                          </td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% set montant = 0 %}
+                        {% set montantTotal = 0 %}
+                        {% for cotisant in bordereau.cotisants.scout %}
+
+                          <tr>
+                            <td class="text-right">{{ loop.index }}</td>
+                            <td class="text-center">{{ cotisant.matricule }}</td>
+                            <td class="text-left">{{ cotisant.nom|title }}</td>
+                            <td class="text-center">{{ cotisant.sexe }}</td>
+                            <td class="text-center">{{ cotisant.date }}</td>
+                            <td class="text-left">{{ cotisant.fonction }}</td>
+                            <td class="text-left">{{ cotisant.branche }}</td>
+                            <td class="text-right">{{ cotisant.montant|number_format('0','','.') }}</td>
+                          </tr>
+                          {% set montantTotal = montantTotal + cotisant.montant %}
+                        {% endfor %}
+                        <tr><br>
+                          <td class="thick-line" colspan="5"></td>
+                          <td class="thick-line"></td>
+                          <td class="thick-line text-center">
+                            <strong>Total</strong>
+                          </td>
+                          <td class="thick-line text-right">
+                            <strong>{{ montantTotal|number_format('0','','.') }}</strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center no-print">
+          <a class="btn btn-primary btn-lg" onClick="jQuery('#page-content').print()">
+            <i class="fa fa-print"></i> Imprimer
+          </a>
+        </div>
+      </section>
+    </div>
+
+  </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/jquery-print/jQuery.print.js')}}"></script>
+{% endblock %}

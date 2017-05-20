@@ -32,6 +32,13 @@ class Scout
     /**
      * @var string
      *
+     * @ORM\Column(name="numero", type="string", length=10, nullable=true)
+     */
+    private $numero;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="nom", type="string", length=25)
      */
     private $nom;
@@ -84,6 +91,13 @@ class Scout
      * @ORM\Column(name="email", type="string", length=75, nullable=true)
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cotisation", type="string", length=10, nullable=true)
+     */
+    private $cotisation;
 
     /**
      * @var string
@@ -560,5 +574,53 @@ class Scout
     public function getGroupe()
     {
         return $this->groupe;
+    }
+
+    /**
+     * Set numero
+     *
+     * @param string $numero
+     *
+     * @return Scout
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return string
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * Set cotisation
+     *
+     * @param string $cotisation
+     *
+     * @return Scout
+     */
+    public function setCotisation($cotisation)
+    {
+        $this->cotisation = $cotisation;
+
+        return $this;
+    }
+
+    /**
+     * Get cotisation
+     *
+     * @return string
+     */
+    public function getCotisation()
+    {
+        return $this->cotisation;
     }
 }

@@ -393,4 +393,8 @@ class Cotisation
     {
         return $this->bordereaux;
     }
+
+    public function __toString() {
+        return $this->getAnnee();
+    }
 }

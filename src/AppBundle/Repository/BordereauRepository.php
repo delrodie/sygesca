@@ -10,4 +10,52 @@ namespace AppBundle\Repository;
  */
 class BordereauRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+   * Fonction de recherche du ID de la facture
+   *
+   * Author: Delrodie AMOIKON
+   * Date: 30/05/2017
+   * Since: v1.0
+   */
+   public function getNumeroOrdre()
+   {
+     $em = $this->getEntityManager();
+     $qb = $this->createQueryBuilder('c')
+        ->select('count(c.id)')
+     ;
+     $compteur = $qb->getQuery()->getSingleScalarResult();
+
+     if ($compteur != 0) {
+       $qb = $this->createQueryBuilder('c')
+          ->select('c.id')
+          ->orderBy('c.id', 'DESC')
+          ->setMaxResults(1)
+       ;
+         try {
+
+             $id = $qb->getQuery()->getSingleScalarResult();
+             //dump($id); die();
+
+             $id = $id + 1;
+
+             if ($id < 10) {
+                $num = '000'.$id;
+             } elseif ($id < 100) {
+                $num = '00'.$id;
+             } elseif ($id < 1000) {
+                $num = '0'.$id;
+             } else{
+                $num = $id;
+             }
+
+             return $num;
+
+         } catch (NoResultException $e) {
+             return $e;
+         }
+     } else {
+       return $num = '0001';
+     }
+
+   }
 }
