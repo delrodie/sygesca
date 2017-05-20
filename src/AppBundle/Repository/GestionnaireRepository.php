@@ -10,4 +10,22 @@ namespace AppBundle\Repository;
  */
 class GestionnaireRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Vrefication si la fonction cpntient finance
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0
+     */
+    public function getFinance($id)
+    {
+        $qb = $this->createQueryBuilder('g')
+                   ->select('count(g.id)')
+                   ->where('g.fonction LIKE :finance')
+                   ->andWhere('g.id = :id')
+                   ->setParameters(array(
+                      'finance' =>  '%finance%',
+                      'id'  => $id,
+                   ));
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

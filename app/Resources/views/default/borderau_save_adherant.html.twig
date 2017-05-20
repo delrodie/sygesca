@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des cotisants de {{ cotisation }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div class="pageheader">
+    <h3><i class="fa fa-home"></i>  Gestion des cotisants</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Gestion</a></li>
+        <li class="active">Cotisants</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="page-content">
+
+    <br>
+      <!-- Message -->
+        {% for flash_message in app.session.flashBag.get('notice') %}
+          {% if flash_message %}
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2">
+              <div class="alert alert-info media fade in">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <div class="media-left">
+                  <span class="icon-wrap icon-wrap-xs icon-circle alert-icon">
+                    <i class="fa fa-check fa-lg"></i>
+                  </span>
+                </div>
+                <div class="media-body">
+                  <p></p>
+                    <h4 class="alert-title" style="color: green">
+                      {{ flash_message }}
+                    </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+        <!-- \Message -->
+        <br>
+
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Liste des cotisants</h3>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Noms & Prenoms</th>
+                    <th class="text-center">Naissances</th>
+                    <th class="text-center">Sexes</th>
+                    <th class="text-center"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for cotisant in cotisants %}
+                  <tr>
+                    <td class="text-right">{{ loop.index }}</td>
+                    <td>{{ cotisant.nom|upper }} {{ cotisant.prenoms|title }}</td>
+                    <td class="text-center">{{ cotisant.datenaiss }}</td>
+                    <td class="text-center">{{ cotisant.sexe }}</td>
+                    <td class="text-center">
+                      <a href="#" title="Supprimer"><i class="fa fa-trash"></i></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Enregistrement</h3>
+          </div>
+          <form class="form-vertical" action="{{ path('nouveau_cotisant', {'scout': adherant.id, 'cotisation': cotisation})}}" method="get" id="cotisationForm">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-12 ">
+                  <div class="form-group">
+                    <label class="control-label">Année</label>
+                    <input type="text" name="cotisation" value="{{ cotisation }}" class="form-control" readonly>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label">Adherant</label>
+                    <input type="text" name="adherant" value="{{ adherant.nom|upper }} {{ adherant.prenoms|title }}" class="form-control" readonly>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label">Fonction <span class="color:red;">*</span></label>
+                    <select class="form-control selectpicker" name="fonction" data-live-search="true">
+                      <option value="">-- Selectionnez la fonction --</option>
+                      <option value="Louveteau">Louveteau({{ assurance.jeune|number_format('0','','.') }})</option>
+                      <option value="Eclaireur">Eclaireur({{ assurance.jeune|number_format('0','','.') }})</option>
+                      <option value="Cheminot">Cheminot({{ assurance.jeune|number_format('0','','.') }})</option>
+                      <option value="Routier">Routier({{ assurance.jeune|number_format('0','','.') }})</option>
+                      <option value="CU">Chef d'unité({{ assurance.groupe|number_format('0','','.') }})</option>
+                      <option value="CG">Chef de groupe({{ assurance.groupe|number_format('0','','.') }})</option>
+                      <option value="ED">Equipe de district({{ assurance.district|number_format('0','','.') }})</option>
+                      <option value="CD">CD({{ assurance.district|number_format('0','','.') }})</option>
+                      <option value="Regional">Regional({{ assurance.cadre|number_format('0','','.') }})</option>
+                      <option value="ER">Equipe Régionale({{ assurance.cadre|number_format('0','','.') }})</option>
+                      <option value="Aumonier">Aumonier({{ assurance.cadre|number_format('0','','.') }})</option>
+                      <option value="Aine">Ainé({{ assurance.cadre|number_format('0','','.') }})</option>
+                      <option value="CND">CND({{ assurance.cadre|number_format('0','','.') }})</option>
+                      <option value="CN">Commissaire National({{ assurance.cadre|number_format('0','','.') }})</option>
+                      <option value="EN">Equipe Nationale({{ assurance.cadre|number_format('0','','.') }})</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-7 col-sm-offset-3 text-right">
+                  <button class="btn btn-default" type="reset">Annuler</button>
+                  <button class="btn btn-primary" type="submit">Ajouter</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
+<script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
+{% endblock %}

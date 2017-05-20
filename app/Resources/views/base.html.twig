@@ -337,7 +337,7 @@
                     <li class="list-header">Accueil</li>
                     <!--Menu list item-->
                     <li>
-                      <a href="ui-widgets.html">
+                      <a href="{{ path('homepage')}}">
                         <i class="fa fa-flask"></i>
                         <span class="menu-title">
                           Tableau de bord
@@ -381,13 +381,7 @@
                       </a>
                       <!--Submenu-->
                       <ul class="collapse">
-                        <li>
-                          <a href="#">
-                            <i class="fa fa-caret-right"></i>
-                            2016-2017
-                          </a>
-                        </li>
-
+                        {{ render(url('cotisation_liste'))}}
                       </ul>
                     </li>
                     <li class="list-divider"></li>

@@ -6,12 +6,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Cotisation
+ * Bordereau
  *
- * @ORM\Table(name="cotisation")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CotisationRepository")
+ * @ORM\Table(name="bordereau")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BordereauRepository")
  */
-class Cotisation
+class Bordereau
 {
     /**
      * @var int
@@ -25,43 +25,36 @@ class Cotisation
     /**
      * @var string
      *
-     * @ORM\Column(name="annee", type="string", length=10, unique=true)
+     * @ORM\Column(name="numero", type="string", length=15, nullable=true, unique=true)
      */
-    private $annee;
+    private $numero;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cadre", type="string", length=4, nullable=true)
+     * @ORM\Column(name="montant", type="string", length=6, nullable=true)
      */
-    private $cadre;
+    private $montant;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="valide", type="boolean", nullable=true)
+     */
+    private $valide;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="cotisants", type="array", nullable=true)
+     */
+    private $cotisants;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="district", type="string", length=4, nullable=true)
-     */
-    private $district;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="groupe", type="string", length=4, nullable=true)
-     */
-    private $groupe;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="jeune", type="string", length=4, nullable=true)
-     */
-    private $jeune;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Slug(fields={"annee"})
-     * @ORM\Column(name="slug", type="string", length=10)
+     * @Gedmo\Slug(fields={"numero"})
+     * @ORM\Column(name="slug", type="string", length=15)
      */
     private $slug;
 
@@ -98,9 +91,10 @@ class Cotisation
     private $modifieLe;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Bordereau", mappedBy="cotisation")
-    */
-    private $bordereaux;
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cotisation", inversedBy="bordereaux")
+     * @ORM\JoinColumn(name="cotisation_id", referencedColumnName="id")
+     */
+     private $cotisation;
 
 
     /**
@@ -114,123 +108,99 @@ class Cotisation
     }
 
     /**
-     * Set annee
+     * Set numero
      *
-     * @param string $annee
+     * @param string $numero
      *
-     * @return Cotisation
+     * @return Bordereau
      */
-    public function setAnnee($annee)
+    public function setNumero($numero)
     {
-        $this->annee = $annee;
+        $this->numero = $numero;
 
         return $this;
     }
 
     /**
-     * Get annee
+     * Get numero
      *
      * @return string
      */
-    public function getAnnee()
+    public function getNumero()
     {
-        return $this->annee;
+        return $this->numero;
     }
 
     /**
-     * Set cadre
+     * Set montant
      *
-     * @param string $cadre
+     * @param string $montant
      *
-     * @return Cotisation
+     * @return Bordereau
      */
-    public function setCadre($cadre)
+    public function setMontant($montant)
     {
-        $this->cadre = $cadre;
+        $this->montant = $montant;
 
         return $this;
     }
 
     /**
-     * Get cadre
+     * Get montant
      *
      * @return string
      */
-    public function getCadre()
+    public function getMontant()
     {
-        return $this->cadre;
+        return $this->montant;
     }
 
     /**
-     * Set district
+     * Set valide
      *
-     * @param string $district
+     * @param boolean $valide
      *
-     * @return Cotisation
+     * @return Bordereau
      */
-    public function setDistrict($district)
+    public function setValide($valide)
     {
-        $this->district = $district;
+        $this->valide = $valide;
 
         return $this;
     }
 
     /**
-     * Get district
+     * Get valide
      *
-     * @return string
+     * @return bool
      */
-    public function getDistrict()
+    public function getValide()
     {
-        return $this->district;
+        return $this->valide;
     }
 
     /**
-     * Set groupe
+     * Set cotisants
      *
-     * @param string $groupe
+     * @param array $cotisants
      *
-     * @return Cotisation
+     * @return Bordereau
      */
-    public function setGroupe($groupe)
+    public function setCotisants($cotisants)
     {
-        $this->groupe = $groupe;
+        $this->cotisants = $cotisants;
 
         return $this;
     }
 
     /**
-     * Get groupe
+     * Get cotisants
      *
-     * @return string
+     * @return array
      */
-    public function getGroupe()
+    public function getCotisants()
     {
-        return $this->groupe;
-    }
-
-    /**
-     * Set jeune
-     *
-     * @param string $jeune
-     *
-     * @return Cotisation
-     */
-    public function setJeune($jeune)
-    {
-        $this->jeune = $jeune;
-
-        return $this;
-    }
-
-    /**
-     * Get jeune
-     *
-     * @return string
-     */
-    public function getJeune()
-    {
-        return $this->jeune;
+        return $this->cotisants;
     }
 
     /**
@@ -238,7 +208,7 @@ class Cotisation
      *
      * @param string $slug
      *
-     * @return Cotisation
+     * @return Bordereau
      */
     public function setSlug($slug)
     {
@@ -262,7 +232,7 @@ class Cotisation
      *
      * @param string $publiePar
      *
-     * @return Cotisation
+     * @return Bordereau
      */
     public function setPubliePar($publiePar)
     {
@@ -286,7 +256,7 @@ class Cotisation
      *
      * @param string $modifiePar
      *
-     * @return Cotisation
+     * @return Bordereau
      */
     public function setModifiePar($modifiePar)
     {
@@ -310,7 +280,7 @@ class Cotisation
      *
      * @param \DateTime $publieLe
      *
-     * @return Cotisation
+     * @return Bordereau
      */
     public function setPublieLe($publieLe)
     {
@@ -334,7 +304,7 @@ class Cotisation
      *
      * @param \DateTime $modifieLe
      *
-     * @return Cotisation
+     * @return Bordereau
      */
     public function setModifieLe($modifieLe)
     {
@@ -352,49 +322,28 @@ class Cotisation
     {
         return $this->modifieLe;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->bordereaux = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add bordereaux
+     * Set cotisation
      *
-     * @param \AppBundle\Entity\Bordereau $bordereaux
+     * @param \AppBundle\Entity\Cotisation $cotisation
      *
-     * @return Cotisation
+     * @return Bordereau
      */
-    public function addBordereaux(\AppBundle\Entity\Bordereau $bordereaux)
+    public function setCotisation(\AppBundle\Entity\Cotisation $cotisation = null)
     {
-        $this->bordereaux[] = $bordereaux;
+        $this->cotisation = $cotisation;
 
         return $this;
     }
 
     /**
-     * Remove bordereaux
+     * Get cotisation
      *
-     * @param \AppBundle\Entity\Bordereau $bordereaux
+     * @return \AppBundle\Entity\Cotisation
      */
-    public function removeBordereaux(\AppBundle\Entity\Bordereau $bordereaux)
+    public function getCotisation()
     {
-        $this->bordereaux->removeElement($bordereaux);
-    }
-
-    /**
-     * Get bordereaux
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBordereaux()
-    {
-        return $this->bordereaux;
-    }
-
-    public function __toString() {
-        return $this->getAnnee();
+        return $this->cotisation;
     }
 }

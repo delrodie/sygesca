@@ -265,6 +265,13 @@ $(document).ready(function() {
                         stringLength: { min: 4, max: 5, message: "Veuillez entrer sans espace ni separateur de millier" },
                         regexp: { regexp: /^[Z0-9\.]+$/, message: "Le montant doit être uniquement numérique, sans espace ni point" }
                     }
+                },
+                fonction: {
+                    validators: {
+                        notEmpty: { message: "La fonction est obligatoire est obligatoire." },
+                        //stringLength: { min: 4, max: 5, message: "Veuillez entrer sans espace ni separateur de millier" },
+                        //regexp: { regexp: /^[Z0-9\.]+$/, message: "Le montant doit être uniquement numérique, sans espace ni point" }
+                    }
                 }
             }
         })

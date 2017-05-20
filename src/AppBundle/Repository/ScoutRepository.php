@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Symfony\Component\CssSelector\Node\CombinedSelectorNode;
+
 /**
  * ScoutRepository
  *
@@ -96,8 +98,111 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
         } else {
           return NULL;
         }
+    }
 
+    /**
+     * Liste des adherants par region
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 18/05/2017 23:14
+     */
+    public function getAdherantByRegion($region, $cotisation)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQuery('
+              SELECT r, d, g, s
+              FROM AppBundle:Scout s
+              JOIN s.groupe g
+              JOIN g.district d
+              JOIN d.region r
+              WHERE r.id = :region
+              AND s.cotisation <> :cotisation
+              ORDER BY s.nom ASC
+        ')->setParameters(array(
+            'region'  => $region,
+            'cotisation'  => $cotisation
+        ))
+        ;//dump($cotisation);die();
+        return $qb->getResult();
+    }
 
+    /**
+     * Liste de tous les adherants
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 19/05/2017 00:04
+     */
+    public function getAdherant($cotisation)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQuery('
+              SELECT d, g, s
+              FROM AppBundle:Scout s
+              JOIN s.groupe g
+              JOIN g.district d
+              WHERE s.cotisation <> :cotisation
+              ORDER BY s.nom ASC
+        ')->setParameters(array(
+            //'region'  => $region,
+            'cotisation'  => $cotisation
+        ))
+        ;//dump($cotisation);die();
+        return $qb->getResult();
+    }
+
+    /**
+     * Recherche du scout dans le tableau
+     *
+     * Author: Delrodie AMOIKON
+     * Date: 24/04/2017
+     * Since: v1.0
+     */
+    public function findArray($array)
+    {
+       $qb = $this->createQueryBuilder('s')
+                //->Select('p')
+                ->Where('s.id IN (:array)')
+                ->setParameter('array', $array);
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Fonction de recherche du ID du scout
+     *
+     * Author: Delrodie AMOIKON
+     * Date: 01/03/2017
+     * Since: v1.0
+     */
+    public function getScoutID($scout)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQuery('
+            SELECT c.id
+            FROM AppBundle:Scout c
+            WHERE c.slug = :id
+        ')->setParameter('id', $scout)
+        ;
+        try {
+
+            $id = $qb->getSingleResult();
+
+            foreach ($id as $key => $value) {
+                if ($value < 10) {
+                   $num = '000'.$value;
+                } elseif ($value < 100){
+                   $num = '00'.$value;
+                } elseif ($value < 1000){
+                   $num = '0'.$value;
+                } else{
+                   $num = $value;
+                }
+
+                return $num;
+            }
+
+        } catch (NoResultException $e) {
+            return $e;
+        }
     }
 
 }
