@@ -205,4 +205,212 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
         }
     }
 
+    /**
+     * Nombre de scouts par statut cotisant de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 03:25
+     */
+    public function getNombreStatutCotisant($statut, $annee)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->where('t.libelle LIKE :stat')
+                   ->andWhere('s.cotisation = :annee')
+                   ->setParameters(array(
+                      'stat'  =>  '%'.$statut.'%' ,
+                      'annee' =>  $annee
+                ))
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre de scouts par genre cotisant de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 03:55
+     */
+    public function getNombreGenreCotisant($genre, $annee)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->where('s.sexe LIKE :genre')
+                   ->andWhere('s.cotisation = :annee')
+                   ->setParameters(array(
+                      'genre'  =>  '%'.$genre.'%' ,
+                      'annee' =>  $annee
+                ))
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre de jeunes par branche cotisant de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 17:34
+     */
+    public function getNombreBrancheCotisant($statut, $branche, $annee)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->join('s.branche', 'b')
+                   ->where('t.libelle LIKE :stat')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('b.nom LIKE :branche')
+                   ->setParameters(array(
+                      'stat'  =>  '%'.$statut.'%' ,
+                      'annee' =>  $annee,
+                      'branche' => '%'.$branche.'%'
+                ))
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre total de cotisant par statut de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 18:25
+     */
+    public function getNbTotStatutCotisant($statut, $annee)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->where('s.cotisation = :annee')
+                   ->andWhere('t.libelle = :statut')
+                   ->setParameters(array(
+                      'annee' =>  $annee,
+                      'statut'  => $statut
+                   ))
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+    /**
+     * Nombre total de cotisant de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 19:25
+     */
+    public function getNbTotCotisant($annee)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->where('s.cotisation = :annee')
+                   ->setParameter('annee', $annee)
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+    /**
+     * Nombre total de cotisants de la region
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 20:29
+     */
+    public function getNbTotalCotisantParregion($region, $annee)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('r.id = :region')
+                   ->andWhere('s.cotisation = :annee')
+                   ->setParameters(array(
+                      'region'  => $region,
+                      'annee' => $annee
+                   ))
+                   ;
+      return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre total de cotisants de la region
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 22:05
+     */
+    public function getNbStatutCotisantParregion($region, $statut, $annee)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('r.id = :region')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('t.libelle LIKE :statut')
+                   ->setParameters(array(
+                      'region'  => $region,
+                      'annee' => $annee,
+                      'statut'  => '%'.$statut.'%'
+                   ))
+                   ;
+      return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre total de cotisants par genre de la region
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 22:34
+     */
+    public function getNbGenreCotisantParregion($region, $genre, $annee)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('r.id = :region')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('s.sexe LIKE :sexe')
+                   ->setParameters(array(
+                      'region'  => $region,
+                      'annee' => $annee,
+                      'sexe'  => '%'.$genre.'%'
+                   ))
+                   ;
+      return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre total de cotisants de la region
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 22:05
+     */
+    public function getNbStatutBrancheCotisantParregion($region, $statut, $annee, $branche)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.branche', 'b')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('r.id = :region')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('t.libelle LIKE :statut')
+                   ->andWhere('b.nom LIKE :branche')
+                   ->setParameters(array(
+                      'region'  => $region,
+                      'annee' => $annee,
+                      'statut'  => '%'.$statut.'%',
+                      'branche'  => '%'.$branche.'%'
+                   ))
+                   ;
+      return $qb->getQuery()->getSingleScalarResult();
+    }
+
 }
