@@ -49,9 +49,8 @@ class UserType extends AbstractType
         //->add('passwordRequestedAt')
         ->add('roles', ChoiceType::class, array(
               'choices' => array(
-                'UTILISATEUR '  => 'ROLE_USER',
+                'UTILISATEUR . . '  => 'ROLE_USER',
                 'ADMINISTRATEUR '  => 'ROLE_ADMIN',
-                'SUPER ADMINISTRATEUR '  => 'ROLE_SUPER_ADMIN',
               ),
               'multiple'  => true,
               'expanded'  => true

@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-1">
+    <br>
+    <div class="row">
+      <div class="col-sm-1 col-sm-offset-1 text-center">
+        <strong>#</strong>
+      </div>
+      <div class="col-sm-5 text-center">
+        <strong>Paroisses</strong>
+      </div>
+      <div class="col-sm-4 text-center">
+        <strong>Localités</strong>
+      </div>
+      <div class="col-sm-1 text-center">
+        <strong></strong>
+      </div>
+    </div>
+    {% for groupe in groupes %}
+        {% if groupe %}
+        <div class="row" style="margin-top: 10px; margin-bottom: 10; border-top: solid 1px #ccc;">
+          <div class="col-sm-1 col-sm-offset-1 text-center" style="padding-top: 10px;">{{ loop.index }}</div>
+          <div class="col-sm-5" style="padding-top: 10px;">{{ groupe.paroisse }}</div>
+          <div class="col-sm-4" style="padding-top: 10px;">{{ groupe.localite }}</div>
+          <div class="col-sm-1" style="padding-top: 10px;">
+            <a href="#" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Voir les scouts"><i class="fa fa-search"></i></a>
+          </div>
+        </div>
+        {% else %}
+        <div class="row">
+          <div class="col-sm-12 text-center padding-top: 15px;">
+            <strong><em>Aucun groupe n'a été enregistré</em></strong>
+          </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+</div>

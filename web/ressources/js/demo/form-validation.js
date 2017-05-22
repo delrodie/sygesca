@@ -196,6 +196,57 @@ $(document).ready(function() {
                 }
             }
         }),
+        $("#userForm").bootstrapValidator({
+            framework: "bootstrap",
+            icon: {
+                valid: "glyphicon glyphicon-ok",
+                invalid: "glyphicon glyphicon-remove",
+                validating: "glyphicon glyphicon-refresh"
+            },
+            fields: {
+                'appbundle_user[username]': {
+                    validators: {
+                        notEmpty: { message: "Le nom utilisateur est obligatoire" },
+                        stringLength: { min: 5, max: 15, message: "Ce champ doit avoir au moins 6 caractères" },
+                        regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "Le nom utilisateur doit être uniquement alphanumerique. il ne doit pas comportement de tiret ni d'espace" }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: { message: "The email address is required" },
+                        emailAddress: { message: "The input is not a valid email address" }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: { message: "The password is required" },
+                        different: { field: "username", message: "The password cannot be the same as username" }
+                    }
+                },
+                gender: {
+                    validators: {
+                        notEmpty: { message: "The gender is required" }
+                    }
+                },
+                agree: {
+                    validators: {
+                        notEmpty: { message: "You must agree with the terms and conditions" }
+                    }
+                },
+                regionNom: {
+                    validators: {
+                        notEmpty: { message: "Le nom de la région est obligatoire" }
+                    }
+                },
+                dateNaiss: {
+                    validators: {
+                        notEmpty: { message: "La date de naissance doit être obligatoire" },
+                        //stringLength: { min: 6, max: 30, message: "The username must be more than 6 and less than 30 characters long" },
+                        regexp: { regexp: /^[Z0-9-\.]+$/, message: "La date de naissance doit être au format jj-mm-aaaa (ex: 22-02-1941)" }
+                    }
+                }
+            }
+        }),
         $("#demo-tooltip-validation").bootstrapValidator({
             message: "This value is not valid",
             excluded: [":disabled"],
@@ -268,5 +319,64 @@ $(document).ready(function() {
                 }
             }
         }),
-        $("#demo-msk-date").mask("99/99/9999")
+        $("#demo-msk-date").mask("99/99/9999"),
+        $("#userForm").bootstrapValidator({
+            framework: "bootstrap",
+            icon: {
+                valid: "glyphicon glyphicon-ok",
+                invalid: "glyphicon glyphicon-remove",
+                validating: "glyphicon glyphicon-refresh"
+            },
+            id: {
+                firstName: {
+                    row: ".col-xs-4",
+                    validators: { notEmpty: { message: "The first name is required" } }
+                },
+                lastName: {
+                    row: ".col-xs-4",
+                    validators: { notEmpty: { message: "The last name is required" } }
+                },
+                appbundle_user_username: {
+                    validators: {
+                        notEmpty: { message: "Le nom utilisateur est obligatoire" },
+                        stringLength: { min: 6, max: 30, message: "The username must be more than 6 and less than 30 characters long" },
+                        regexp: { regexp: /^[a-zA-Z0-9_\.]+$/, message: "The username can only consist of alphabetical, number, dot and underscore" }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: { message: "The email address is required" },
+                        emailAddress: { message: "The input is not a valid email address" }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: { message: "The password is required" },
+                        different: { field: "username", message: "The password cannot be the same as username" }
+                    }
+                },
+                gender: {
+                    validators: {
+                        notEmpty: { message: "The gender is required" }
+                    }
+                },
+                agree: {
+                    validators: {
+                        notEmpty: { message: "You must agree with the terms and conditions" }
+                    }
+                },
+                regionNom: {
+                    validators: {
+                        notEmpty: { message: "Le nom de la région est obligatoire" }
+                    }
+                },
+                dateNaiss: {
+                    validators: {
+                        notEmpty: { message: "La date de naissance doit être obligatoire" },
+                        //stringLength: { min: 6, max: 30, message: "The username must be more than 6 and less than 30 characters long" },
+                        regexp: { regexp: /^[Z0-9-\.]+$/, message: "La date de naissance doit être au format jj-mm-aaaa (ex: 22-02-1941)" }
+                    }
+                }
+            }
+        })
 });

@@ -337,7 +337,7 @@
                     <li class="list-header">Accueil</li>
                     <!--Menu list item-->
                     <li>
-                      <a href="ui-widgets.html">
+                      <a href="{{ path('homepage')}}">
                         <i class="fa fa-flask"></i>
                         <span class="menu-title">
                           Tableau de bord
@@ -350,29 +350,24 @@
                     <li>
                       <a href="#">
                         <i class="fa fa-th"></i>
-                        <span class="menu-title">
-                          Gestion
-                        </span>
+                        <span class="menu-title">Gestion</span>
                         <i class="arrow"></i>
                       </a>
                       <!--Submenu-->
                       <ul class="collapse">
                         <li>
-                          <a href="#">
-                            <i class="fa fa-caret-right"></i>
-                            District
+                          <a href="{{ path('district_index')}}">
+                            <i class="fa fa-caret-right"></i>District
                           </a>
                         </li>
                         <li>
-                          <a href="#l">
-                            <i class="fa fa-caret-right"></i>
-                            Groupe
+                          <a href="{{ path('regional_district_liste')}}">
+                            <i class="fa fa-caret-right"></i>Groupe
                           </a>
                         </li>
                         <li>
-                          <a href="#">
-                            <i class="fa fa-caret-right"></i>
-                            Scout
+                          <a href="{{ path('scout_index')}}">
+                            <i class="fa fa-caret-right"></i>Scout
                           </a>
                         </li>
                       </ul>
@@ -386,13 +381,7 @@
                       </a>
                       <!--Submenu-->
                       <ul class="collapse">
-                        <li>
-                          <a href="#">
-                            <i class="fa fa-caret-right"></i>
-                            2016-2017
-                          </a>
-                        </li>
-
+                        {{ render(url('cotisation_liste'))}}
                       </ul>
                     </li>
                     <li class="list-divider"></li>
@@ -408,15 +397,23 @@
                       <!--Submenu-->
                       <ul class="collapse">
                         <li>
-                          <a href="#">
-                            <i class="fa fa-caret-right"></i>
-                            Région
+                          <a href="{{ path('admin_cotisation_index')}}">
+                            <i class="fa fa-caret-right"></i>Cotisation
                           </a>
                         </li>
                         <li>
-                          <a href="#l">
-                            <i class="fa fa-caret-right"></i>
-                            Branche
+                          <a href="{{ path('region_index')}}">
+                            <i class="fa fa-caret-right"></i>Région
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ path('admin_branche_index')}}">
+                            <i class="fa fa-caret-right"></i>Branche
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ path('admin_statut_index')}}">
+                            <i class="fa fa-caret-right"></i>Statut
                           </a>
                         </li>
                       </ul>
@@ -425,18 +422,16 @@
                     <li>
                       <a href="#">
                         <i class="fa fa-lock"></i>
-                        <span class="menu-title">
-                          Sécurité
-                        </span>
+                        <span class="menu-title">Sécurité</span>
                       </a>
                       <!--Submenu-->
                       <ul class="collapse">
                         <li>
-                          <a href="#">
+                          <a href="{{ path('admin_user_index')}}">
                             <i class="fa fa-caret-right"></i>Utilisateurs</a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a href="{{ path('gestionnaire_index')}}">
                             <i class="fa fa-caret-right"></i>Gestionnaires</a>
                         </li>
                       </ul>

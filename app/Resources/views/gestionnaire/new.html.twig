@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement des gestionnaires{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.css')}}" rel="stylesheet">
+<link href="{{ asset('ressources/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div class="pageheader">
+    <h3>
+      <i class="fa fa-home"></i>Gestion des gestionnaires</h3>
+    <div class="breadcrumb-wrapper">
+      <span class="label"></span>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">Accueil</a>
+        </li>
+        <li>
+          <a href="#">Sécurité</a>
+        </li>
+        <li class="active">Gestionnaire</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="page-content">
+
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-9">
+        <a href="{{ path('gestionnaire_index')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Liste des gestionnaires</button>
+        </a>
+      </div>
+    </div>
+    <br>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Enregistrement des gestionnaires</h3>
+      </div>
+      {{ form_start(form, { 'attr': {'class': 'form-vertical', 'id': 'gestionnaireForm' }}) }}
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Nom utilisateur  <span style="color: red">*</span></label>
+                    {{ form_widget(form.user) }}
+                    {{ form_errors(form.user) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Région  <span style="color: red">*</span></label>
+                    {{ form_widget(form.region) }}
+                    {{ form_errors(form.region) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Fonction  <span style="color: red">*</span></label>
+                    {{ form_widget(form.fonction) }}
+                    {{ form_errors(form.fonction) }}
+                  </div>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Nom   <span style="color: red">*</span></label>
+                      {{ form_widget(form.nom) }}
+                      {{ form_errors(form.nom) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Prenoms  <span style="color: red">*</span></label>
+                      {{ form_widget(form.prenoms) }}
+                      {{ form_errors(form.prenoms) }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="control-label">Contact  <span style="color: red">*</span></label>
+                      {{ form_widget(form.contact) }}
+                      {{ form_errors(form.contact) }}
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-7 col-sm-offset-3 text-right">
+              {{ form_rest(form)}}
+              <button class="btn btn-default" type="reset">Annuler</button>
+              <button class="btn btn-primary" type="submit">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      {{ form_end(form)}}
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
+<script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
+{% endblock %}

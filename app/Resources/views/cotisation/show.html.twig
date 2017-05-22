@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cotisation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cotisation.id }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ cotisation.annee }}</td>
+            </tr>
+            <tr>
+                <th>Cadre</th>
+                <td>{{ cotisation.cadre }}</td>
+            </tr>
+            <tr>
+                <th>District</th>
+                <td>{{ cotisation.district }}</td>
+            </tr>
+            <tr>
+                <th>Groupe</th>
+                <td>{{ cotisation.groupe }}</td>
+            </tr>
+            <tr>
+                <th>Jeune</th>
+                <td>{{ cotisation.jeune }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ cotisation.slug }}</td>
+            </tr>
+            <tr>
+                <th>Publiepar</th>
+                <td>{{ cotisation.publiePar }}</td>
+            </tr>
+            <tr>
+                <th>Modifiepar</th>
+                <td>{{ cotisation.modifiePar }}</td>
+            </tr>
+            <tr>
+                <th>Publiele</th>
+                <td>{{ cotisation.publieLe }}</td>
+            </tr>
+            <tr>
+                <th>Modifiele</th>
+                <td>{{ cotisation.modifieLe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_cotisation_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_cotisation_edit', { 'id': cotisation.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

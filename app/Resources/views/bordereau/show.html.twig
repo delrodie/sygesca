@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bordereau</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bordereau.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ bordereau.numero }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ bordereau.montant }}</td>
+            </tr>
+            <tr>
+                <th>Valide</th>
+                <td>{% if bordereau.valide %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Cotisants</th>
+                <td>{% if bordereau.cotisants %}{{ bordereau.cotisants|join(', ') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ bordereau.slug }}</td>
+            </tr>
+            <tr>
+                <th>Publiepar</th>
+                <td>{{ bordereau.publiePar }}</td>
+            </tr>
+            <tr>
+                <th>Modifiepar</th>
+                <td>{{ bordereau.modifiePar }}</td>
+            </tr>
+            <tr>
+                <th>Publiele</th>
+                <td>{{ bordereau.publieLe }}</td>
+            </tr>
+            <tr>
+                <th>Modifiele</th>
+                <td>{{ bordereau.modifieLe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bordereau_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('bordereau_edit', { 'id': bordereau.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
