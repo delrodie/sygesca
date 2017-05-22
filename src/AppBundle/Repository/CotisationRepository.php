@@ -24,4 +24,22 @@ class CotisationRepository extends \Doctrine\ORM\EntityRepository
                    ->setParameter('cotisation', $cotisation);
         return $qb;
     }
+
+    /**
+     * Determination de la dernière cotisation enregistrée
+     *
+     * @author: Delrodie AMOIKON
+     * @version: v1.0 20/05/2017 02:30
+     */
+    public function getDerniereCotisation()
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQuery('
+                      SELECT c
+                      FROM AppBundle:Cotisation c
+                      ORDER BY c.id DESC
+                  ')->setMaxResults(1);
+                  ;
+        return $qb->getSingleResult();
+    }
 }

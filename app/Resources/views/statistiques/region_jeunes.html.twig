@@ -1,0 +1,26 @@
+<table class="table table-hover table-vcenter">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th class="text-center">Regions</th>
+      <th class="text-center">Totaux</th>
+      <th class="hidden-xs text-center">Meutes</th>
+      <th class="hidden-xs text-center">Troupes</th>
+      <th class="hidden-xs text-center">Generations</th>
+      <th class="hidden-xs text-center">Communautés</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for region in regions %}
+    <tr>
+      <td class="text-right">{{ loop.index }}</td>
+      <td>{{ region.nom|upper }}</td>
+      <td class="text-center">{{ render(url('statistiques_region_statut_cotisant', {'region': region.id, 'statut': 'jeune'}))}}</td>
+      <td class="hidden-xs text-center">{{ render(url('statistiques_region_statut_branche', {'region': region.id, 'statut': 'jeune', 'branche': 'meute'}))}}</td>
+      <td class="hidden-xs text-center">{{ render(url('statistiques_region_statut_branche', {'region': region.id, 'statut': 'jeune', 'branche': 'troupe'}))}}</td>
+      <td class="hidden-xs text-center">{{ render(url('statistiques_region_statut_branche', {'region': region.id, 'statut': 'jeune', 'branche': 'generation'}))}}</td>
+      <td class="hidden-xs text-center">{{ render(url('statistiques_region_statut_branche', {'region': region.id, 'statut': 'jeune', 'branche': 'communaute'}))}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
