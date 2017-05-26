@@ -27,8 +27,12 @@ class StatistiquesController extends Controller
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
 
-        //$jeune = 'jeune';
-        $nombre = $em->getRepository('AppBundle:Scout')->getNombreStatutCotisant($statut, $cotisation->getAnnee());
+        // S'il n'y a pas de cotisation alors renvoie de la valeur 0
+        if ($cotisation === 0) {
+          $nombre = 0;
+        } else{
+          $nombre = $em->getRepository('AppBundle:Scout')->getNombreStatutCotisant($statut, $cotisation->getAnnee());
+        }
 
         return $this->render('statistiques/nombres.html.twig', array(
             'nombre' => $nombre,
@@ -47,14 +51,21 @@ class StatistiquesController extends Controller
 
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
-        $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
 
-        if ($cotisantTotal === 0) {
-          $cotisantTotal = 1;
+        // S'il n'y a pas de cotisation alors renvoie la valeur 0
+        if ($cotisation === 0) {
+            $pourcentage = 0;
+        } else {
+            $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
+
+            if ($cotisantTotal === 0) {
+              $cotisantTotal = 1;
+            }
+
+            $nombre = $em->getRepository('AppBundle:Scout')->getNombreStatutCotisant($statut, $cotisation->getAnnee());
+            $pourcentage = round($nombre*100/$cotisantTotal, 1);
         }
 
-        $nombre = $em->getRepository('AppBundle:Scout')->getNombreStatutCotisant($statut, $cotisation->getAnnee());
-        $pourcentage = round($nombre*100/$cotisantTotal, 1);
 
         return $this->render('statistiques/pourcentage.html.twig', array(
             'pourcentage' => $pourcentage,
@@ -79,8 +90,13 @@ class StatistiquesController extends Controller
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
 
-        //$genre = 'F';
-        $nombre = $em->getRepository('AppBundle:Scout')->getNombreGenreCotisant($genre, $cotisation->getAnnee());
+        // S'il n'y a pas de cotisation alors renvoie de la valeur 0
+        if ($cotisation === 0 ) {
+          $nombre = 0;
+        } else {
+          $nombre = $em->getRepository('AppBundle:Scout')->getNombreGenreCotisant($genre, $cotisation->getAnnee());
+        }
+
 
         return $this->render('statistiques/nombres.html.twig', array(
             'nombre' => $nombre,
@@ -99,14 +115,21 @@ class StatistiquesController extends Controller
 
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
-        $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
 
-        if ($cotisantTotal === 0) {
-          $cotisantTotal = 1;
+        // S'il n'y a pa de cotisation alors renvoie de la valeur 0
+        if ($cotisation === 0) {
+           $pourcentage = 0;
+        } else {
+          $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
+
+          if ($cotisantTotal === 0) {
+            $cotisantTotal = 1;
+          }
+
+          $nombre = $em->getRepository('AppBundle:Scout')->getNombreGenreCotisant($genre, $cotisation->getAnnee());
+          $pourcentage = round($nombre*100/$cotisantTotal, 1);
         }
 
-        $nombre = $em->getRepository('AppBundle:Scout')->getNombreGenreCotisant($genre, $cotisation->getAnnee());
-        $pourcentage = round($nombre*100/$cotisantTotal, 1);
 
         return $this->render('statistiques/pourcentage.html.twig', array(
             'pourcentage' => $pourcentage,
@@ -131,7 +154,12 @@ class StatistiquesController extends Controller
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
 
-        $nombre = $em->getRepository('AppBundle:Scout')->getNombreBrancheCotisant($statut, $branche, $cotisation->getAnnee());
+        // S'il n'y a pas de cotisation alors renvoyer la valeur 0
+        if ($cotisation === 0) {
+            $nombre = 0;
+        } else {
+            $nombre = $em->getRepository('AppBundle:Scout')->getNombreBrancheCotisant($statut, $branche, $cotisation->getAnnee());
+        }
 
         return $this->render('statistiques/nombres.html.twig', array(
             'nombre' => $nombre,
@@ -150,14 +178,21 @@ class StatistiquesController extends Controller
 
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
-        $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotStatutCotisant($statut, $cotisation->getAnnee());
 
-        if ($cotisantTotal === 0) {
-          $cotisantTotal = 1;
+        // S'il n'y a pas de cotisation alors pourcentage est 0
+        if ($cotisation === 0) {
+            $pourcentage = 0;
+        } else {
+            $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotStatutCotisant($statut, $cotisation->getAnnee());
+
+            if ($cotisantTotal === 0) {
+              $cotisantTotal = 1;
+            }
+
+            $nbBranche = $em->getRepository('AppBundle:Scout')->getNombreBrancheCotisant($statut, $branche, $cotisation->getAnnee());
+            $pourcentage = round($nbBranche*100/$cotisantTotal, 1);
         }
 
-        $nbBranche = $em->getRepository('AppBundle:Scout')->getNombreBrancheCotisant($statut, $branche, $cotisation->getAnnee());
-        $pourcentage = round($nbBranche*100/$cotisantTotal, 1);
 
         return $this->render('statistiques/pourcentage.html.twig', array(
             'pourcentage' => $pourcentage,
@@ -196,9 +231,15 @@ class StatistiquesController extends Controller
 
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
-        $annee = $cotisation->getAnnee();
 
-        $nombre = $em->getRepository('AppBundle:Scout')->getNbTotalCotisantParregion($region, $annee);
+        // S'il n'y a pas de cotisation alors la valeur 0
+        if ($cotisation === 0) {
+            $nombre = 0;
+        } else {
+            $annee = $cotisation->getAnnee();
+
+            $nombre = $em->getRepository('AppBundle:Scout')->getNbTotalCotisantParregion($region, $annee);
+        }
 
         return $this->render('statistiques/nombres.html.twig', array(
             'nombre' => $nombre,
@@ -216,9 +257,15 @@ class StatistiquesController extends Controller
 
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
-        $annee = $cotisation->getAnnee();
 
-        $nombre = $em->getRepository('AppBundle:Scout')->getNbStatutCotisantParregion($region, $statut, $annee);
+        // S'il n'y a pas de cotisation alors renvoyer la valeur 0
+        if ($cotisation === 0) {
+          $nombre = 0;
+        } else {
+          $annee = $cotisation->getAnnee();
+
+          $nombre = $em->getRepository('AppBundle:Scout')->getNbStatutCotisantParregion($region, $statut, $annee);
+        }
 
         return $this->render('statistiques/nombres.html.twig', array(
             'nombre' => $nombre,
@@ -236,9 +283,15 @@ class StatistiquesController extends Controller
 
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
-        $annee = $cotisation->getAnnee();
 
-        $nombre = $em->getRepository('AppBundle:Scout')->getNbGenreCotisantParregion($region, $genre, $annee);
+        // S'il n'y a pas de cotisation alors renvoyer la valeur 0
+        if ($cotisation === 0) {
+          $nombre = 0;
+        } else {
+          $annee = $cotisation->getAnnee();
+
+          $nombre = $em->getRepository('AppBundle:Scout')->getNbGenreCotisantParregion($region, $genre, $annee);
+        }
 
         return $this->render('statistiques/nombres.html.twig', array(
             'nombre' => $nombre,
@@ -272,9 +325,16 @@ class StatistiquesController extends Controller
 
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
-        $annee = $cotisation->getAnnee();
 
-        $nombre = $em->getRepository('AppBundle:Scout')->getNbStatutBrancheCotisantParregion($region, $statut, $annee, $branche);
+        // S'il y a pas de cotisation alors renvoyer la valeur 0
+        if ($cotisation === 0) {
+           $nombre = 0;
+        } else {
+          $annee = $cotisation->getAnnee();
+
+          $nombre = $em->getRepository('AppBundle:Scout')->getNbStatutBrancheCotisantParregion($region, $statut, $annee, $branche);
+        }
+
 
         return $this->render('statistiques/nombres.html.twig', array(
             'nombre' => $nombre,
@@ -295,6 +355,43 @@ class StatistiquesController extends Controller
         return $this->render('statistiques/region_jeunes.html.twig', array(
               'regions'  => $regions,
         ));
+    }
+
+    /* =======================================================
+     * ================== STATISTIQUES DES GLOBALES ==========
+     * =======================================================
+    */
+
+    /**
+     * Pourcentage des cotisants sur le nombre total enregistré
+     *
+     * @Route("/statistiques/globale", name="statistiques_globales")
+     */
+    public function globalAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // Determination de l'année accademique encours
+        $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
+
+        if ($cotisation === 0) {
+          $pourcentage = 0;
+        } else {
+          $enregistres = $em->getRepository('AppBundle:Scout')->getTotalScout();
+          $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
+
+          if ($cotisantTotal === 0) {
+            $cotisantTotal = 1;
+          }
+
+          $pourcentage = round($cotisantTotal*100/$enregistres, 1);
+        }
+
+
+        return $this->render('statistiques/pourcentage.html.twig', array(
+            'pourcentage' => $pourcentage,
+        ));
+
     }
 
 }

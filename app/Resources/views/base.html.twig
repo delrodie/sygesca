@@ -451,11 +451,11 @@
                       <ul class="list-group">
                         <li class="list-header pad-no pad-ver">Statistiques globales</li>
                         <li class="mar-btm">
-                          <span class="label label-primary pull-right">15%</span>
+                          <span class="label label-primary pull-right">{{ render(url('statistiques_globales')) }}</span>
                           <p>Cotisants</p>
                           <div class="progress progress-sm">
-                            <div class="progress-bar progress-bar-primary" style="width: 15%;">
-                              <span class="sr-only">15%</span>
+                            <div class="progress-bar progress-bar-primary" style="width: {{ render(url('statistiques_globales'))}};">
+                              <span class="sr-only">{{ render(url('statistiques_globales')) }}</span>
                             </div>
                           </div>
                         </li>
@@ -478,6 +478,8 @@
       </div>
       <!-- FOOTER -->
       <!--===================================================-->
+
+
       <footer id="footer">
         <!-- Visible when footer positions are fixed -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

@@ -33,13 +33,23 @@ class CotisationRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getDerniereCotisation()
     {
-        $em = $this->getEntityManager();
+        /*$em = $this->getEntityManager();
         $qb = $em->createQuery('
                       SELECT c
                       FROM AppBundle:Cotisation c
                       ORDER BY c.id DESC
                   ')->setMaxResults(1);
                   ;
-        return $qb->getSingleResult();
+        return $qb->getSingleResult();*/
+
+        $qb = $this->createQueryBuilder('c')
+                 ->orderBy('c.id', 'DESC')
+                 ->setMaxResults(1);
+        if (($qb->getQuery()->getResult()) === []) {
+           return 0;
+        } else {
+          return $qb->getQuery()->getSingleResult();
+        }
+
     }
 }

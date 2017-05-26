@@ -413,4 +413,15 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
       return $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Nombre de scouts enregistrés dans la plateforme
+     */
+    public function getTotalScout()
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+        ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
 }
