@@ -15,6 +15,7 @@ class DefaultController extends Controller
     {
         $session = $request->getSession();
         $userIp = $request->getClientIp();
+        $em = $this->getDoctrine()->getManager();
 
         // Si la session user_connecte n'existe alors logger user vient de se connecter
         // sinon user consulte le tableau de bord
@@ -50,8 +51,19 @@ class DefaultController extends Controller
           $notification->notice($user.' a consulté le tableau de bord .');
         }
 
+        $regions = $em->getRepository('AppBundle:Region')->findAll();
+        // Determination de l'année accademique encours
+        $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
+        if ($cotisation === 0) {
+          $annee = NULL;
+        } else {
+          $annee = $cotisation->getAnnee();
+        }
+
+
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+            'regions' => $regions,
+            'annee' => $annee,
         ]);
     }
 
@@ -70,16 +82,5 @@ class DefaultController extends Controller
         return $this->render('default/cotisation_liste.html.twig', array(
             'cotisations' => $cotisations,
         ));
-    }
-
-    /**
-     * @Route("/annee/{datenaiss}", name="annee")
-     */
-    public function anneeAction($datenaiss)
-    {
-        $branche = $this->container->get('jeune_branche')->branche($datenaiss);
-
-
-        dump($branche);die();
     }
 }
