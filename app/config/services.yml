@@ -18,3 +18,7 @@ services:
     scout_matricule:
         class: 'AppBundle\Services\Matricule'
         arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    jeune_branche:
+        class: 'AppBundle\Services\Branche'
+        arguments: ['@service_container']

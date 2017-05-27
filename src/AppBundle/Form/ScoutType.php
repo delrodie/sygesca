@@ -82,6 +82,14 @@ class ScoutType extends AbstractType
                   ),
                   'required' => false,
             ))
+            ->add('contactparent', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Telephone du père ou de la mère ou du tuteur legal'
+                  ),
+                  'required' => false,
+            ))
             ->add('email', EmailType::class, array(
                   'attr'  => array(
                       'class' => 'form-control',
@@ -95,13 +103,7 @@ class ScoutType extends AbstractType
                   'attr'  => array(
                       'class' => 'form-control selectpicker',
                       'data-live-search'  => 'true',
-                      //'placeholder' => 'Numéro de téléphone'
-                  )
-            ))
-            ->add('branche', null, array(
-                  'attr'  => array(
-                      'class' => 'form-control selectpicker',
-                      'data-live-search'  => 'true',
+                      'onChange' => 'statut()'
                       //'placeholder' => 'Numéro de téléphone'
                   )
             ))

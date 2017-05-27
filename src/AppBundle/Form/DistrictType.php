@@ -34,7 +34,8 @@ class DistrictType extends AbstractType
             ->add('doyenne', TextType::class, array(
                   'attr'  => array(
                       'class' => 'form-control',
-                      'autocomplete'  => 'off'
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Doyenne ou le SECTEUR du district'
                   ),
                   'required' => false
             ))

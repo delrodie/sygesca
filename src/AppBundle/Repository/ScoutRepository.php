@@ -260,10 +260,9 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('s')
                    ->select('count(s.id)')
                    ->join('s.statut', 't')
-                   ->join('s.branche', 'b')
                    ->where('t.libelle LIKE :stat')
                    ->andWhere('s.cotisation = :annee')
-                   ->andWhere('b.nom LIKE :branche')
+                   ->andWhere('s.branche LIKE :branche')
                    ->setParameters(array(
                       'stat'  =>  '%'.$statut.'%' ,
                       'annee' =>  $annee,
@@ -394,7 +393,6 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('s')
                    ->select('count(s.id)')
-                   ->join('s.branche', 'b')
                    ->join('s.statut', 't')
                    ->join('s.groupe', 'g')
                    ->join('g.district', 'd')
@@ -402,7 +400,7 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                    ->where('r.id = :region')
                    ->andWhere('s.cotisation = :annee')
                    ->andWhere('t.libelle LIKE :statut')
-                   ->andWhere('b.nom LIKE :branche')
+                   ->andWhere('s.branche LIKE :branche')
                    ->setParameters(array(
                       'region'  => $region,
                       'annee' => $annee,

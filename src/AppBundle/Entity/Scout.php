@@ -74,6 +74,13 @@ class Scout
     /**
      * @var string
      *
+     * @ORM\Column(name="branche", type="string", length=10, nullable=true)
+     */
+    private $branche;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="nationalite", type="string", length=75, nullable=true)
      */
     private $nationalite;
@@ -84,6 +91,13 @@ class Scout
      * @ORM\Column(name="contact", type="string", length=10, nullable=true)
      */
     private $contact;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contactparent", type="string", length=10, nullable=true)
+     */
+    private $contactparent;
 
     /**
      * @var string
@@ -144,12 +158,6 @@ class Scout
    * @ORM\JoinColumn(name="statut_id", referencedColumnName="id")
    */
    private $statut;
-
-   /**
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Branche", inversedBy="scouts")
-    * @ORM\JoinColumn(name="branche_id", referencedColumnName="id")
-    */
-    private $branche;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Groupe", inversedBy="scouts")
@@ -529,30 +537,6 @@ class Scout
     }
 
     /**
-     * Set branche
-     *
-     * @param \AppBundle\Entity\Branche $branche
-     *
-     * @return Scout
-     */
-    public function setBranche(\AppBundle\Entity\Branche $branche = null)
-    {
-        $this->branche = $branche;
-
-        return $this;
-    }
-
-    /**
-     * Get branche
-     *
-     * @return \AppBundle\Entity\Branche
-     */
-    public function getBranche()
-    {
-        return $this->branche;
-    }
-
-    /**
      * Set groupe
      *
      * @param \AppBundle\Entity\Groupe $groupe
@@ -622,5 +606,53 @@ class Scout
     public function getCotisation()
     {
         return $this->cotisation;
+    }
+
+    /**
+     * Set branche
+     *
+     * @param string $branche
+     *
+     * @return Scout
+     */
+    public function setBranche($branche)
+    {
+        $this->branche = $branche;
+
+        return $this;
+    }
+
+    /**
+     * Get branche
+     *
+     * @return string
+     */
+    public function getBranche()
+    {
+        return $this->branche;
+    }
+
+    /**
+     * Set contactparent
+     *
+     * @param string $contactparent
+     *
+     * @return Scout
+     */
+    public function setContactparent($contactparent)
+    {
+        $this->contactparent = $contactparent;
+
+        return $this;
+    }
+
+    /**
+     * Get contactparent
+     *
+     * @return string
+     */
+    public function getContactparent()
+    {
+        return $this->contactparent;
     }
 }

@@ -139,10 +139,17 @@ class RegionalController extends Controller
         if (!$session->has('adhesion')) $session->set('adhesion',array());
         $adhesion = $session->get('adhesion');
 
+        // Mise en session de la branche du chef
+        if (!$session->has('chefUnite')) $session->set('chefUnite',array());
+        $chefUnite = $session->get('chefUnite');
+
         // Si la session existe alors modifier la valeur sinon ajouter les nouveaux adherants
-        if (array_key_exists($scout, $adhesion)) {
+        if ((array_key_exists($scout, $adhesion)) || (array_key_exists($scout, $chefUnite))) {
             if($request->query->get('fonction') != NULL) {
                 $adhesion[$scout] = $request->query->get('fonction');
+            }
+            if($request->query->get('branche') != NULL) {
+                $chefUnite[$scout] = $request->query->get('branche');
             }
         } else {
             if($request->query->get('fonction') != NULL){
@@ -150,9 +157,13 @@ class RegionalController extends Controller
             }else{
                 return $this->redirectToRoute('adherant_cotisation', array("scout"  => $scout, "cotisation" => $cotisation));
             }
+            if($request->query->get('branche') != NULL) {
+                $chefUnite[$scout] = $request->query->get('branche');
+            }
         }
 
         $session->set('adhesion',$adhesion);
+        $session->set('chefUnite',$chefUnite);
 
         $cotisant = $em->getRepository('AppBundle:Scout')->findOneById($scout);
         $this->addFlash('notice', $cotisant->getNom()." ".$cotisant->getPrenoms()." a été ajouté avec succès au bordereau.");

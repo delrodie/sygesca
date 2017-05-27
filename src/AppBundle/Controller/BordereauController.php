@@ -54,14 +54,19 @@ class BordereauController extends Controller
             $region = $em->getRepository('AppBundle:Region')->findOneById($regionID);
             $bordereaux = $em->getRepository('AppBundle:Bordereau')->findAll();
             //dump($bordereaux);die();
-            foreach ($bordereaux as $bordereau) {
-              if (($bordereau->getCotisants()['region']) === ($region->getCode())) {
-                $bordereaus[] = $bordereau;
-                  //dump($bordereaus);die();
-              } else {
-                $bordereaus[] = null;
+            if ($bordereaux === []) {
+              $bordereaus = $bordereaux;
+            } else {
+              foreach ($bordereaux as $bordereau) {
+                if (($bordereau->getCotisants()['region']) === ($region->getCode())) {
+                  $bordereaus[] = $bordereau;
+                    //dump($bordereaus);die('ici');
+                } else {
+                  $bordereaus[] = null;//die('2');
+                }
               }
             }
+
             $valid = false;
           }
         }else {
@@ -118,6 +123,7 @@ class BordereauController extends Controller
         $cotisants = $em->getRepository('AppBundle:Scout')->findArray(array_keys($session->get('adhesion')));
         $assurance = $em->getRepository('AppBundle:Cotisation')->findOneBy(array('annee'  => $cotisation));
         $adherants = $session->get('adhesion');
+        $chefUnite = $session->get('chefUnite');
 
 
         return $this->render('bordereau/new.html.twig', array(
@@ -126,6 +132,7 @@ class BordereauController extends Controller
             'cotisants' => $cotisants,
             'adherants' => $adherants,
             'assurance' => $assurance,
+            'chefUnite' => $chefUnite,
         ));
     }
 
@@ -225,6 +232,7 @@ class BordereauController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $adherants = $session->get('adhesion');
+        $chefUnite = $session->get('chefUnite');
         $bordereau = array();
         $montantTotal = 0;
 
@@ -245,6 +253,29 @@ class BordereauController extends Controller
 
           $montantTotal += $montant;
 
+          // Affectation de la branche du chef d'unité
+          if (($fonction === 'CU')) {
+            $branche = $chefUnite[$cotisant->getId()];
+          }else {
+            switch ($fonction) {
+              case 'Louveteau':
+                $branche = "Meute";
+                break;
+              case 'Eclaireur':
+                $branche = "Troupe";
+                break;
+              case 'Cheminot':
+                $branche = "Generation";
+                break;
+              case 'Routier':
+                $branche = "Communaute";
+                break;
+              default:
+                $branche = NULL;
+                break;
+            }
+          }
+
           $bordereau['scout'][$cotisant->getId()] = array(
               'matricule' =>  $cotisant->getMatricule(),
               'nom' =>  $cotisant->getNom(),
@@ -253,7 +284,7 @@ class BordereauController extends Controller
               'lieu'  =>  $cotisant->getLieuNaiss(),
               'sexe' =>  $cotisant->getSexe(),
               'fonction' =>  $fonction,
-              'branche'  => $cotisant->getBranche()->getNom(),
+              'branche'  => $branche,
               'montant' => $montant,
           );
 
@@ -279,6 +310,7 @@ class BordereauController extends Controller
 
           $cotisant->setNumero($numero);
           $cotisant->setCotisation($cotisation);
+          $cotisant->setBranche($branche);
           $em->persist($cotisant);
           $em->flush();
 

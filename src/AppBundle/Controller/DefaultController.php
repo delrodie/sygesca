@@ -71,4 +71,15 @@ class DefaultController extends Controller
             'cotisations' => $cotisations,
         ));
     }
+
+    /**
+     * @Route("/annee/{datenaiss}", name="annee")
+     */
+    public function anneeAction($datenaiss)
+    {
+        $branche = $this->container->get('jeune_branche')->branche($datenaiss);
+
+
+        dump($branche);die();
+    }
 }

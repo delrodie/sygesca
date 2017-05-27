@@ -58,7 +58,7 @@ class StatistiquesController extends Controller
         } else {
             $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
 
-            if ($cotisantTotal === 0) {
+            if ($cotisantTotal === "0") {
               $cotisantTotal = 1;
             }
 
@@ -122,7 +122,7 @@ class StatistiquesController extends Controller
         } else {
           $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
 
-          if ($cotisantTotal === 0) {
+          if ($cotisantTotal === "0") {
             $cotisantTotal = 1;
           }
 
@@ -185,7 +185,7 @@ class StatistiquesController extends Controller
         } else {
             $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotStatutCotisant($statut, $cotisation->getAnnee());
 
-            if ($cotisantTotal === 0) {
+            if ($cotisantTotal === "0") {
               $cotisantTotal = 1;
             }
 

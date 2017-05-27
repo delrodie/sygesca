@@ -79,7 +79,7 @@
                 <tr>
                   <td class="text-right">{{ loop.index }}</td>
                     <td class="text-center">{{ bordereau.numero }}</td>
-                    <td class="text-center">{{ bordereau.cotisants.region }}</td>
+                    <td class="text-center">{{ render(url('region_par_code', {'code': bordereau.cotisants.region}))}}</td>
                     <td class="text-center">{% if bordereau.publieLe %}{{ bordereau.publieLe|date('d-m-Y H:i:s') }}{% endif %}</td>
                     <td class="text-right">{{ bordereau.montant|number_format('0','','.') }}</td>
                     <td class="text-center">
@@ -91,7 +91,7 @@
                     </td>
                     <td class="text-center">
                       {% if bordereau.valide %}
-                        <a href="{{ path('impression_bordereau_valide', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Détails"><i class="fa fa-search"></i></a>    
+                        <a href="{{ path('impression_bordereau_valide', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Détails"><i class="fa fa-search"></i></a>
                       {% else %}
                         {% if valid %}
                           <a href="{{ path('bordereau_edit', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Détails"><i class="fa fa-check"></i></a> |

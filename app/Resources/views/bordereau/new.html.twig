@@ -62,7 +62,13 @@
                           <td class="text-center">{{ cotisant.sexe }}</td>
                           <td class="text-center">{{ cotisant.datenaiss }}</td>
                           <td class="text-left">{{ fonction }}</td>
-                          <td class="text-left">{{ cotisant.branche }}</td>
+                          <td class="text-left">
+                            {% if (fonction == 'CU') %}
+                              {{ chefUnite[cotisant.id] }}
+                            {% else %}
+                              {{ cotisant.branche }}
+                            {% endif %}
+                          </td>
                           <td class="text-right">{{ montant|number_format('0','','.') }}</td>
                         </tr>
                           {% set montantTotal = montantTotal + montant %}
