@@ -16,6 +16,7 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $userIp = $request->getClientIp();
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
         // Si la session user_connecte n'existe alors logger user vient de se connecter
         // sinon user consulte le tableau de bord
@@ -60,6 +61,25 @@ class DefaultController extends Controller
           $annee = $cotisation->getAnnee();
         }
 
+        // récupération des roles de l'utilisateur
+        // Si role role[0] est ROLE_USER alors chercher la région
+        $roles[] = $user->getRoles();
+        if ($roles[0][0] === 'ROLE_USER') {
+          $gestionnaire = $em->getRepository('AppBundle:Gestionnaire')->findOneBy(array('user' => $user));
+
+          // Si l'identifiant de la region est supérieur a 4 alors revoyer a la view des regions
+          if ($gestionnaire->getRegion()->getId() > 4 ) {
+            $regionID = $gestionnaire->getRegion()->getId();
+
+            $districts = $em->getRepository('AppBundle:District')->findBy(array('region' => $regionID), array('nom'  => 'ASC'));
+
+            return $this->render('default/index_region.html.twig', [
+                'districts' => $districts,
+                'annee' => $annee,
+                'regionID'  => $regionID,
+            ]);
+          }
+        }
 
         return $this->render('default/index.html.twig', [
             'regions' => $regions,

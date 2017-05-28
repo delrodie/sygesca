@@ -64,6 +64,7 @@
                     <th class="text-center">#</th>
                     <th class="text-center">Noms & Prenoms</th>
                     <th class="text-center">Naissances</th>
+                    <th class="text-center">Fonctions</th>
                     <th class="text-center">Sexes</th>
                     <th class="text-center"></th>
                   </tr>
@@ -74,6 +75,7 @@
                     <td class="text-right">{{ loop.index }}</td>
                     <td>{{ cotisant.nom|upper }} {{ cotisant.prenoms|title }}</td>
                     <td class="text-center">{{ cotisant.datenaiss }}</td>
+                    <td class="text-center">{{ adherants[cotisant.id] }}</td>
                     <td class="text-center">{{ cotisant.sexe }}</td>
                     <td class="text-center">
                       <a href="#" title="Supprimer"><i class="fa fa-trash"></i></a>

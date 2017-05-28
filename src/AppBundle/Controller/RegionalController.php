@@ -186,12 +186,14 @@ class RegionalController extends Controller
         $adherant = $em->getRepository('AppBundle:Scout')->findOneById($scout);
         $cotisants = $em->getRepository('AppBundle:Scout')->findArray(array_keys($session->get('adhesion')));
         $assurance = $em->getRepository('AppBundle:Cotisation')->findOneBy(array('annee'  => $cotisation));
+        $adherants = $session->get('adhesion');
 
         return $this->render('default/borderau_save_adherant.html.twig', array(
             'cotisation'  => $cotisation,
             'adherant'  => $adherant,
             'cotisants' => $cotisants,
             'assurance' => $assurance,
+            'adherants' => $adherants,
         ));
     }
 
