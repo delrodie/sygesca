@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -102,5 +103,33 @@ class DefaultController extends Controller
         return $this->render('default/cotisation_liste.html.twig', array(
             'cotisations' => $cotisations,
         ));
+    }
+
+    /**
+     * Factures des
+     * @Route("/facture", name="facture")
+     */
+    public function factureAction()
+    {
+      $em = $this->getDoctrine()->getManager();
+
+      //$users = $em->getRepository('AppBundle:User')->findAll();
+
+      //$html = $this->renderView('statistiques/nombres.html.twig', array('nombre' => 25));
+      $html = $this->renderView('imprime/modele.html.twig');
+      $html2pdf = $this->get('html2pdf_factory')->create('L', 'A4', 'fr', true, 'UTF-8', array(10, 10, 10, 10));
+      $html2pdf->pdf->SetAuthor('EdenArt');
+        $html2pdf->pdf->SetTitle('SyGesCa ');
+        $html2pdf->pdf->SetSubject('Facture DevAndClick');
+        $html2pdf->pdf->SetKeywords('facture,devandclick');
+        $html2pdf->pdf->SetDisplayMode('real');
+        $html2pdf->writeHTML($html);
+        $html2pdf->Output('Facture.pdf');
+
+        $response = new Response();
+        $response->headers->set('Content-type' , 'application/pdf');
+
+        return $response;
+
     }
 }

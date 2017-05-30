@@ -209,10 +209,37 @@ class RegionalController extends Controller
         $bordereau = $em->getRepository('AppBundle:Bordereau')->findOneById($id);
         $assurance = $em->getRepository('AppBundle:Cotisation')->findOneBy(array('annee' => $cotisation));
 
-        return $this->render('default/bordereau_regional_print.html.twig', array(
+        // La region par son code
+        $regionCode = $bordereau->getCotisants()['region'];
+        $region = $em->getRepository('AppBundle:Region')->findOneBy(array('code' => $regionCode));
+
+        /*return $this->render('default/bordereau_regional_print.html.twig', array(
             'bordereau' => $bordereau,
             'assurance' => $assurance,
+            'region'  => $region,
+        ));*/
+
+        $ref = strtoupper($region->getNom()).': Bordereau pas encore valide No '.$bordereau->getNumero();
+        $doc = 'Bordereau pas encore valide No '.$bordereau->getNumero().' pour la region '.strtoupper($region->getNom()).'.pdf';
+
+        $html = $this->renderView('imprime/bordereau_no_valide_print.html.twig', array(
+            'bordereau' => $bordereau,
+            'assurance' => $assurance,
+            'region'  => $region,
         ));
+        $html2pdf = $this->get('html2pdf_factory')->create('L', 'A4', 'fr', true, 'UTF-8', array(10, 10, 10, 10));
+        $html2pdf->pdf->SetAuthor('ASCCI');
+        $html2pdf->pdf->SetTitle($ref);
+        $html2pdf->pdf->SetSubject('Borderau cotisation nationale');
+        //$html2pdf->pdf->SetKeywords('Bordereau,devandclick');
+        $html2pdf->pdf->SetDisplayMode('real');
+        $html2pdf->writeHTML($html);
+        $html2pdf->Output($doc);
+
+        $response = new Response();
+        $response->headers->set('Content-type' , 'application/pdf');
+
+        return $response;
     }
 
     /**
@@ -234,11 +261,27 @@ class RegionalController extends Controller
         $regionCode = $bordereau->getCotisants()['region'];
         $region = $em->getRepository('AppBundle:Region')->findOneBy(array('code' => $regionCode));
 
-        return $this->render('default/bordereau_print.html.twig', array(
+        $ref = strtoupper($region->getNom()).': Bordereau No '.$bordereau->getNumero();
+        $doc = 'Bordereau No '.$bordereau->getNumero().' pour la region '.strtoupper($region->getNom()).'.pdf';
+
+        $html = $this->renderView('imprime/bordereau_print.html.twig', array(
             'bordereau' => $bordereau,
             'assurance' => $assurance,
             'region'  => $region,
         ));
+        $html2pdf = $this->get('html2pdf_factory')->create('L', 'A4', 'fr', true, 'UTF-8', array(10, 10, 10, 10));
+        $html2pdf->pdf->SetAuthor('ASCCI');
+        $html2pdf->pdf->SetTitle($ref);
+        $html2pdf->pdf->SetSubject('Borderau cotisation nationale');
+        //$html2pdf->pdf->SetKeywords('Bordereau,devandclick');
+        $html2pdf->pdf->SetDisplayMode('real');
+        $html2pdf->writeHTML($html);
+        $html2pdf->Output($doc);
+
+        $response = new Response();
+        $response->headers->set('Content-type' , 'application/pdf');
+
+        return $response;
     }
 
     /**
