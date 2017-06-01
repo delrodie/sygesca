@@ -311,6 +311,7 @@ class BordereauController extends Controller
           $cotisant->setNumero($numero);
           $cotisant->setCotisation($cotisation);
           $cotisant->setBranche($branche);
+          $cotisant->setFonction($fonction);
           $em->persist($cotisant);
           $em->flush();
 
