@@ -81,6 +81,13 @@ class Scout
     /**
      * @var string
      *
+     * @ORM\Column(name="fonction", type="string", length=75, nullable=true)
+     */
+    private $fonction;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="nationalite", type="string", length=75, nullable=true)
      */
     private $nationalite;
@@ -654,5 +661,29 @@ class Scout
     public function getContactparent()
     {
         return $this->contactparent;
+    }
+
+    /**
+     * Set fonction
+     *
+     * @param string $fonction
+     *
+     * @return Scout
+     */
+    public function setFonction($fonction)
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    /**
+     * Get fonction
+     *
+     * @return string
+     */
+    public function getFonction()
+    {
+        return $this->fonction;
     }
 }

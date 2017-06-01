@@ -651,4 +651,36 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
       return $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Liste des scouts selon la région
+     *
+     * @author: Delrodie AMOIKON
+     * @version: v1.0 01/06/2017
+     */
+    public function getAllScoutsByRegion($region, $annee, $statut, $sexe, $fonction, $branche)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('s.cotisation = :annee')
+                   ->orWhere('s.sexe = :sexe')
+                   ->orWhere('s.fonction LIKE :fonction')
+                   ->orWhere('s.branche LIKE :branche')
+                   ->orWhere('t.libelle LIKE :statut')
+                   ->andWhere('r.id = :region')
+                   ->setParameters(array(
+                      'annee' => $annee,
+                      'sexe'  => $sexe,
+                      'fonction'=> '%'.$fonction.'%',
+                      'branche' => '%'.$branche.'%',
+                      'region'  => $region,
+                      'statut'  => '%'.$statut.'%'
+                   ))
+                   ->OrderBy('s.nom', 'ASC')
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
 }
