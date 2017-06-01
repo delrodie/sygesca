@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Scout;
+
+use AppBundle\Services\Branche;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -99,6 +101,15 @@ class ScoutController extends Controller
                     'scout' => $scout,
                     'form' => $editForm->createView(),
                 ));
+            }
+
+            // Affection de la branche si le scout est un jeune
+            if (($scout->getStatut()->getLibelle() === 'Jeune') ||
+                ($scout->getStatut()->getLibelle() === 'jeune') ||
+                ($scout->getStatut()->getLibelle() === 'JEUNE')) {
+
+              $branche = $this->container->get('jeune_branche')->branche($scout->getDatenaiss()); // Service\Branche
+              $scout->setBranche($branche);
             }
 
             // Generation du matricule

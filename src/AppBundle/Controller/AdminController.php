@@ -80,4 +80,21 @@ class AdminController extends Controller
         ));
     }
 
+    /**
+     * La region concernée par le code identifiant
+     *
+     * @Route("/{code}/region", name="region_par_code")
+     */
+    public function regionparcodeAction($code)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $region = $em->getRepository('AppBundle:Region')->findOneby(array('code'  => $code));
+
+        return $this->render('default/region_nom.html.twig', array(
+            'region'  => $region,
+        ));
+
+    }
+
 }

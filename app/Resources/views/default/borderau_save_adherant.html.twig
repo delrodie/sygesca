@@ -64,6 +64,7 @@
                     <th class="text-center">#</th>
                     <th class="text-center">Noms & Prenoms</th>
                     <th class="text-center">Naissances</th>
+                    <th class="text-center">Fonctions</th>
                     <th class="text-center">Sexes</th>
                     <th class="text-center"></th>
                   </tr>
@@ -74,6 +75,7 @@
                     <td class="text-right">{{ loop.index }}</td>
                     <td>{{ cotisant.nom|upper }} {{ cotisant.prenoms|title }}</td>
                     <td class="text-center">{{ cotisant.datenaiss }}</td>
+                    <td class="text-center">{{ adherants[cotisant.id] }}</td>
                     <td class="text-center">{{ cotisant.sexe }}</td>
                     <td class="text-center">
                       <a href="#" title="Supprimer"><i class="fa fa-trash"></i></a>
@@ -113,7 +115,7 @@
                 <div class="col-xs-12">
                   <div class="form-group">
                     <label class="control-label">Fonction <span class="color:red;">*</span></label>
-                    <select class="form-control selectpicker" name="fonction" data-live-search="true">
+                    <select class="form-control selectpicker" name="fonction" data-live-search="true" id="scout_fonction" onChange="fonctionScout()">
                       <option value="">-- Selectionnez la fonction --</option>
                       <option value="Louveteau">Louveteau({{ assurance.jeune|number_format('0','','.') }})</option>
                       <option value="Eclaireur">Eclaireur({{ assurance.jeune|number_format('0','','.') }})</option>
@@ -134,11 +136,25 @@
                   </div>
                 </div>
               </div>
+              <div class="row" id="chef_unite">
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label">Branche <span class="color:red;">*</span></label>
+                    <select class="form-control selectpicker" name="branche" data-live-search="true">
+                      <option value="">-- Selectionnez la branche --</option>
+                      <option value="Meute">Meute</option>
+                      <option value="Troupe">Troupe</option>
+                      <option value="Generation">Génération</option>
+                      <option value="Communaute">Communauté</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="panel-footer">
               <div class="row">
                 <div class="col-sm-7 col-sm-offset-3 text-right">
-                  <button class="btn btn-default" type="reset">Annuler</button>
+                  <a href="{{ path('bordereau_scouts_adherants', {'cotisation': cotisation })}}" class="btn btn-default">Annuler</a>
                   <button class="btn btn-primary" type="submit">Ajouter</button>
                 </div>
               </div>
@@ -155,4 +171,14 @@
 {{ parent() }}
 <script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
 <script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
+<script>
+  function fonctionScout()
+  {
+    if ((document.getElementById("cotisationForm").elements["scout_fonction"].value) == "CU") {
+      document.getElementById('chef_unite').style.display = "block";
+    } else {
+      document.getElementById('chef_unite').style.display = "none";
+    }
+  }
+</script>
 {% endblock %}

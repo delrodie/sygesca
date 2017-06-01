@@ -131,7 +131,15 @@
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label class="control-label">Contact   <span style="color: red"></span></label>
-                      <input type="text" value="{{ scout.contact }}" class="form-control" readonly="readonly">
+                      {% if (scout.contactparent) %}
+                        {% if (scout.contact) %}
+                          <input type="text" value="{{ scout.contact }} / {{ scout.contactparent }}" class="form-control" readonly="readonly">
+                        {% else %}
+                          <input type="text" value="{{ scout.contactparent }}" class="form-control" readonly="readonly">   
+                        {% endif %}
+                      {% else %}
+                        <input type="text" value="{{ scout.contact }}" class="form-control" readonly="readonly">
+                      {% endif %}
                     </div>
                   </div>
                   <div class="col-sm-4">

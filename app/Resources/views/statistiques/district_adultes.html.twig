@@ -1,0 +1,26 @@
+<table class="table table-hover table-vcenter">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th class="text-center">Districts</th>
+      <th class="text-center">Totaux</th>
+      <th class="hidden-xs text-center">Meutes</th>
+      <th class="hidden-xs text-center">Troupes</th>
+      <th class="hidden-xs text-center">Generations</th>
+      <th class="hidden-xs text-center">Communautés</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for district in districts %}
+    <tr>
+      <td class="text-right">{{ loop.index }}</td>
+      <td>{{ district.nom|upper }}</td>
+      <td class="text-center">{{ render(url('statistiques_district_statut_cotisant', {'district': district.id, 'statut': 'adulte'}))}}</td>
+      <td class="hidden-xs text-center">{{ render(url('statistiques_district_statut_branche', {'district': district.id, 'statut': 'adulte', 'branche': 'meute'}))}}</td>
+      <td class="hidden-xs text-center">{{ render(url('statistiques_district_statut_branche', {'district': district.id, 'statut': 'adulte', 'branche': 'troupe'}))}}</td>
+      <td class="hidden-xs text-center">{{ render(url('statistiques_district_statut_branche', {'district': district.id, 'statut': 'adulte', 'branche': 'generation'}))}}</td>
+      <td class="hidden-xs text-center">{{ render(url('statistiques_district_statut_branche', {'district': district.id, 'statut': 'adulte', 'branche': 'communaute'}))}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -139,10 +139,17 @@ class RegionalController extends Controller
         if (!$session->has('adhesion')) $session->set('adhesion',array());
         $adhesion = $session->get('adhesion');
 
+        // Mise en session de la branche du chef
+        if (!$session->has('chefUnite')) $session->set('chefUnite',array());
+        $chefUnite = $session->get('chefUnite');
+
         // Si la session existe alors modifier la valeur sinon ajouter les nouveaux adherants
-        if (array_key_exists($scout, $adhesion)) {
+        if ((array_key_exists($scout, $adhesion)) || (array_key_exists($scout, $chefUnite))) {
             if($request->query->get('fonction') != NULL) {
                 $adhesion[$scout] = $request->query->get('fonction');
+            }
+            if($request->query->get('branche') != NULL) {
+                $chefUnite[$scout] = $request->query->get('branche');
             }
         } else {
             if($request->query->get('fonction') != NULL){
@@ -150,9 +157,13 @@ class RegionalController extends Controller
             }else{
                 return $this->redirectToRoute('adherant_cotisation', array("scout"  => $scout, "cotisation" => $cotisation));
             }
+            if($request->query->get('branche') != NULL) {
+                $chefUnite[$scout] = $request->query->get('branche');
+            }
         }
 
         $session->set('adhesion',$adhesion);
+        $session->set('chefUnite',$chefUnite);
 
         $cotisant = $em->getRepository('AppBundle:Scout')->findOneById($scout);
         $this->addFlash('notice', $cotisant->getNom()." ".$cotisant->getPrenoms()." a été ajouté avec succès au bordereau.");
@@ -175,12 +186,14 @@ class RegionalController extends Controller
         $adherant = $em->getRepository('AppBundle:Scout')->findOneById($scout);
         $cotisants = $em->getRepository('AppBundle:Scout')->findArray(array_keys($session->get('adhesion')));
         $assurance = $em->getRepository('AppBundle:Cotisation')->findOneBy(array('annee'  => $cotisation));
+        $adherants = $session->get('adhesion');
 
         return $this->render('default/borderau_save_adherant.html.twig', array(
             'cotisation'  => $cotisation,
             'adherant'  => $adherant,
             'cotisants' => $cotisants,
             'assurance' => $assurance,
+            'adherants' => $adherants,
         ));
     }
 
@@ -196,10 +209,37 @@ class RegionalController extends Controller
         $bordereau = $em->getRepository('AppBundle:Bordereau')->findOneById($id);
         $assurance = $em->getRepository('AppBundle:Cotisation')->findOneBy(array('annee' => $cotisation));
 
-        return $this->render('default/bordereau_regional_print.html.twig', array(
+        // La region par son code
+        $regionCode = $bordereau->getCotisants()['region'];
+        $region = $em->getRepository('AppBundle:Region')->findOneBy(array('code' => $regionCode));
+
+        /*return $this->render('default/bordereau_regional_print.html.twig', array(
             'bordereau' => $bordereau,
             'assurance' => $assurance,
+            'region'  => $region,
+        ));*/
+
+        $ref = strtoupper($region->getNom()).': Bordereau pas encore valide No '.$bordereau->getNumero();
+        $doc = 'Bordereau pas encore valide No '.$bordereau->getNumero().' pour la region '.strtoupper($region->getNom()).'.pdf';
+
+        $html = $this->renderView('imprime/bordereau_no_valide_print.html.twig', array(
+            'bordereau' => $bordereau,
+            'assurance' => $assurance,
+            'region'  => $region,
         ));
+        $html2pdf = $this->get('html2pdf_factory')->create('L', 'A4', 'fr', true, 'UTF-8', array(10, 10, 10, 10));
+        $html2pdf->pdf->SetAuthor('ASCCI');
+        $html2pdf->pdf->SetTitle($ref);
+        $html2pdf->pdf->SetSubject('Borderau cotisation nationale');
+        //$html2pdf->pdf->SetKeywords('Bordereau,devandclick');
+        $html2pdf->pdf->SetDisplayMode('real');
+        $html2pdf->writeHTML($html);
+        $html2pdf->Output($doc);
+
+        $response = new Response();
+        $response->headers->set('Content-type' , 'application/pdf');
+
+        return $response;
     }
 
     /**
@@ -221,11 +261,27 @@ class RegionalController extends Controller
         $regionCode = $bordereau->getCotisants()['region'];
         $region = $em->getRepository('AppBundle:Region')->findOneBy(array('code' => $regionCode));
 
-        return $this->render('default/bordereau_print.html.twig', array(
+        $ref = strtoupper($region->getNom()).': Bordereau No '.$bordereau->getNumero();
+        $doc = 'Bordereau No '.$bordereau->getNumero().' pour la region '.strtoupper($region->getNom()).'.pdf';
+
+        $html = $this->renderView('imprime/bordereau_print.html.twig', array(
             'bordereau' => $bordereau,
             'assurance' => $assurance,
             'region'  => $region,
         ));
+        $html2pdf = $this->get('html2pdf_factory')->create('L', 'A4', 'fr', true, 'UTF-8', array(10, 10, 10, 10));
+        $html2pdf->pdf->SetAuthor('ASCCI');
+        $html2pdf->pdf->SetTitle($ref);
+        $html2pdf->pdf->SetSubject('Borderau cotisation nationale');
+        //$html2pdf->pdf->SetKeywords('Bordereau,devandclick');
+        $html2pdf->pdf->SetDisplayMode('real');
+        $html2pdf->writeHTML($html);
+        $html2pdf->Output($doc);
+
+        $response = new Response();
+        $response->headers->set('Content-type' , 'application/pdf');
+
+        return $response;
     }
 
     /**

@@ -47,17 +47,6 @@
           {% endif %}
         {% endfor %}
         <!-- \Message -->
-        {% if (is_granted('ROLE_ADMIN')) %}
-        <br>
-        <div class="row">
-          <div class="col-xs-3 col-xs-offset-9">
-            <a href="{{ path('admin_user_new')}}" title="">
-              <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un nouveau district</button>
-            </a>
-          </div>
-        </div>
-        <br>
-        {% endif %}
 
     <div class="panel">
       <div class="panel-heading">

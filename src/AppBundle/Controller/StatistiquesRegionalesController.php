@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class StatistiquesController extends Controller
+class StatistiquesRegionalesController extends Controller
 {
 
   /* =======================================================
@@ -17,9 +17,9 @@ class StatistiquesController extends Controller
     /**
      * Nombre de cotisants par statut
      *
-     * @Route("/statistiques/nombre-de-{statut}-cotisants", name="statistiques_nbstatut_contisant")
+     * @Route("/statistiques-regionales/nombre-de-{statut}-cotisants-{region}", name="statistiques_nbstatut_contisant_regional")
      */
-    public function nbstatutcotisantsAction($statut)
+    public function nbstatutcotisantsAction($statut, $region )
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -31,7 +31,7 @@ class StatistiquesController extends Controller
         if ($cotisation === 0) {
           $nombre = 0;
         } else{
-          $nombre = $em->getRepository('AppBundle:Scout')->getNombreStatutCotisant($statut, $cotisation->getAnnee());
+          $nombre = $em->getRepository('AppBundle:Scout')->getNombreStatutCotisantRegional($statut, $cotisation->getAnnee(), $region);
         }
 
         return $this->render('statistiques/nombres.html.twig', array(
@@ -42,9 +42,9 @@ class StatistiquesController extends Controller
     /**
      * Pourcentage de cotisants par branche
      *
-     * @Route("/statistiques/pourcentage-de-{statut}-cotisants", name="statistiques_pourcentagestatut_contisant")
+     * @Route("/statistiques-regionales/pourcentage-de-{statut}-cotisants-{region}", name="statistiques_pourcentagestatut_contisant_regional")
      */
-    public function pourcentagestatutcotisantsAction($statut)
+    public function pourcentagestatutcotisantsAction($statut, $region)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -56,13 +56,13 @@ class StatistiquesController extends Controller
         if ($cotisation === 0) {
             $pourcentage = 0;
         } else {
-            $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
+            $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisantRegional($cotisation->getAnnee(), $region);
 
             if ($cotisantTotal === "0") {
               $cotisantTotal = 1;
             }
 
-            $nombre = $em->getRepository('AppBundle:Scout')->getNombreStatutCotisant($statut, $cotisation->getAnnee());
+            $nombre = $em->getRepository('AppBundle:Scout')->getNombreStatutCotisantRegional($statut, $cotisation->getAnnee(), $region);
             $pourcentage = round($nombre*100/$cotisantTotal, 1);
         }
 
@@ -72,6 +72,7 @@ class StatistiquesController extends Controller
         ));
     }
 
+
     /* =======================================================
      * ================== STATISTIQUES DES GENRES ==========
      * =======================================================
@@ -80,9 +81,9 @@ class StatistiquesController extends Controller
     /**
      * Nombre de cotisants par genre
      *
-     * @Route("/statistiques/nombre-de-{genre}-cotisantes", name="statistiques_nbgenre_contisant")
+     * @Route("/statistiques-region/nombre-de-{genre}-cotisantes-{region}", name="statistiques_nbgenre_contisant_regional")
      */
-    public function nbgenrecotisantesAction($genre)
+    public function nbgenrecotisantesAction($genre, $region)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -94,7 +95,7 @@ class StatistiquesController extends Controller
         if ($cotisation === 0 ) {
           $nombre = 0;
         } else {
-          $nombre = $em->getRepository('AppBundle:Scout')->getNombreGenreCotisant($genre, $cotisation->getAnnee());
+          $nombre = $em->getRepository('AppBundle:Scout')->getNombreGenreCotisantRegional($genre, $cotisation->getAnnee(), $region);
         }
 
 
@@ -106,9 +107,9 @@ class StatistiquesController extends Controller
     /**
      * Pourcentage de cotisants par branche
      *
-     * @Route("/statistiques/pourcentage-de-{genre}-cotisantes", name="statistiques_pourcentagegenre_contisant")
+     * @Route("/statistiques-regionales/pourcentage-de-{genre}-cotisantes-{region}", name="statistiques_pourcentagegenre_contisant_regional")
      */
-    public function pourcentageGenrecotisantsAction($genre)
+    public function pourcentageGenrecotisantsAction($genre, $region)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -120,13 +121,13 @@ class StatistiquesController extends Controller
         if ($cotisation === 0) {
            $pourcentage = 0;
         } else {
-          $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
+          $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisantRegional($cotisation->getAnnee(), $region);
 
           if ($cotisantTotal === "0") {
             $cotisantTotal = 1;
           }
 
-          $nombre = $em->getRepository('AppBundle:Scout')->getNombreGenreCotisant($genre, $cotisation->getAnnee());
+          $nombre = $em->getRepository('AppBundle:Scout')->getNombreGenreCotisantRegional($genre, $cotisation->getAnnee(), $region);
           $pourcentage = round($nombre*100/$cotisantTotal, 1);
         }
 
@@ -142,11 +143,11 @@ class StatistiquesController extends Controller
     */
 
     /**
-     * Nombre de cotisants par branche
+     * Nombre de cotisants par branche de la region
      *
-     * @Route("/statistiques/nombre-de-{statut}-{branche}-cotisants", name="statistiques_nbbranche_contisant")
+     * @Route("/statistiques-regionales/nombre-de-{statut}-{branche}-cotisants-{region}", name="statistiques_nbbranche_contisant_regional")
      */
-    public function nbBranchecotisantsAction($statut, $branche)
+    public function nbBranchecotisantsAction($statut, $branche, $region)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -158,7 +159,7 @@ class StatistiquesController extends Controller
         if ($cotisation === 0) {
             $nombre = 0;
         } else {
-            $nombre = $em->getRepository('AppBundle:Scout')->getNombreBrancheCotisant($statut, $branche, $cotisation->getAnnee());
+            $nombre = $em->getRepository('AppBundle:Scout')->getNombreBrancheCotisantRegional($statut, $branche, $cotisation->getAnnee(), $region);
         }
 
         return $this->render('statistiques/nombres.html.twig', array(
@@ -169,9 +170,9 @@ class StatistiquesController extends Controller
     /**
      * Pourcentage de cotisants par branche
      *
-     * @Route("/statistiques/pourcentage-de-{statut}-{branche}-cotisants", name="statistiques_pourcentagebranche_contisant")
+     * @Route("/statistiques-regionales/pourcentage-de-{statut}-{branche}-cotisants-{region}", name="statistiques_pourcentagebranche_contisant_regional")
      */
-    public function pourcentageBranchecotisantsAction($statut, $branche)
+    public function pourcentageBranchecotisantsAction($statut, $branche, $region)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -183,49 +184,27 @@ class StatistiquesController extends Controller
         if ($cotisation === 0) {
             $pourcentage = 0;
         } else {
-            $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotStatutCotisant($statut, $cotisation->getAnnee());
+            $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotStatutCotisantRegional($statut, $cotisation->getAnnee(), $region);
 
             if ($cotisantTotal === "0") {
               $cotisantTotal = 1;
             }
 
-            $nbBranche = $em->getRepository('AppBundle:Scout')->getNombreBrancheCotisant($statut, $branche, $cotisation->getAnnee());
+            $nbBranche = $em->getRepository('AppBundle:Scout')->getNombreBrancheCotisantRegional($statut, $branche, $cotisation->getAnnee(), $region);
             $pourcentage = round($nbBranche*100/$cotisantTotal, 1);
         }
-
 
         return $this->render('statistiques/pourcentage.html.twig', array(
             'pourcentage' => $pourcentage,
         ));
     }
 
-    /* =======================================================
-     * ============== STATISTIQUES GLOBALES REGIONS ==========
-     * =======================================================
-    */
-
     /**
-     * Liste des régions
+     * Nombre total de cotisant par District
      *
-     * @Route("/statistiques/liste-des-regions", name="statistiques_region")
+     * @Route("/statistiques-regionales/district{district}-cotisants-total", name="statistiques_district_total_cotisant")
      */
-    public function regionlisteAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $regions = $em->getRepository('AppBundle:Region')->findAll();
-
-        return $this->render('statistiques/region_liste.html.twig', array(
-              'regions'  => $regions,
-        ));
-    }
-
-    /**
-     * Nombre total de cotisant par Region
-     *
-     * @Route("/statistiques/region{region}-cotisants-total", name="statistiques_region_total_cotisant")
-     */
-    public function regionTotalCotisantAction($region)
+    public function districtTotalCotisantAction($district)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -238,20 +217,41 @@ class StatistiquesController extends Controller
         } else {
             $annee = $cotisation->getAnnee();
 
-            $nombre = $em->getRepository('AppBundle:Scout')->getNbTotalCotisantParregion($region, $annee);
+            $nombre = $em->getRepository('AppBundle:Scout')->getNbTotalCotisantParDistrict($district, $annee);
         }
 
-        return $this->render('statistiques/nombres.html.twig', array(
+        return $this->render('statistiques/histogramme_region.html.twig', array(
             'nombre' => $nombre,
         ));
     }
 
+    /* =======================================================
+     * ============== STATISTIQUES GLOBALES DISTRICTS ==========
+     * =======================================================
+    */
+
     /**
-     * Nombre total de cotisant par statut  de la Region
+     * Liste des districts
      *
-     * @Route("/statistiques/region{region}-cotisants-{statut}", name="statistiques_region_statut_cotisant")
+     * @Route("/statistiques-regionales/liste-des-districts-{region}", name="statistiques_districts")
      */
-    public function regionStatutCotisantAction($region, $statut)
+    public function districtlisteAction($region)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $districts = $em->getRepository('AppBundle:District')->findBy(array('region'  => $region), array('nom'  => 'ASC'));
+
+        return $this->render('statistiques/district_liste.html.twig', array(
+              'districts'  => $districts,
+        ));
+    }
+
+    /**
+     * Nombre total de cotisant par statut  du district
+     *
+     * @Route("/statistiques-regionales/districts{district}-cotisants-{statut}", name="statistiques_district_statut_cotisant")
+     */
+    public function districtStatutCotisantAction($district, $statut)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -264,7 +264,7 @@ class StatistiquesController extends Controller
         } else {
           $annee = $cotisation->getAnnee();
 
-          $nombre = $em->getRepository('AppBundle:Scout')->getNbStatutCotisantParregion($region, $statut, $annee);
+          $nombre = $em->getRepository('AppBundle:Scout')->getNbStatutCotisantParDistrict($district, $statut, $annee);
         }
 
         return $this->render('statistiques/nombres.html.twig', array(
@@ -273,11 +273,11 @@ class StatistiquesController extends Controller
     }
 
     /**
-     * Nombre total de cotisant par genre  de la Region
+     * Nombre total de cotisant par genre  du district
      *
-     * @Route("/statistiques/region-{region}-cotisants-{genre}", name="statistiques_region_genre_cotisant")
+     * @Route("/statistiques-regionales/district-{district}-cotisants-{genre}", name="statistiques_district_genre_cotisant")
      */
-    public function regionGenreCotisantAction($region, $genre)
+    public function regionGenreCotisantAction($district, $genre)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -290,7 +290,7 @@ class StatistiquesController extends Controller
         } else {
           $annee = $cotisation->getAnnee();
 
-          $nombre = $em->getRepository('AppBundle:Scout')->getNbGenreCotisantParregion($region, $genre, $annee);
+          $nombre = $em->getRepository('AppBundle:Scout')->getNbGenreCotisantParDistrict($district, $genre, $annee);
         }
 
         return $this->render('statistiques/nombres.html.twig', array(
@@ -301,25 +301,25 @@ class StatistiquesController extends Controller
     /**
      * Statistiques adultes de la region
      *
-     * @Route("/statistiques/adultes-listes-regions", name="statistiques_region_adultes")
+     * @Route("/statistiques-regionales/adultes-listes-districts-{region}", name="statistiques_district_adultes")
      */
-    public function regionAdultesAction()
+    public function districtAdultesAction($region)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $regions = $em->getRepository('AppBundle:Region')->findAll();
+        $districts = $em->getRepository('AppBundle:District')->findBy(array('region' => $region), array('nom' => 'ASC'));
 
-        return $this->render('statistiques/region_adultes.html.twig', array(
-              'regions'  => $regions,
+        return $this->render('statistiques/district_adultes.html.twig', array(
+              'districts'  => $districts,
         ));
     }
 
     /**
      * Nombre total de cotisant par statut  de la Region
      *
-     * @Route("/statistiques/region/{region}-cotisants-{statut}-par-{branche}", name="statistiques_region_statut_branche")
+     * @Route("/statistiques-regionales/district/{district}-cotisants-{statut}-par-{branche}", name="statistiques_district_statut_branche")
      */
-    public function regionStatutBrancheCotisantAction($region, $statut, $branche)
+    public function districtStatutBrancheCotisantAction($district, $statut, $branche)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -332,9 +332,8 @@ class StatistiquesController extends Controller
         } else {
           $annee = $cotisation->getAnnee();
 
-          $nombre = $em->getRepository('AppBundle:Scout')->getNbStatutBrancheCotisantParregion($region, $statut, $annee, $branche);
+          $nombre = $em->getRepository('AppBundle:Scout')->getNbStatutBrancheCotisantParDistrict($district, $statut, $annee, $branche);
         }
-
 
         return $this->render('statistiques/nombres.html.twig', array(
             'nombre' => $nombre,
@@ -342,56 +341,19 @@ class StatistiquesController extends Controller
     }
 
     /**
-     * Statistiques adultes de la region
+     * Statistiques jeunes du district
      *
-     * @Route("/statistiques/jeunes-listes-regions", name="statistiques_region_jeunes")
+     * @Route("/statistiques-regionales/jeunes-listes-district-{region}", name="statistiques_district_jeunes")
      */
-    public function regionJeunesAction()
+    public function districtJeunesAction($region)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $regions = $em->getRepository('AppBundle:Region')->findAll();
+        $districts = $em->getRepository('AppBundle:District')->findBy(array('region' => $region), array('nom' => 'ASC'));
 
-        return $this->render('statistiques/region_jeunes.html.twig', array(
-              'regions'  => $regions,
+        return $this->render('statistiques/district_jeunes.html.twig', array(
+              'districts'  => $districts,
         ));
-    }
-
-    /* =======================================================
-     * ================== STATISTIQUES DES GLOBALES ==========
-     * =======================================================
-    */
-
-    /**
-     * Pourcentage des cotisants sur le nombre total enregistré
-     *
-     * @Route("/statistiques/globale", name="statistiques_globales")
-     */
-    public function globalAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        // Determination de l'année accademique encours
-        $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
-
-        if ($cotisation === 0) {
-          $pourcentage = 0;
-        } else {
-          $enregistres = $em->getRepository('AppBundle:Scout')->getTotalScout();
-          $cotisantTotal = $em->getRepository('AppBundle:Scout')->getNbTotCotisant($cotisation->getAnnee());
-
-          if ($cotisantTotal === 0) {
-            $cotisantTotal = 1;
-          }
-
-          $pourcentage = round($cotisantTotal*100/$enregistres, 1);
-        }
-
-
-        return $this->render('statistiques/pourcentage.html.twig', array(
-            'pourcentage' => $pourcentage,
-        ));
-
     }
 
 }

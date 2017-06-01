@@ -216,6 +216,13 @@ $(document).ready(function() {
                         regexp: { regexp: /^[Z0-9\.]+$/, message: "Ce champ doit être uniquement numérique" }
                     }
                 },
+                'appbundle_scout[contactparent]': {
+                    validators: {
+                        notEmpty: { message: "Le telephone du parent est obligatoire." },
+                        stringLength: { min: 8, max: 8, message: "Ce numéro de téléphone doit comporter 8 chiffres" },
+                        regexp: { regexp: /^[Z0-9\.]+$/, message: "Ce champ doit être uniquement numérique" }
+                    }
+                },
                 'appbundle_scout[email]': {
                     validators: {
                         emailAddress: { message: "L'adresse entrée n'est pas une adresse email valide" }
@@ -269,6 +276,13 @@ $(document).ready(function() {
                 fonction: {
                     validators: {
                         notEmpty: { message: "La fonction est obligatoire est obligatoire." },
+                        //stringLength: { min: 4, max: 5, message: "Veuillez entrer sans espace ni separateur de millier" },
+                        //regexp: { regexp: /^[Z0-9\.]+$/, message: "Le montant doit être uniquement numérique, sans espace ni point" }
+                    }
+                },
+                branche: {
+                    validators: {
+                        notEmpty: { message: "La branche du chef d'unité est obligatoire est obligatoire." },
                         //stringLength: { min: 4, max: 5, message: "Veuillez entrer sans espace ni separateur de millier" },
                         //regexp: { regexp: /^[Z0-9\.]+$/, message: "Le montant doit être uniquement numérique, sans espace ni point" }
                     }

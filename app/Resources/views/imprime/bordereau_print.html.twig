@@ -1,0 +1,92 @@
+<style type="text/css">
+<!---->
+.bordereau-entete img{float: left; width: 50px;}
+.bordereau-entete .ascci{text-transform: uppercase; font-weight: bold; padding-top: 7px; padding-left: 10px; }
+.bordereau-entete .contact{padding-top: 7px; padding-left: 10px; }
+.poweredBy{font-size: 8px; color: #666; font-weight: bold;}
+/*.bordereau-liste{margin-top: 0px;}*/
+.bordereau-liste th { background-color: #999; border-right: solid 1px #ccc; padding-top: 5px; padding-bottom: 5px; font-size: 11px;}
+.bordereau-liste td { padding-top: 3px; padding-bottom: 3px; border-bottom: solid 1px #999; border-right: solid 1px #999; font-size: 12px; font-family: Arial;}
+.bordereau-liste td:first-child{ border-left: solid 1px #999;}
+.bordereau-liste tr:nth-of-type(an+2) td{ background-color: #ccc;}
+</style>
+<page backtop="30mm" backbottom="15mm" backleft="5mm" backright="5mm">
+  <page_header>
+    <table style="width: 100%;">
+      <tr>
+        <td style="text-align:left; width: 60%;" class="bordereau-entete">
+          <img src="ressources/img/logo.png" alt="">
+          <div class="ascci">
+            Association des Scouts Catholiques de Côte d'Ivoire
+          </div>
+          <div class="contact">
+            01 BP 959 ABIDJAN 01 -
+            <strong>Tél</strong> : 20-22-35-22 - <strong>Fax</strong> : 20-21-03-35 -
+            <strong>Email</strong> : assciinter@yahoo.fr
+          </div>
+        </td>
+        <td style="text-align:right; width: 31%">
+          Bordereau N°: <strong>{{ bordereau.numero }}</strong><br><br>
+          Année : <strong>{{ assurance.annee }}</strong>
+        </td>
+      </tr>
+    </table>
+  </page_header>
+  <page_footer>
+      <table style="width: 100%;">
+          <tr>
+              <td style="text-align: left; width: 33%">Région: <strong>{{ region.nom|upper }}</strong></td>
+              <td style="text-align: center; width: 33%">[[page_cu]]/[[page_nb]]</td>
+              <td style="text-align: right; width: 33%"><span class="poweredBy">SYGESCA v1.0</span></td>
+          </tr>
+      </table>
+  </page_footer>
+
+  <table cellpadding="0" cellspacing="0" style="width: 100%;" class="bordereau-liste" align="center">
+    <tr style="text-align: center; text-transform: uppercase">
+      <th style="width: 3%">#</th>
+      <th style="width: 8%">Numeros</th>
+      <th style="width: 8%">Matricules</th>
+      <th style="width: 38%">Noms & prenoms</th>
+      <th style="width: 5%">Sexes</th>
+      <th style="width: 11%">Date naissance</th>
+      <th style="width: 10%">Fonctions</th>
+      <th style="width: 9%">Branches</th>
+      <th style="width: 8%">Montants</th>
+    </tr>
+    {% set montant = 0 %}
+    {% set montantTotal = 0 %}
+    {% for cotisant in bordereau.cotisants.scout %}
+      {% if (loop.index % 2 == 0) %}
+      <tr style="background-color: #dcdcdc;">
+        <td style="text-align: right; padding-right: 3px">{{ loop.index }}</td>
+        <td style="text-align: center">{{ render(url('scout_numero', {'matricule': cotisant.matricule})) }}</td>
+        <td style="text-align: center">{{ cotisant.matricule }}</td>
+        <td style="padding-left: 5px;">{{ cotisant.nom|upper }} {{ cotisant.prenoms|title }}</td>
+        <td style="text-align: center">{{ cotisant.sexe }}</td>
+        <td style="text-align: center">{{ cotisant.date }}</td>
+        <td style="padding-left: 5px;">{{ cotisant.fonction }}</td>
+        <td style="padding-left: 5px;">{{ cotisant.branche }}</td>
+        <td style="text-align: right; padding-right: 7px">{{ cotisant.montant|number_format('0','','.') }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td style="text-align: right; padding-right: 3px">{{ loop.index }}</td>
+        <td style="text-align: center">{{ render(url('scout_numero', {'matricule': cotisant.matricule})) }}</td>
+        <td style="text-align: center">{{ cotisant.matricule }}</td>
+        <td style="padding-left: 5px;">{{ cotisant.nom|upper }} {{ cotisant.prenoms|title }}</td>
+        <td style="text-align: center">{{ cotisant.sexe }}</td>
+        <td style="text-align: center">{{ cotisant.date }}</td>
+        <td style="padding-left: 5px;">{{ cotisant.fonction }}</td>
+        <td style="padding-left: 5px;">{{ cotisant.branche }}</td>
+        <td style="text-align: right; padding-right: 7px">{{ cotisant.montant|number_format('0','','.') }}</td>
+      </tr>
+      {% endif %}
+      {% set montantTotal = montantTotal + cotisant.montant %}
+    {% endfor %}
+    <tr>
+      <td colspan="8" style="text-align: right; padding-right: 15px; border-bottom: solid 0px #fff"><strong>TOTAL</strong></td>
+      <td style="text-align: right; padding-right: 7px; font-size: 14px;"><strong>{{ montantTotal|number_format('0','','.') }}</strong></td>
+    </tr>
+  </table>
+</page>

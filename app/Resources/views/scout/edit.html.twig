@@ -55,16 +55,16 @@
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">Branche  <span style="color: red">*</span></label>
-                    {{ form_widget(edit_form.branche) }}
-                    {{ form_errors(edit_form.branche) }}
+                    <label class="control-label">Statut  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.statut) }}
+                    {{ form_errors(edit_form.statut) }}
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">Statut  <span style="color: red">*</span></label>
-                    {{ form_widget(edit_form.statut) }}
-                    {{ form_errors(edit_form.statut) }}
+                    <label class="control-label">Genre  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.sexe) }}
+                    {{ form_errors(edit_form.sexe) }}
                   </div>
                 </div>
               </div>
@@ -85,20 +85,13 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <label class="control-label">Genre  <span style="color: red">*</span></label>
-                      {{ form_widget(edit_form.sexe) }}
-                      {{ form_errors(edit_form.sexe) }}
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="form-group">
                       <label class="control-label">Date de naissance   <span style="color: red">*</span></label>
                       {{ form_widget(edit_form.datenaiss) }}
                       {{ form_errors(edit_form.datenaiss) }}
                     </div>
                   </div>
+                </div>
+                <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label class="control-label">Lieu de naisse  <span style="color: red">*</span></label>
@@ -113,13 +106,20 @@
                       {{ form_errors(edit_form.nationalite) }}
                     </div>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label class="control-label">Contact   <span style="color: red"></span></label>
                       {{ form_widget(edit_form.contact) }}
                       {{ form_errors(edit_form.contact) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4" id="contactParent">
+                    <div class="form-group">
+                      <label class="control-label">Contact parent  <span style="color: red"></span></label>
+                      {{ form_widget(edit_form.contactparent) }}
+                      {{ form_errors(edit_form.contactparent) }}
                     </div>
                   </div>
                   <div class="col-sm-4">
@@ -152,4 +152,14 @@
 {{ parent() }}
 <script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
 <script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
+<script>
+  function statut()
+  {
+    if ((document.getElementById("scoutForm").elements["appbundle_scout_statut"].value) == 2) {
+      document.getElementById('contactParent').style.display = "block";
+    } else {
+      document.getElementById('contactParent').style.display = "none";
+    }
+  }
+</script>
 {% endblock %}

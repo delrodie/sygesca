@@ -17,7 +17,7 @@ $(document).ready(function() {
         { y: "Yopougon", a: 2125 }
     ];
     Morris.Bar({
-        element: "demo-morris-bar",
+        element: "morris-bar",
         data: donnees,
         xkey: "y",
         ykeys: ["a"],

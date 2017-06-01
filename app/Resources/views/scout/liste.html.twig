@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des bordereaux de {{ cotisation }}{% endblock %}
+{% block title %}Liste des scouts{% endblock %}
 
 {% block stylesheets %}
 {{ parent() }}
@@ -11,13 +11,13 @@
 {% block body %}
   <div class="pageheader">
     <h3>
-      <i class="fa fa-home"></i>Gestion des Bordereaux</h3>
+      <i class="fa fa-home"></i>Liste des scouts</h3>
     <div class="breadcrumb-wrapper">
       <span class="label"></span>
       <ol class="breadcrumb">
         <li><a href="#">Accueil</a></li>
         <li><a href="#">Gestion</a></li>
-        <li class="active">Bordereaux</li>
+        <li class="active">Scouts</li>
       </ol>
     </div>
   </div>
@@ -50,8 +50,8 @@
         <br>
     <div class="row">
       <div class="col-xs-3 col-xs-offset-9">
-        <a href="{{ path('bordereau_scouts_adherants', {'cotisation': cotisation})}}" title="">
-          <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un nouveau bordereau</button>
+        <a href="{{ path('scout_new')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un nouveau scout</button>
         </a>
       </div>
     </div>
@@ -59,50 +59,42 @@
 
     <div class="panel">
       <div class="panel-heading">
-        <h3 class="panel-title">Liste des bordereaux de {{ cotisation }}</h3>
+        <h3 class="panel-title">Liste des scouts</h3>
       </div>
       <div class="panel-body">
         <table id="demo-dt-basic" class="table table-striped table-bordered">
           <thead>
             <tr>
               <th class="text-center">#</th>
-              <th class="text-center">Numeros</th>
-              <th class="text-center">Regions</th>
-              <th class="text-center">Dates</th>
-              <th class="text-center">Montants</th>
-              <th class="text-center">Validés</th>
-              <th class="text-center">Actions</th>
+              <th class="text-center mini-desktop">Numeros</th>
+              <th class="text-center">Matricules</th>
+              <th class="text-center">Noms & prenoms</th>
+              <th class="text-center">Genres</th>
+              <th class="text-center">Fonctions</th>
+              <th class="text-center">Branches</th>
             </tr>
           </thead>
           <tbody>
-            {% for bordereau in bordereaus if bordereau %}
+            {% for scout in scouts %}
                 <tr>
-                  <td class="text-right">{{ loop.index }}</td>
-                    <td class="text-center">{{ bordereau.numero }}</td>
-                    <td class="text-center">{{ render(url('region_par_code', {'code': bordereau.cotisants.region}))}}</td>
-                    <td class="text-center">{% if bordereau.publieLe %}{{ bordereau.publieLe|date('d-m-Y H:i:s') }}{% endif %}</td>
-                    <td class="text-right">{{ bordereau.montant|number_format('0','','.') }}</td>
-                    <td class="text-center">
-                      {% if bordereau.valide %}
-                          <span>OUI</span>
-                      {% else %}
-                          <span style="color:red;">NON</span>
-                      {% endif %}
-                    </td>
-                    <td class="text-center">
-                      {% if bordereau.valide %}
-                        <a href="{{ path('impression_bordereau_valide', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Imprimer" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
-                      {% else %}
-                        {% if valid %}
-                          <a href="{{ path('bordereau_edit', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Détails"><i class="fa fa-check"></i></a> |
-                        {% endif %}
-                        <a href="{{ path('impression_bordereau_non_valide', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Visualiser" target="_blank"><i class="fa fa-search"></i></a>
-                      {% endif %}
-                    </td>
+                    <td class="text-right">{{ loop.index }}</td>
+                    <td class="text-center">{{ scout.numero }}</td>
+                    <td class="text-center">{{ scout.matricule }}</td>
+                    <td>{{ scout.nom|upper }} {{ scout.prenoms|title }}</td>
+                    <td class="text-center">{{ scout.sexe }}</td>
+                    <td>{{ scout.fonction }}</td>
+                    <td>{{ scout.branche }}</td>
                 </tr>
             {% endfor %}
           </tbody>
         </table>
+      </div>
+      {% if (statut is null) %}{% set statut = 0 %}{% endif %}
+      {% if (sexe is null) %}{% set sexe = 0 %}{% endif %}
+      {% if (fonction is null) %}{% set fonction = 0 %}{% endif %}
+      {% if (branche is null) %}{% set branche = 0 %}{% endif %}
+      <div class="text-center" style="margin-top: 25px; margin-bottom: 25px; padding-bottom: 25px">
+        <a href="{{ path('imprime_region_liste_pdf', {'statut': statut, 'sexe': sexe, 'fonction': fonction, 'branche': branche})}}" class="btn btn-primary btn-labeled fa fa-file-pdf-o" target="_blank">Télécharger la liste</a>
       </div>
     </div>
 

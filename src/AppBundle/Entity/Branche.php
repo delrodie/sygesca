@@ -28,11 +28,6 @@ class Branche
      */
     private $nom;
 
-    /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Scout", mappedBy="branche")
-    */
-    private $scouts;
-
 
     /**
      * Get id

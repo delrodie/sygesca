@@ -228,6 +228,33 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * Nombre de scouts par statut cotisant de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 03:25
+     */
+    public function getNombreStatutCotisantRegional($statut, $annee, $region)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('t.libelle LIKE :stat')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('r.id = :region')
+                   ->setParameters(array(
+                      'stat'  =>  '%'.$statut.'%' ,
+                      'annee' =>  $annee,
+                      'region'  => $region
+                ))
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * Nombre de scouts par genre cotisant de l'année encours
      *
      * @author: Delrodie AMOIKON
@@ -249,6 +276,32 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * Nombre de scouts de la region par genre cotisant de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 03:55
+     */
+    public function getNombreGenreCotisantRegional($genre, $annee, $region)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('s.sexe LIKE :genre')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('r.id = :region')
+                   ->setParameters(array(
+                      'genre'  =>  '%'.$genre.'%' ,
+                      'annee' =>  $annee,
+                      'region'  => $region
+                ))
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * Nombre de jeunes par branche cotisant de l'année encours
      *
      * @author: Delrodie AMOIKON
@@ -260,14 +313,42 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('s')
                    ->select('count(s.id)')
                    ->join('s.statut', 't')
-                   ->join('s.branche', 'b')
                    ->where('t.libelle LIKE :stat')
                    ->andWhere('s.cotisation = :annee')
-                   ->andWhere('b.nom LIKE :branche')
+                   ->andWhere('s.branche LIKE :branche')
                    ->setParameters(array(
                       'stat'  =>  '%'.$statut.'%' ,
                       'annee' =>  $annee,
                       'branche' => '%'.$branche.'%'
+                ))
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre de jeunes par branche cotisant dans la region de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 17:34
+     */
+    public function getNombreBrancheCotisantRegional($statut, $branche, $annee, $region)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('t.libelle LIKE :stat')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('s.branche LIKE :branche')
+                   ->andWhere('r.id = :region')
+                   ->setParameters(array(
+                      'stat'  =>  '%'.$statut.'%' ,
+                      'annee' =>  $annee,
+                      'branche' => '%'.$branche.'%',
+                      'region'  => $region
                 ))
                 ;
         return $qb->getQuery()->getSingleScalarResult();
@@ -309,6 +390,59 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                    ->select('count(s.id)')
                    ->where('s.cotisation = :annee')
                    ->setParameter('annee', $annee)
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+    /**
+     * Nombre total de cotisant de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 19:25
+     */
+    public function getNbTotCotisantRegional($annee, $region)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('s.cotisation = :annee')
+                   ->andWhere('r.id = :region')
+                   ->setParameters(array(
+                        'annee' => $annee,
+                        'region'  => $region,
+                   ))
+                ;
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+    /**
+     * Nombre total de cotisant par statut de l'année encours
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 19:25
+     */
+    public function getNbTotStatutCotisantRegional($statut, $annee, $region)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('s.cotisation = :annee')
+                   ->andWhere('r.id = :region')
+                   ->andWhere('t.libelle LIKE :stat')
+                   ->setParameters(array(
+                        'annee' => $annee,
+                        'region'  => $region,
+                        'stat'  => '%'.$statut.'%'
+                   ))
                 ;
         return $qb->getQuery()->getSingleScalarResult();
 
@@ -394,7 +528,6 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('s')
                    ->select('count(s.id)')
-                   ->join('s.branche', 'b')
                    ->join('s.statut', 't')
                    ->join('s.groupe', 'g')
                    ->join('g.district', 'd')
@@ -402,7 +535,7 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                    ->where('r.id = :region')
                    ->andWhere('s.cotisation = :annee')
                    ->andWhere('t.libelle LIKE :statut')
-                   ->andWhere('b.nom LIKE :branche')
+                   ->andWhere('s.branche LIKE :branche')
                    ->setParameters(array(
                       'region'  => $region,
                       'annee' => $annee,
@@ -411,6 +544,143 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                    ))
                    ;
       return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre total de cotisants du district par branche
+     * @author: Delrodie AMOIKON
+     * @version v1.0 28/05/2017 22:05
+     */
+    public function getNbStatutBrancheCotisantParDistrict($district, $statut, $annee, $branche)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->where('g.id = :district')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('t.libelle LIKE :statut')
+                   ->andWhere('s.branche LIKE :branche')
+                   ->setParameters(array(
+                      'district'  => $district,
+                      'annee' => $annee,
+                      'statut'  => '%'.$statut.'%',
+                      'branche'  => '%'.$branche.'%'
+                   ))
+                   ;
+      return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre de scouts enregistrés dans la plateforme
+     */
+    public function getTotalScout()
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+        ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre total de cotisants du district
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 20:29
+     */
+    public function getNbTotalCotisantParDistrict($district, $annee)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->where('d.id = :district')
+                   ->andWhere('s.cotisation = :annee')
+                   ->setParameters(array(
+                      'district'  => $district,
+                      'annee' => $annee
+                   ))
+                   ;
+      return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre total de cotisants du district par statut
+     * @author: Delrodie AMOIKON
+     * @version v1.0 207/05/2017 22:05
+     */
+    public function getNbStatutCotisantParDistrict($district, $statut, $annee)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->where('d.id = :district')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('t.libelle LIKE :statut')
+                   ->setParameters(array(
+                      'district'  => $district,
+                      'annee' => $annee,
+                      'statut'  => '%'.$statut.'%'
+                   ))
+                   ;
+      return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Nombre total de cotisants par genre deu district
+     * @author: Delrodie AMOIKON
+     * @version v1.0 20/05/2017 22:34
+     */
+    public function getNbGenreCotisantParDistrict($district, $genre, $annee)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->select('count(s.id)')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->where('d.id = :district')
+                   ->andWhere('s.cotisation = :annee')
+                   ->andWhere('s.sexe LIKE :sexe')
+                   ->setParameters(array(
+                      'district'  => $district,
+                      'annee' => $annee,
+                      'sexe'  => '%'.$genre.'%'
+                   ))
+                   ;
+      return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Liste des scouts selon la région
+     *
+     * @author: Delrodie AMOIKON
+     * @version: v1.0 01/06/2017
+     */
+    public function getAllScoutsByRegion($region, $annee, $statut, $sexe, $fonction, $branche)
+    {
+        $qb = $this->createQueryBuilder('s')
+                   ->join('s.statut', 't')
+                   ->join('s.groupe', 'g')
+                   ->join('g.district', 'd')
+                   ->join('d.region', 'r')
+                   ->where('s.cotisation = :annee')
+                   ->orWhere('s.sexe = :sexe')
+                   ->orWhere('s.fonction LIKE :fonction')
+                   ->orWhere('s.branche LIKE :branche')
+                   ->orWhere('t.libelle LIKE :statut')
+                   ->andWhere('r.id = :region')
+                   ->setParameters(array(
+                      'annee' => $annee,
+                      'sexe'  => $sexe,
+                      'fonction'=> '%'.$fonction.'%',
+                      'branche' => '%'.$branche.'%',
+                      'region'  => $region,
+                      'statut'  => '%'.$statut.'%'
+                   ))
+                   ->OrderBy('s.nom', 'ASC')
+        ;
+        return $qb->getQuery()->getResult();
     }
 
 }

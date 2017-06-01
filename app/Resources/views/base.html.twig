@@ -54,21 +54,21 @@
               <!--End Navigation toogle button-->
               <!--Profile toogle button-->
               <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-              <li id="profilebtn" class="hidden-xs">
+              <!--<li id="profilebtn" class="hidden-xs">
                 <a href="JavaScript:void(0);">
                   <i class="fa fa-user fa-lg"></i>
                 </a>
-              </li>
+              </li>-->
               <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
               <!--End Profile toogle button-->
               <!--Messages Dropdown-->
               <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-              <li class="dropdown">
+              <!--<li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                   <i class="fa fa-envelope fa-lg"></i>
                   <span class="badge badge-header badge-warning">9</span>
                 </a>
-                <!--Message dropdown menu-->
+
                 <div class="dropdown-menu dropdown-menu-md with-arrow">
                   <div class="pad-all bord-btm">
                     <div class="h4 text-muted text-thin mar-no">Vous avez 3 messages.</div>
@@ -76,7 +76,7 @@
                   <div class="nano scrollable">
                     <div class="nano-content">
                       <ul class="head-list">
-                        <!-- Dropdown list-->
+
                         <li>
                           <a href="#" class="media">
                             <div class="media-left">
@@ -88,18 +88,18 @@
                             </div>
                           </a>
                         </li>
-                        <!-- Dropdown list-->
+
                       </ul>
                     </div>
                   </div>
-                  <!--Dropdown footer-->
+
                   <div class="pad-all bord-top">
                     <a href="#" class="btn-link text-dark box-block">
                       <i class="fa fa-angle-right fa-lg pull-right"></i>Voir tous les messages
                     </a>
                   </div>
                 </div>
-              </li>
+              </li>-->
               <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
               <!--End message dropdown-->
               <!--Notification dropdown-->
@@ -227,96 +227,6 @@
         <!--CONTENT CONTAINER-->
         <!--===================================================-->
         <div id="content-container">
-          <div id="profilebody">
-            <div class="pad-all animated fadeInDown">
-              <div class="row">
-                <div class="col-lg-2 col-sm-6 col-md-6 col-xs-12">
-                  <div class="panel panel-default mar-no">
-                    <div class="panel-body">
-                      <a href="JavaScript:void(0);">
-                        <div class="pull-left">
-                          <p class="profile-title text-bricky">250 adultes</p>
-                        </div>
-                        <div class="pull-right text-bricky">
-                          <i class="fa fa-users fa-lg"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 col-md-6 col-xs-12">
-                  <div class="panel panel-default mar-no">
-                    <div class="panel-body">
-                      <a href="JavaScript:void(0);">
-                        <div class="pull-left">
-                          <p class="profile-title text-bricky">750 jeunes</p>
-                        </div>
-                        <div class="pull-right text-bricky">
-                          <i class="fa fa-users fa-lg"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 col-md-6 col-xs-12">
-                  <div class="panel panel-default mar-no">
-                    <div class="panel-body">
-                      <a href="JavaScript:void(0);">
-                        <div class="pull-left">
-                          <p class="profile-title text-bricky">150 louveteaux</p>
-                        </div>
-                        <div class="pull-right text-bricky" style="color: #ffb700">
-                          <i class="fa fa-users fa-lg"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 col-md-6 col-xs-12">
-                  <div class="panel panel-default mar-no">
-                    <div class="panel-body">
-                      <a href="JavaScript:void(0);">
-                        <div class="pull-left">
-                          <p class="profile-title text-bricky">325 eclaireurs</p>
-                        </div>
-                        <div class="pull-right text-bricky text-success">
-                          <i class="fa fa-users fa-lg"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 col-md-6 col-xs-12">
-                  <div class="panel panel-default mar-no">
-                    <div class="panel-body">
-                      <a href="JavaScript:void(0);">
-                        <div class="pull-left">
-                          <p class="profile-title text-bricky">123 cheminot</p>
-                        </div>
-                        <div class="pull-right text-bricky" style="color: orange">
-                          <i class="fa fa-users fa-lg"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 col-md-6 col-xs-12">
-                  <div class="panel panel-default mar-no">
-                    <div class="panel-body">
-                      <a href="JavaScript:void(0);">
-                        <div class="pull-left">
-                          <p class="profile-title text-bricky">152 routiers</p>
-                        </div>
-                        <div class="pull-right text-bricky" style="color: red">
-                          <i class="fa fa-users fa-lg"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           <!--Page Title-->
 
           {% block body %}{% endblock %}
@@ -386,6 +296,36 @@
                     </li>
                     <li class="list-divider"></li>
                     <!--Category name-->
+                    <li class="list-header">Imprimés</li>
+                    <!--Menu list item-->
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-print"></i>
+                        <span class="menu-title">Imprimés</span>
+                        <i class="arrow"></i>
+                      </a>
+                      <!--Submenu-->
+                      <ul class="collapse">
+                        <li>
+                          <a href="{{ path('imprime_region_liste')}}">
+                            <i class="fa fa-caret-right"></i>Régions</a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="fa fa-caret-right"></i>Districts</a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="fa fa-caret-right"></i>Groupes</a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="fa fa-caret-right"></i>Statistiques</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="list-divider"></li>
+                    <!--Category name-->
                     <li class="list-header">Administrateur</li>
                     <!--Menu list item-->
                     <li>
@@ -451,11 +391,11 @@
                       <ul class="list-group">
                         <li class="list-header pad-no pad-ver">Statistiques globales</li>
                         <li class="mar-btm">
-                          <span class="label label-primary pull-right">15%</span>
+                          <span class="label label-primary pull-right">{{ render(url('statistiques_globales')) }}</span>
                           <p>Cotisants</p>
                           <div class="progress progress-sm">
-                            <div class="progress-bar progress-bar-primary" style="width: 15%;">
-                              <span class="sr-only">15%</span>
+                            <div class="progress-bar progress-bar-primary" style="width: {{ render(url('statistiques_globales'))}};">
+                              <span class="sr-only">{{ render(url('statistiques_globales')) }}</span>
                             </div>
                           </div>
                         </li>
@@ -478,6 +418,8 @@
       </div>
       <!-- FOOTER -->
       <!--===================================================-->
+
+
       <footer id="footer">
         <!-- Visible when footer positions are fixed -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

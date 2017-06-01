@@ -34,7 +34,7 @@
           <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-10">
               <h3 class="mar-no">
-                <span class="counter">{{ render(url('statistiques_nbstatut_contisant', {'statut': 'jeune'}))}}</span>
+                <span class="counter">{{ render(url('statistiques_nbstatut_contisant_regional', {'statut': 'jeune', 'region': regionID}))}}</span>
               </h3>
               <p>Jeunes</p>
             </div>
@@ -43,12 +43,12 @@
             </div>
           </div>
           <div class="progress progress-striped progress-sm">
-            <div style="width: {{ render(url('statistiques_pourcentagestatut_contisant', {'statut': 'jeune'}))}};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar">
-              <span class="sr-only">{{ render(url('statistiques_pourcentagestatut_contisant', {'statut': 'jeune'}))}} Complete</span>
+            <div style="width: {{ render(url('statistiques_pourcentagestatut_contisant_regional', {'statut': 'jeune', 'region': regionID }))}};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar">
+              <span class="sr-only">{{ render(url('statistiques_pourcentagestatut_contisant_regional', {'statut': 'jeune', 'region': regionID }))}} Complete</span>
             </div>
           </div>
           <p>
-            {{ render(url('statistiques_pourcentagestatut_contisant', {'statut': 'jeune'}))}} de l'effectif total
+            {{ render(url('statistiques_pourcentagestatut_contisant_regional', {'statut': 'jeune', 'region': regionID }))}} de l'effectif total
           </p>
         </div>
       </div>
@@ -59,7 +59,7 @@
           <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-10">
               <h3 class="mar-no">
-                <span class="counter">{{ render(url('statistiques_nbstatut_contisant', {'statut': 'adulte'}))}}</span>
+                <span class="counter">{{ render(url('statistiques_nbstatut_contisant_regional', {'statut': 'adulte', 'region': regionID}))}}</span>
               </h3>
               <p>Adultes</p>
             </div>
@@ -68,12 +68,12 @@
             </div>
           </div>
           <div class="progress progress-striped progress-sm">
-            <div style="width: {{ render(url('statistiques_pourcentagestatut_contisant', {'statut': 'adulte'}))}};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar">
-              <span class="sr-only">{{ render(url('statistiques_pourcentagestatut_contisant', {'statut': 'adulte'}))}} Complete</span>
+            <div style="width: {{ render(url('statistiques_pourcentagestatut_contisant_regional', {'statut': 'adulte', 'region': regionID }))}};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar">
+              <span class="sr-only">{{ render(url('statistiques_pourcentagestatut_contisant_regional', {'statut': 'adulte', 'region': regionID }))}} Complete</span>
             </div>
           </div>
           <p>
-            {{ render(url('statistiques_pourcentagestatut_contisant', {'statut': 'adulte'}))}} de l'effectif total
+            {{ render(url('statistiques_pourcentagestatut_contisant_regional', {'statut': 'adulte', 'region': regionID }))}} de l'effectif total
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@
           <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-10">
               <h3 class="mar-no">
-                <span class="counter">{{ render(url('statistiques_nbgenre_contisant', {'genre': 'F'}))}}</span>
+                <span class="counter">{{ render(url('statistiques_nbgenre_contisant_regional', {'genre': 'F', 'region': regionID}))}}</span>
               </h3>
               <p>Femmes</p>
             </div>
@@ -93,12 +93,12 @@
             </div>
           </div>
           <div class="progress progress-striped progress-sm">
-            <div style="width: {{ render(url('statistiques_pourcentagegenre_contisant', {'genre': 'F'}))}};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-pink">
-              <span class="sr-only">{{ render(url('statistiques_pourcentagegenre_contisant', {'genre': 'F'}))}} Complete</span>
+            <div style="width: {{ render(url('statistiques_pourcentagegenre_contisant_regional', {'genre': 'F', 'region': regionID}))}};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-pink">
+              <span class="sr-only">{{ render(url('statistiques_pourcentagegenre_contisant_regional', {'genre': 'F', 'region': regionID}))}} Complete</span>
             </div>
           </div>
           <p>
-            {{ render(url('statistiques_pourcentagegenre_contisant', {'genre': 'F'}))}} de l'effectif total
+            {{ render(url('statistiques_pourcentagegenre_contisant_regional', {'genre': 'F', 'region': regionID}))}} de l'effectif total
           </p>
         </div>
       </div>
@@ -109,7 +109,7 @@
           <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-10">
               <h3 class="mar-no">
-                <span class="counter">{{ render(url('statistiques_nbgenre_contisant', {'genre': 'M'}))}}</span>
+                <span class="counter">{{ render(url('statistiques_nbgenre_contisant_regional', {'genre': 'M', 'region': regionID}))}}</span>
               </h3>
               <p>Hommes</p>
             </div>
@@ -118,12 +118,12 @@
             </div>
           </div>
           <div class="progress progress-striped progress-sm">
-            <div style="width: {{ render(url('statistiques_pourcentagegenre_contisant', {'genre': 'M'}))}};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-dark">
-              <span class="sr-only">{{ render(url('statistiques_pourcentagegenre_contisant', {'genre': 'M'}))}} Complete</span>
+            <div style="width: {{ render(url('statistiques_pourcentagegenre_contisant_regional', {'genre': 'M', 'region': regionID}))}};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-dark">
+              <span class="sr-only">{{ render(url('statistiques_pourcentagegenre_contisant_regional', {'genre': 'M', 'region': regionID}))}} Complete</span>
             </div>
           </div>
           <p>
-            {{ render(url('statistiques_pourcentagegenre_contisant', {'genre': 'M'}))}} de l'eefectif total
+            {{ render(url('statistiques_pourcentagegenre_contisant_regional', {'genre': 'M', 'region': regionID}))}} de l'eefectif total
           </p>
         </div>
       </div>
@@ -137,7 +137,7 @@
           <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-10">
               <h3 class="mar-no">
-                <span class="counter">{{ render(url('statistiques_nbbranche_contisant', {'statut': 'jeune', 'branche': 'meute'})) }}</span>
+                <span class="counter">{{ render(url('statistiques_nbbranche_contisant_regional', {'statut': 'jeune', 'branche': 'meute', 'region': regionID})) }}</span>
               </h3>
               <p>Louveteaux</p>
             </div>
@@ -146,12 +146,12 @@
             </div>
           </div>
           <div class="progress progress-striped progress-sm">
-            <div style="width: {{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'meute'})) }};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar" style="color: #ffcf00">
-              <span class="sr-only">{{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'meute'})) }} Complete</span>
+            <div style="width: {{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'meute', 'region': regionID})) }};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar" style="color: #ffcf00">
+              <span class="sr-only">{{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'meute', 'region': regionID})) }} Complete</span>
             </div>
           </div>
           <p>
-            {{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'meute'})) }} de l'effectif total des jeunes
+            {{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'meute', 'region': regionID})) }} de l'effectif total des jeunes
           </p>
         </div>
       </div>
@@ -162,7 +162,7 @@
           <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-10">
               <h3 class="mar-no">
-                <span class="counter">{{ render(url('statistiques_nbbranche_contisant', {'statut': 'jeune', 'branche': 'troupe'})) }}</span>
+                <span class="counter">{{ render(url('statistiques_nbbranche_contisant_regional', {'statut': 'jeune', 'branche': 'troupe', 'region': regionID})) }}</span>
               </h3>
               <p>Eclaireurs</p>
             </div>
@@ -171,12 +171,12 @@
             </div>
           </div>
           <div class="progress progress-striped progress-sm">
-            <div style="width: {{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'troupe'})) }};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-success">
-              <span class="sr-only">{{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'troupe'})) }} Complete</span>
+            <div style="width: {{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'troupe', 'region': regionID })) }};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-success">
+              <span class="sr-only">{{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'troupe', 'region': regionID })) }} Complete</span>
             </div>
           </div>
           <p>
-            {{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'troupe'})) }} de l'effectif total des jeunes
+            {{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'troupe', 'region': regionID })) }} de l'effectif total des jeunes
           </p>
         </div>
       </div>
@@ -187,7 +187,7 @@
           <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-10">
               <h3 class="mar-no">
-                <span class="counter">{{ render(url('statistiques_nbbranche_contisant', {'statut': 'jeune', 'branche': 'generation'})) }}</span>
+                <span class="counter">{{ render(url('statistiques_nbbranche_contisant_regional', {'statut': 'jeune', 'branche': 'generation', 'region': regionID })) }}</span>
               </h3>
               <p>Cheminos</p>
             </div>
@@ -196,12 +196,12 @@
             </div>
           </div>
           <div class="progress progress-striped progress-sm">
-            <div style="width: {{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'generation'})) }};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-warning">
-              <span class="sr-only">{{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'generation'})) }} Complete</span>
+            <div style="width: {{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'generation', 'region': regionID})) }};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-warning">
+              <span class="sr-only">{{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'generation', 'region': regionID})) }} Complete</span>
             </div>
           </div>
           <p>
-            {{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'generation'})) }} de l'effectif total des jeunes
+            {{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'generation', 'region': regionID})) }} de l'effectif total des jeunes
           </p>
         </div>
       </div>
@@ -212,7 +212,7 @@
           <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-10">
               <h3 class="mar-no">
-                <span class="counter">{{ render(url('statistiques_nbbranche_contisant', {'statut': 'jeune', 'branche': 'communaute'})) }}</span>
+                <span class="counter">{{ render(url('statistiques_nbbranche_contisant_regional', {'statut': 'jeune', 'branche': 'communaute', 'region': regionID})) }}</span>
               </h3>
               <p>Routiers</p>
             </div>
@@ -221,12 +221,12 @@
             </div>
           </div>
           <div class="progress progress-striped progress-sm">
-            <div style="width: {{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'communaute'})) }};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-danger">
-              <span class="sr-only">{{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'communaute'})) }} Complete</span>
+            <div style="width: {{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'communaute', 'region': regionID})) }};" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-danger">
+              <span class="sr-only">{{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'communaute', 'region': regionID})) }} Complete</span>
             </div>
           </div>
           <p>
-            {{ render(url('statistiques_pourcentagebranche_contisant', {'statut': 'jeune', 'branche': 'communaute'})) }} de l'effectif total des jeunes
+            {{ render(url('statistiques_pourcentagebranche_contisant_regional', {'statut': 'jeune', 'branche': 'communaute', 'region': regionID})) }} de l'effectif total des jeunes
           </p>
         </div>
       </div>
@@ -241,7 +241,7 @@
           <h3 class="panel-title">Histogramme des cotisants de {{ annee }}</h3>
         </div>
         <div class="panel-body">
-          <div id="histogramme-region" style="height:350px"></div>
+          <div id="histogramme-district" style="height:350px"></div>
         </div>
       </div>
     </div>
@@ -279,7 +279,7 @@
               <div id="demo-lft-tab-1" class="tab-pane fade active in">
                 <!--Hover Rows-->
                 <!--===================================================-->
-                {{ render(url('statistiques_region')) }}
+                {{ render(url('statistiques_districts', {'region': regionID })) }}
 
 
                 <!--===================================================-->
@@ -287,14 +287,14 @@
               </div>
               <div id="demo-lft-tab-2" class="tab-pane fade">
                 <!--===================================================-->
-                {{ render(url('statistiques_region_adultes'))}}
+                {{ render(url('statistiques_district_adultes', {'region': regionID}))}}
                 <!--===================================================-->
                 <!-- End Foo Table - Filtering -->
               </div>
               <div id="demo-lft-tab-3" class="tab-pane fade">
                 <!--Hover Rows-->
                 <!--===================================================-->
-                {{ render(url('statistiques_region_jeunes'))}}
+                {{ render(url('statistiques_district_jeunes', {'region': regionID}))}}
                 <!--===================================================-->
                 <!--End Hover Rows-->
               </div>
@@ -317,12 +317,12 @@
 <script>
   $(document).ready(function() {
       var donnees = [
-          {% for region in regions %}
-            { y: "{{ region.nom }}", a: {{ render(url('statistiques_region_total_cotisant', {'region': region.id}))}} },
+          {% for district in districts %}
+            { y: "{{ district.nom }}", a: {{ render(url('statistiques_district_total_cotisant', {'district': district.id}))}} },
           {% endfor %}
       ];
       Morris.Bar({
-          element: "histogramme-region",
+          element: "histogramme-district",
           data: donnees,
           xkey: "y",
           ykeys: ["a"],

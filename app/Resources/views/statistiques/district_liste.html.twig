@@ -1,0 +1,26 @@
+<table class="table table-hover table-vcenter">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th class="text-center">Districts</th>
+      <th class="text-center">Totaux</th>
+      <th class="hidden-xs text-center">Adultes</th>
+      <th class="hidden-xs text-center">Jeunes</th>
+      <th class="hidden-xs text-center">Femmes</th>
+      <th class="hidden-xs text-center">Hommes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for district in districts %}
+      <tr>
+        <td class="text-right">{{ loop.index }}</td>
+        <td>{{ district.nom|upper }}</td>
+        <td class="text-center">{{ render(url('statistiques_district_total_cotisant', {'district': district.id}))}}</td>
+        <td class="hidden-xs text-center">{{ render(url('statistiques_district_statut_cotisant', {'district': district.id, 'statut': 'adulte'}))}}</td>
+        <td class="hidden-xs text-center">{{ render(url('statistiques_district_statut_cotisant', {'district': district.id, 'statut': 'jeune'}))}}</td>
+        <td class="hidden-xs text-center">{{ render(url('statistiques_district_genre_cotisant', {'district': district.id, 'genre': 'F'}))}}</td>
+        <td class="hidden-xs text-center">{{ render(url('statistiques_district_genre_cotisant', {'district': district.id, 'genre': 'M'}))}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
