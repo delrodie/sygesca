@@ -89,7 +89,8 @@
                     <td>{{ groupe.paroisse }}</td>
                     <td class="text-left">{{ groupe.localite }}</td>
                     <td class="text-center">
-                      <a href="{{ path('admin_user_show', { 'id': groupe.id }) }}" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Voir les scouts"><i class="fa fa-search"></i></a>
+                      <a href="{{ path('admin_groupe_ajout', {'districtID': groupe.district.id })}}" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Ajouter groupe"><i class="fa fa-plus"></i></a> |
+                      <a href="#" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Voir les scouts"><i class="fa fa-search"></i></a>
                     </td>
                 </tr>
             {% endfor %}

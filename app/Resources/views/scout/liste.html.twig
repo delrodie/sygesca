@@ -48,13 +48,41 @@
         {% endfor %}
         <!-- \Message -->
         <br>
+        {{ form_start(form, { 'attr': {'class': 'form-vertical' }}) }}
     <div class="row">
-      <div class="col-xs-3 col-xs-offset-9">
-        <a href="{{ path('scout_new')}}" title="">
-          <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un nouveau scout</button>
-        </a>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label class="control-label">Statut</label>
+              {{ form_widget(form.statut) }}
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label class="control-label">Genre</label>
+              {{ form_widget(form.sexe) }}
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label class="control-label">Fonction</label>
+              {{ form_widget(form.fonction) }}
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label class="control-label">Branche</label>
+              {{ form_widget(form.branche) }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-default btn-labeled fa fa-search" style="margin-top: 25px">OK</button>
       </div>
     </div>
+    {{ form_end(form)}}
     <br>
 
     <div class="panel">

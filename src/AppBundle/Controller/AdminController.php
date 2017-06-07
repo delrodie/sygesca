@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Groupe;
 use AppBundle\Entity\District;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -78,6 +79,55 @@ class AdminController extends Controller
             'district' => $district,
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * Enregistrement du groupe par le scout
+     *
+     * @Route("/groupe/ajout/{districtID}", name="admin_groupe_ajout")
+     * @Method({"GET", "POST"})
+     */
+    public function ajoutGroupeAction(Request $request, $districtID)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $user = $this->getUser();
+
+      // récupération des roles de l'utilisateur
+      // Si role role[0] est ROLE_USER alors chercher la région
+      $roles[] = $user->getRoles();
+      if ($roles[0][0] === 'ROLE_USER') {
+        $gestionnaire = $em->getRepository('AppBundle:Gestionnaire')->findOneBy(array('user' => $user));
+
+        // Si region est différente de l'équipe nationale alors Accès non autorisé
+        if (($gestionnaire === NULL) || ($gestionnaire->getRegion()->getId() != 1)) {
+          throw new AccessDeniedException();
+        }
+      }
+
+      $groupe = new Groupe();
+      $form = $this->createForm('AppBundle\Form\GroupeType', $groupe, array('district' => $districtID));
+      $form->handleRequest($request);
+
+      if ($form->isSubmitted() && $form->isValid()) {
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($groupe);
+          $em->flush();
+
+          return $this->redirectToRoute('admin_groupe_ajout', array('districtID'  => $districtID));
+      }
+
+      $groupes = $em->getRepository('AppBundle:Groupe')
+                    ->findBy(
+                      array('district'  => $districtID),
+                      array('paroisse' => 'ASC')
+                    );
+
+      return $this->render('groupe/index.html.twig', array(
+          'groupes' => $groupes,
+          'groupe' => $groupe,
+          'form' => $form->createView(),
+          'district'  => $districtID,
+      ));
     }
 
     /**
