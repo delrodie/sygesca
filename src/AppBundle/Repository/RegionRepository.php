@@ -58,7 +58,7 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
     {
         $em = $this->getEntityManager();
         $qb = $this->createQueryBuilder('r')
-                   ->where('r.id > 3')
+                   //->where('r.id > 3')
                    ->orderBy('r.nom', 'ASC');
         return $qb;
     }

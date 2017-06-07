@@ -51,20 +51,28 @@ class ImprimeController extends Controller
         }
 
         $scout = new Scout();
-        $form = $this->createForm('AppBundle\Form\ScoutType', $scout);
+        $form = $this->createForm('AppBundle\Form\ImprimeType', $scout);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($scout);
-            $em->flush();
 
-            $this->addFlash('notice', "La scout ".$scout->getNom()." a été créée avec succès.!");
+            $statut = $scout->getStatut();
+            $sexe = $scout->getSexe();
+            $fonction = $scout->getFonction();
+            $branche = $scout->getBranche(); //dump($branche);die();
 
-            $notification = $this->get('monolog.logger.notification');
-            $notification->notice($user.' a enregistré la scout '.$scout->getNom());
+            $scouts = $em->getRepository('AppBundle:Scout')->getAllScoutsByRegion($region, $annee, $statut, $sexe, $fonction, $branche);
 
-            return $this->redirectToRoute('imprime_region_liste');
+            return $this->render('scout/liste.html.twig', array(
+                'scouts' => $scouts,
+                'scout' => $scout,
+                'form' => $form->createView(),
+                'statut'  => $statut,
+                'sexe'  => $sexe,
+                'fonction'  => $fonction,
+                'branche' => $branche
+            ));
         }
 
         $statut = NULL; $sexe = NULL; $fonction = NULL; $branche = NULL;//dump($branche);die();
