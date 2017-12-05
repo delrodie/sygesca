@@ -23,25 +23,81 @@ class CotisationType extends AbstractType
                       'placeholder' => 'Année accademique'
                   )
             ))
-            ->add('cadre', TextType::class, array(
+            ->add('cn', TextType::class, array(
                   'attr'  => array(
                       'class' => 'form-control',
                       'autocomplete'  => 'off',
-                      'placeholder' => 'Montant CN, Aumonier, CND, Regional et Equipe régionale'
+                      'placeholder' => 'Montant CN'
                   )
             ))
-            ->add('district', TextType::class, array(
+            ->add('cnd', TextType::class, array(
                   'attr'  => array(
                       'class' => 'form-control',
                       'autocomplete'  => 'off',
-                      'placeholder' => 'Montant CD et équipe de district'
+                      'placeholder' => 'Montant CND'
                   )
             ))
-            ->add('groupe', TextType::class, array(
+            ->add('aine', TextType::class, array(
                   'attr'  => array(
                       'class' => 'form-control',
                       'autocomplete'  => 'off',
-                      'placeholder' => 'Montant Chef d\'unité et equipe de groupe'
+                      'placeholder' => 'Montant des Aînés'
+                  )
+            ))
+            ->add('equipenationale', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Montant des membres de l\'équipe nationale'
+                  )
+            ))
+            ->add('cac', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Montant des Commissaires aux comptes'
+                  )
+            ))
+            ->add('cr', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Montant des CR'
+                  )
+            ))
+            ->add('equiperegionale', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Montant des équipes régionales'
+                  )
+            ))
+            ->add('cd', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Montant des CD'
+                  )
+            ))
+            ->add('equipedistrict', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Montant des équipes de districts'
+                  )
+            ))
+            ->add('equipegroupe', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Montant des CG et équipe de groupe'
+                  )
+            ))
+            ->add('cu', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      'placeholder' => 'Montant des Chefs d\'unités'
                   )
             ))
             ->add('jeune', TextType::class, array(

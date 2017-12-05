@@ -42,51 +42,113 @@
         <h3 class="panel-title">Modification des cotiations</h3>
       </div>
       {{ form_start(edit_form, { 'attr': {'class': 'form-vertical', 'id': 'cotisationForm' }}) }}
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">Année scoute  <span style="color: red">*</span></label>
-                    {{ form_widget(edit_form.annee) }}
-                    {{ form_errors(edit_form.annee) }}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label class="control-label">Cadre  <span style="color: red">*</span></label>
-                    {{ form_widget(edit_form.cadre) }}
-                    {{ form_errors(edit_form.cadre) }}
-                  </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">Année scoute  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.annee) }}
+                  {{ form_errors(edit_form.annee) }}
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">CD, Equipe de district  <span style="color: red">*</span></label>
-                    {{ form_widget(edit_form.district) }}
-                    {{ form_errors(edit_form.district) }}
-                  </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">CN  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.cn) }}
+                  {{ form_errors(edit_form.cn) }}
                 </div>
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">CU, Equipe de groupe  <span style="color: red">*</span></label>
-                    {{ form_widget(edit_form.groupe) }}
-                    {{ form_errors(edit_form.groupe) }}
-                  </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">CND  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.cnd) }}
+                  {{ form_errors(edit_form.cnd) }}
                 </div>
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">Jeune  <span style="color: red">*</span></label>
-                    {{ form_widget(edit_form.jeune) }}
-                    {{ form_errors(edit_form.jeune) }}
-                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">Aînés  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.aine) }}
+                  {{ form_errors(edit_form.aine) }}
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">Equipe nationale  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.equipenationale) }}
+                  {{ form_errors(edit_form.equipenationale) }}
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">Commissaires aux comptes  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.cac) }}
+                  {{ form_errors(edit_form.cac) }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">CR  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.cr) }}
+                  {{ form_errors(edit_form.cr) }}
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">Equipe régionale  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.equiperegionale) }}
+                  {{ form_errors(edit_form.equiperegionale) }}
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">CD  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.cd) }}
+                  {{ form_errors(edit_form.cd) }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">Equipe de district  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.equipedistrict) }}
+                  {{ form_errors(edit_form.equipedistrict) }}
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">CG et équipe de groupe  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.equipegroupe) }}
+                  {{ form_errors(edit_form.equipegroupe) }}
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">Chef d'unité, Adjoint et Assistant  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.cu) }}
+                  {{ form_errors(edit_form.cu) }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="form-group">
+                  <label class="control-label">Jeunes  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.jeune) }}
+                  {{ form_errors(edit_form.jeune) }}
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
         <div class="panel-footer">
           <div class="row">
             <div class="col-sm-7 col-sm-offset-3 text-right">

@@ -60,6 +60,83 @@ class Cotisation
     /**
      * @var string
      *
+     * @ORM\Column(name="cn", type="string", length=5, nullable=true)
+     */
+    private $cn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cnd", type="string", length=5, nullable=true)
+     */
+    private $cnd;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aine", type="string", length=5, nullable=true)
+     */
+    private $aine;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="equipenationale", type="string", length=5, nullable=true)
+     */
+    private $equipenationale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cac", type="string", length=5, nullable=true)
+     */
+    private $cac;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cr", type="string", length=5, nullable=true)
+     */
+    private $cr;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="equiperegionale", type="string", length=5, nullable=true)
+     */
+    private $equiperegionale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cd", type="string", length=5, nullable=true)
+     */
+    private $cd;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="equipegroupe", type="string", length=5, nullable=true)
+     */
+    private $equipegroupe;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="equipedistrict", type="string", length=5, nullable=true)
+     */
+    private $equipedistrict;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cu", type="string", length=5, nullable=true)
+     */
+    private $cu;
+
+    /**
+     * @var string
+     *
      * @Gedmo\Slug(fields={"annee"})
      * @ORM\Column(name="slug", type="string", length=10)
      */
@@ -396,5 +473,269 @@ class Cotisation
 
     public function __toString() {
         return $this->getAnnee();
+    }
+
+    /**
+     * Set cn
+     *
+     * @param string $cn
+     *
+     * @return Cotisation
+     */
+    public function setCn($cn)
+    {
+        $this->cn = $cn;
+
+        return $this;
+    }
+
+    /**
+     * Get cn
+     *
+     * @return string
+     */
+    public function getCn()
+    {
+        return $this->cn;
+    }
+
+    /**
+     * Set cnd
+     *
+     * @param string $cnd
+     *
+     * @return Cotisation
+     */
+    public function setCnd($cnd)
+    {
+        $this->cnd = $cnd;
+
+        return $this;
+    }
+
+    /**
+     * Get cnd
+     *
+     * @return string
+     */
+    public function getCnd()
+    {
+        return $this->cnd;
+    }
+
+    /**
+     * Set aine
+     *
+     * @param string $aine
+     *
+     * @return Cotisation
+     */
+    public function setAine($aine)
+    {
+        $this->aine = $aine;
+
+        return $this;
+    }
+
+    /**
+     * Get aine
+     *
+     * @return string
+     */
+    public function getAine()
+    {
+        return $this->aine;
+    }
+
+    /**
+     * Set equipenationale
+     *
+     * @param string $equipenationale
+     *
+     * @return Cotisation
+     */
+    public function setEquipenationale($equipenationale)
+    {
+        $this->equipenationale = $equipenationale;
+
+        return $this;
+    }
+
+    /**
+     * Get equipenationale
+     *
+     * @return string
+     */
+    public function getEquipenationale()
+    {
+        return $this->equipenationale;
+    }
+
+    /**
+     * Set cac
+     *
+     * @param string $cac
+     *
+     * @return Cotisation
+     */
+    public function setCac($cac)
+    {
+        $this->cac = $cac;
+
+        return $this;
+    }
+
+    /**
+     * Get cac
+     *
+     * @return string
+     */
+    public function getCac()
+    {
+        return $this->cac;
+    }
+
+    /**
+     * Set cr
+     *
+     * @param string $cr
+     *
+     * @return Cotisation
+     */
+    public function setCr($cr)
+    {
+        $this->cr = $cr;
+
+        return $this;
+    }
+
+    /**
+     * Get cr
+     *
+     * @return string
+     */
+    public function getCr()
+    {
+        return $this->cr;
+    }
+
+    /**
+     * Set equiperegionale
+     *
+     * @param string $equiperegionale
+     *
+     * @return Cotisation
+     */
+    public function setEquiperegionale($equiperegionale)
+    {
+        $this->equiperegionale = $equiperegionale;
+
+        return $this;
+    }
+
+    /**
+     * Get equiperegionale
+     *
+     * @return string
+     */
+    public function getEquiperegionale()
+    {
+        return $this->equiperegionale;
+    }
+
+    /**
+     * Set cd
+     *
+     * @param string $cd
+     *
+     * @return Cotisation
+     */
+    public function setCd($cd)
+    {
+        $this->cd = $cd;
+
+        return $this;
+    }
+
+    /**
+     * Get cd
+     *
+     * @return string
+     */
+    public function getCd()
+    {
+        return $this->cd;
+    }
+
+    /**
+     * Set equipegroupe
+     *
+     * @param string $equipegroupe
+     *
+     * @return Cotisation
+     */
+    public function setEquipegroupe($equipegroupe)
+    {
+        $this->equipegroupe = $equipegroupe;
+
+        return $this;
+    }
+
+    /**
+     * Get equipegroupe
+     *
+     * @return string
+     */
+    public function getEquipegroupe()
+    {
+        return $this->equipegroupe;
+    }
+
+    /**
+     * Set equipedistrict
+     *
+     * @param string $equipedistrict
+     *
+     * @return Cotisation
+     */
+    public function setEquipedistrict($equipedistrict)
+    {
+        $this->equipedistrict = $equipedistrict;
+
+        return $this;
+    }
+
+    /**
+     * Get equipedistrict
+     *
+     * @return string
+     */
+    public function getEquipedistrict()
+    {
+        return $this->equipedistrict;
+    }
+
+    /**
+     * Set cu
+     *
+     * @param string $cu
+     *
+     * @return Cotisation
+     */
+    public function setCu($cu)
+    {
+        $this->cu = $cu;
+
+        return $this;
+    }
+
+    /**
+     * Get cu
+     *
+     * @return string
+     */
+    public function getCu()
+    {
+        return $this->cu;
     }
 }

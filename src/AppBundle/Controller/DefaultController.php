@@ -56,6 +56,7 @@ class DefaultController extends Controller
         $regions = $em->getRepository('AppBundle:Region')->findAll();
         // Determination de l'année accademique encours
         $cotisation = $em->getRepository('AppBundle:Cotisation')->getDerniereCotisation();
+
         if ($cotisation === 0) {
           $annee = NULL;
         } else {
@@ -81,7 +82,7 @@ class DefaultController extends Controller
             ]);
           }
         }
-
+        //dump($regions);die();
         return $this->render('default/index.html.twig', [
             'regions' => $regions,
             'annee' => $annee,

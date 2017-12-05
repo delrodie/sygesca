@@ -384,8 +384,12 @@ class StatistiquesController extends Controller
             $cotisantTotal = 1;
           }
 
+          if ($enregistres == 0) {
+            $enregistres = 1;
+          }
+
           $pourcentage = round($cotisantTotal*100/$enregistres, 1);
-        }
+        }//dump($enregistres);die();
 
 
         return $this->render('statistiques/pourcentage.html.twig', array(

@@ -67,10 +67,18 @@
             <tr>
               <th class="text-center">#</th>
               <th class="text-center">Années</th>
-              <th class="text-center">Cadres</th>
-              <th class="text-center">Districts</th>
-              <th class="text-center">Groupes</th>
-              <th class="text-center">Jeunes</th>
+              <th class="text-center">CN</th>
+              <th class="text-center">CND</th>
+              <th class="text-center">AINES</th>
+              <th class="text-center">EQ</th>
+              <th class="text-center">COMPTES</th>
+              <th class="text-center">CR</th>
+              <th class="text-center">EREGIONALES</th>
+              <th class="text-center">CD</th>
+              <th class="text-center">DISTRICT</th>
+              <th class="text-center">GROUPE</th>
+              <th class="text-center">CU</th>
+              <th class="text-center">JEUNES</th>
               <th class="text-center"></th>
             </tr>
           </thead>
@@ -79,9 +87,17 @@
                 <tr>
                     <td class="text-right">{{ loop.index }}</td>
                     <td class="text-center">{{ cotisation.annee }}</td>
-                    <td class="text-center">{{ cotisation.cadre|number_format('0','','.') }}</td>
-                    <td class="text-center">{{ cotisation.district|number_format('0','','.') }}</td>
-                    <td class="text-center">{{ cotisation.groupe|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.cn|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.cnd|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.aine|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.equipenationale|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.cac|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.cr|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.equiperegionale|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.cd|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.equipedistrict|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.equipegroupe|number_format('0','','.') }}</td>
+                    <td class="text-center">{{ cotisation.cu|number_format('0','','.') }}</td>
                     <td class="text-center">{{ cotisation.jeune|number_format('0','','.') }}</td>
                     <td class="text-center">
                       <a href="{{ path('admin_cotisation_show', { 'id': cotisation.id }) }}" title="Détails"><i class="fa fa-search"></i></a> |

@@ -53,32 +53,94 @@
                     {{ form_errors(form.annee) }}
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">Cadre  <span style="color: red">*</span></label>
-                    {{ form_widget(form.cadre) }}
-                    {{ form_errors(form.cadre) }}
+                    <label class="control-label">CN  <span style="color: red">*</span></label>
+                    {{ form_widget(form.cn) }}
+                    {{ form_errors(form.cn) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">CND  <span style="color: red">*</span></label>
+                    {{ form_widget(form.cnd) }}
+                    {{ form_errors(form.cnd) }}
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">CD, Equipe de district  <span style="color: red">*</span></label>
-                    {{ form_widget(form.district) }}
-                    {{ form_errors(form.district) }}
+                    <label class="control-label">Aînés  <span style="color: red">*</span></label>
+                    {{ form_widget(form.aine) }}
+                    {{ form_errors(form.aine) }}
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">CU, Equipe de groupe  <span style="color: red">*</span></label>
-                    {{ form_widget(form.groupe) }}
-                    {{ form_errors(form.groupe) }}
+                    <label class="control-label">Equipe nationale  <span style="color: red">*</span></label>
+                    {{ form_widget(form.equipenationale) }}
+                    {{ form_errors(form.equipenationale) }}
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">Jeune  <span style="color: red">*</span></label>
+                    <label class="control-label">Commissaires aux comptes  <span style="color: red">*</span></label>
+                    {{ form_widget(form.cac) }}
+                    {{ form_errors(form.cac) }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">CR  <span style="color: red">*</span></label>
+                    {{ form_widget(form.cr) }}
+                    {{ form_errors(form.cr) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Equipe régionale  <span style="color: red">*</span></label>
+                    {{ form_widget(form.equiperegionale) }}
+                    {{ form_errors(form.equiperegionale) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">CD  <span style="color: red">*</span></label>
+                    {{ form_widget(form.cd) }}
+                    {{ form_errors(form.cd) }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Equipe de district  <span style="color: red">*</span></label>
+                    {{ form_widget(form.equipedistrict) }}
+                    {{ form_errors(form.equipedistrict) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">CG et équipe de groupe  <span style="color: red">*</span></label>
+                    {{ form_widget(form.equipegroupe) }}
+                    {{ form_errors(form.equipegroupe) }}
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Chef d'unité, Adjoint et Assistant  <span style="color: red">*</span></label>
+                    {{ form_widget(form.cu) }}
+                    {{ form_errors(form.cu) }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="form-group">
+                    <label class="control-label">Jeunes  <span style="color: red">*</span></label>
                     {{ form_widget(form.jeune) }}
                     {{ form_errors(form.jeune) }}
                   </div>

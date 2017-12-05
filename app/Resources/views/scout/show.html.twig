@@ -52,6 +52,17 @@
       {% endfor %}
       <!-- \Message -->
     <br>
+    <div class="row">
+      <div class="col-sm-7 col-sm-offset-5 text-right">
+        <a href="{{ path('scout_index')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-list">Liste des scouts</button>
+        </a>
+        <a href="{{ path('scout_new')}}" title="">
+          <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un Scout</button>
+        </a>
+      </div>
+    </div>
+    <br>
 
     <div class="panel">
       <div class="panel-heading">
@@ -135,7 +146,7 @@
                         {% if (scout.contact) %}
                           <input type="text" value="{{ scout.contact }} / {{ scout.contactparent }}" class="form-control" readonly="readonly">
                         {% else %}
-                          <input type="text" value="{{ scout.contactparent }}" class="form-control" readonly="readonly">   
+                          <input type="text" value="{{ scout.contactparent }}" class="form-control" readonly="readonly">
                         {% endif %}
                       {% else %}
                         <input type="text" value="{{ scout.contact }}" class="form-control" readonly="readonly">
@@ -159,16 +170,7 @@
           </div>
         </div>
         <div class="panel-footer">
-          <div class="row">
-            <div class="col-sm-7 col-sm-offset-5 text-right">
-              <a href="{{ path('scout_index')}}" title="">
-                <button class="btn btn-default btn-labeled fa fa-list">Liste des scouts</button>
-              </a>
-              <a href="{{ path('scout_new')}}" title="">
-                <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un Scout</button>
-              </a>
-            </div>
-          </div>
+
         </div>
     </div>
 

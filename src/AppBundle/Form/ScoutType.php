@@ -45,7 +45,8 @@ class ScoutType extends AbstractType
                   'attr'  => array(
                       'class' => 'form-control',
                       'autocomplete'  => 'off',
-                      //'placeholder' => 'Date de naissance'
+                      'placeholder' => 'dd-mm-yyyy',
+                       'data-mask'  => "99-99-9999",
                   )
             ))
             ->add('lieunaiss', TextType::class, array(

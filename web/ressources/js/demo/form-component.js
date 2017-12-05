@@ -171,7 +171,7 @@ $(document).ready(function() {
         Dropzone.options.demoDropzone = { autoProcessQueue: !1, init: function() {} },
         $("#demo-summernote").summernote({ height: 250 }),
         $("#demo-msk-date").mask("99/99/9999"),
-        $("#demo-msk-date2").mask("99-99-9999"),
+        $("#appbundle_scout_datenaiss").mask("99-99-9999"),
         $("#demo-msk-phone").mask("(999) 999-9999"),
         $("#demo-msk-taxid").mask("99-9999999"),
         $("#demo-msk-ssn").mask("999-99-9999"),

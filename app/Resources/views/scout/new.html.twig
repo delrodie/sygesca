@@ -94,7 +94,7 @@
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <label class="control-label">Lieu de naisse  <span style="color: red">*</span></label>
+                      <label class="control-label">Lieu de naissance  <span style="color: red">*</span></label>
                       {{ form_widget(form.lieunaiss) }}
                       {{ form_errors(form.lieunaiss) }}
                     </div>
@@ -152,6 +152,8 @@
 {{ parent() }}
 <script src="{{ asset('ressources/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
 <script src="{{ asset('ressources/js/sygesca-form-validation.js')}}"></script>
+<script src="{{ asset('ressources/plugins/masked-input/jquery.maskedinput.min.js')}}"></script>
+<script src="{{ asset('ressources/js/demo/form-component.js')}}"></script>
 <script>
   function statut()
   {
