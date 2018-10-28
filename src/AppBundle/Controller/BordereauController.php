@@ -113,7 +113,6 @@ class BordereauController extends Controller
             // Destruction des sessions
             $session->remove('adhesion');
 
-
             return $this->redirectToRoute('impression_bordereau_non_valide', array('id' => $bordereau->getId(), 'cotisation' => $cotisation));
         }
 
@@ -244,12 +243,30 @@ class BordereauController extends Controller
           $fonction = $adherants[$cotisant->getId()];
           if (($fonction === 'Louveteau') or ($fonction === 'Eclaireur') or ($fonction === 'Cheminot') or ($fonction === 'Routier'))
               $montant = $assurance->getJeune();
-          elseif (($fonction === 'CU') or ($fonction === 'CG'))
-              $montant = $assurance->getGroupe();
-          elseif (($fonction === 'CD') or ($fonction === 'ED'))
+          elseif ($fonction === 'CU')
+              $montant = $assurance->getCu();
+          elseif ($fonction === 'CG')
+              $montant = $assurance->getCg();
+          elseif (($fonction === 'equipegroupe') or ($fonction === 'AumonierGroupe'))
+              $montant = $assurance->getEquipegroupe();
+          elseif (($fonction === 'equipedistrict') or ($fonction === 'AumonierDistrict'))
+              $montant = $assurance->getEquipedistrict();
+          elseif ($fonction === 'CD')
               $montant = $assurance->getDistrict();
+          elseif (($fonction === 'ER') or ($fonction === 'AumonierRegional'))
+              $montant = $assurance->getEquiperegionale();
+          elseif ($fonction === 'Regional')
+              $montant = $assurance->getCr();
+          elseif ($fonction === 'Aine')
+              $montant = $assurance->getAine();
+          elseif ($fonction === 'CND')
+              $montant = $assurance->getCnd();
+          elseif ($fonction === 'CAC')
+              $montant = $assurance->getCac();
+          elseif (($fonction === 'EN') or ($fonction === 'AumonierNational'))
+              $montant = $assurance->getEquipenationale();
           else
-              $montant = $assurance->getCadre();
+              $montant = $assurance->getCn();
 
           $montantTotal += $montant;
 
@@ -322,4 +339,8 @@ class BordereauController extends Controller
 
         return $bordereau;
     }
+
+    /**
+     *
+     */
 }

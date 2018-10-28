@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">CN  <span style="color: red">*</span></label>
+                    <label class="control-label">Commissaire National  <span style="color: red">*</span></label>
                     {{ form_widget(form.cn) }}
                     {{ form_errors(form.cn) }}
                   </div>
@@ -94,7 +94,7 @@
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">CR  <span style="color: red">*</span></label>
+                    <label class="control-label">Commissaire Régional  <span style="color: red">*</span></label>
                     {{ form_widget(form.cr) }}
                     {{ form_errors(form.cr) }}
                   </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">CD  <span style="color: red">*</span></label>
+                    <label class="control-label">Commissaire de District  <span style="color: red">*</span></label>
                     {{ form_widget(form.cd) }}
                     {{ form_errors(form.cd) }}
                   </div>
@@ -124,20 +124,27 @@
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">CG et équipe de groupe  <span style="color: red">*</span></label>
-                    {{ form_widget(form.equipegroupe) }}
-                    {{ form_errors(form.equipegroupe) }}
+                    <label class="control-label">Chef de Groupe  <span style="color: red">*</span></label>
+                    {{ form_widget(form.cg) }}
+                    {{ form_errors(form.cg) }}
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
-                    <label class="control-label">Chef d'unité, Adjoint et Assistant  <span style="color: red">*</span></label>
-                    {{ form_widget(form.cu) }}
-                    {{ form_errors(form.cu) }}
+                    <label class="control-label">Equipe de groupe  <span style="color: red">*</span></label>
+                      {{ form_widget(form.equipegroupe) }}
+                      {{ form_errors(form.equipegroupe) }}
                   </div>
                 </div>
               </div>
               <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label">Chef d'unité, Adjoint et Assistant  <span style="color: red">*</span></label>
+                      {{ form_widget(form.cu) }}
+                      {{ form_errors(form.cu) }}
+                  </div>
+                </div>
                 <div class="col-sm-5">
                   <div class="form-group">
                     <label class="control-label">Jeunes  <span style="color: red">*</span></label>

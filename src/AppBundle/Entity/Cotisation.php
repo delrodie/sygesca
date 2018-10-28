@@ -116,6 +116,13 @@ class Cotisation
     /**
      * @var string
      *
+     * @ORM\Column(name="cg", type="string", length=5, nullable=true)
+     */
+    private $cg;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="equipegroupe", type="string", length=5, nullable=true)
      */
     private $equipegroupe;
@@ -737,5 +744,29 @@ class Cotisation
     public function getCu()
     {
         return $this->cu;
+    }
+
+    /**
+     * Set cg
+     *
+     * @param string $cg
+     *
+     * @return Cotisation
+     */
+    public function setCg($cg)
+    {
+        $this->cg = $cg;
+
+        return $this;
+    }
+
+    /**
+     * Get cg
+     *
+     * @return string
+     */
+    public function getCg()
+    {
+        return $this->cg;
     }
 }

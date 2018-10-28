@@ -86,11 +86,18 @@ class CotisationType extends AbstractType
                       'placeholder' => 'Montant des équipes de districts'
                   )
             ))
+            ->add('cg', TextType::class, array(
+                'attr'  => array(
+                    'class' => 'form-control',
+                    'autocomplete'  => 'off',
+                    'placeholder' => 'Montant des CG'
+                )
+            ))
             ->add('equipegroupe', TextType::class, array(
                   'attr'  => array(
                       'class' => 'form-control',
                       'autocomplete'  => 'off',
-                      'placeholder' => 'Montant des CG et équipe de groupe'
+                      'placeholder' => 'Montant des équipes de groupe'
                   )
             ))
             ->add('cu', TextType::class, array(

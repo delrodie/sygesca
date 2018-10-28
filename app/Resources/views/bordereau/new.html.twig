@@ -48,12 +48,28 @@
                           {% set fonction = adherants[cotisant.id] %}
                           {% if ((fonction == 'Louveteau') or (fonction == 'Eclaireur') or (fonction == 'Cheminot') or (fonction == 'Routier')) %}
                               {% set montant = assurance.jeune %}
-                          {% elseif ((fonction == 'CU') or (fonction == 'CG')) %}
-                              {% set montant = assurance.groupe %}
-                          {% elseif ((fonction == 'CD') or (fonction == 'ED')) %}
-                              {% set montant = assurance.district %}
+                          {% elseif (fonction == 'CU') %}
+                              {% set montant = assurance.cu %}
+                          {% elseif ((fonction == 'equipegroupe') or (fonction == 'AumonierGroupe')) %}
+                              {% set montant = assurance.equipegroupe %}
+                          {% elseif ((fonction == 'equipedistrict') or (fonction == 'AumonierDistrict')) %}
+                              {% set montant = assurance.equipedistrict %}
+                          {% elseif (fonction == 'CD') %}
+                              {% set montant = assurance.cd %}
+                          {% elseif ((fonction == 'ER') or (fonction == 'AumonierRegional')) %}
+                              {% set montant = assurance.equiperegionale %}
+                          {% elseif (fonction == 'Regional') %}
+                              {% set montant = assurance.cr %}
+                          {% elseif (fonction == 'Aine') %}
+                              {% set montant = assurance.aine %}
+                          {% elseif (fonction == 'CND') %}
+                              {% set montant = assurance.cnd %}
+                          {% elseif (fonction == 'CAC') %}
+                              {% set montant = assurance.cac %}
+                          {% elseif ((fonction == 'EN') or (fonction == 'AumonierNational'))%}
+                              {% set montant = assurance.equipenationale %}
                           {% else %}
-                              {% set montant = assurance.cadre %}
+                              {% set montant = assurance.cn %}
                           {% endif %}
                         <tr>
                           <td class="text-right">{{ loop.index }}</td>
@@ -106,11 +122,11 @@
                       </div>
                     </div>
                     <div class="col-sm-6 text-right">
-                      <a href="{{ path('bordereau_scouts_adherants', {'cotisation': assurance.annee })}}" title="">
-                        <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter des scouts</button>
+                      <a href="{{ path('bordereau_scouts_adherants', {'cotisation': assurance.annee })}}" class="btn btn-default btn-labeled fa fa-user-plus" title="">
+                        Ajouter des scouts
                       </a>
-                      <a href="#" title="">
-                        <button class="btn btn-default btn-labeled fa fa-trash">Annuler</button>
+                      <a href="{{ absolute_url(path('frontend_annulation',{'cotisation': assurance.annee})) }}" class="btn btn-default btn-labeled fa fa-trash" title="">
+                        Annuler
                       </a>
                       <button type="submit" class="btn btn-default btn-labeled fa fa-check">Valider</button>
                     </div>

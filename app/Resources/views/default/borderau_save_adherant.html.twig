@@ -117,21 +117,40 @@
                     <label class="control-label">Fonction <span class="color:red;">*</span></label>
                     <select class="form-control selectpicker" name="fonction" data-live-search="true" id="scout_fonction" onChange="fonctionScout()">
                       <option value="">-- Selectionnez la fonction --</option>
-                      <option value="Louveteau">Louveteau({{ assurance.jeune|number_format('0','','.') }})</option>
-                      <option value="Eclaireur">Eclaireur({{ assurance.jeune|number_format('0','','.') }})</option>
-                      <option value="Cheminot">Cheminot({{ assurance.jeune|number_format('0','','.') }})</option>
-                      <option value="Routier">Routier({{ assurance.jeune|number_format('0','','.') }})</option>
-                      <option value="CU">Chef d'unité({{ assurance.groupe|number_format('0','','.') }})</option>
-                      <option value="CG">Chef de groupe({{ assurance.groupe|number_format('0','','.') }})</option>
-                      <option value="ED">Equipe de district({{ assurance.district|number_format('0','','.') }})</option>
-                      <option value="CD">CD({{ assurance.district|number_format('0','','.') }})</option>
-                      <option value="Regional">Regional({{ assurance.cadre|number_format('0','','.') }})</option>
-                      <option value="ER">Equipe Régionale({{ assurance.cadre|number_format('0','','.') }})</option>
-                      <option value="Aumonier">Aumonier({{ assurance.cadre|number_format('0','','.') }})</option>
-                      <option value="Aine">Ainé({{ assurance.cadre|number_format('0','','.') }})</option>
-                      <option value="CND">CND({{ assurance.cadre|number_format('0','','.') }})</option>
-                      <option value="CN">Commissaire National({{ assurance.cadre|number_format('0','','.') }})</option>
-                      <option value="EN">Equipe Nationale({{ assurance.cadre|number_format('0','','.') }})</option>
+                      <optgroup label="Jeune">
+                        <option value="Louveteau">Louveteau ({{ assurance.jeune|number_format('0','','.') }})</option>
+                        <option value="Eclaireur">Eclaireur ({{ assurance.jeune|number_format('0','','.') }})</option>
+                        <option value="Cheminot">Cheminot ({{ assurance.jeune|number_format('0','','.') }})</option>
+                        <option value="Routier">Routier ({{ assurance.jeune|number_format('0','','.') }})</option>
+                      </optgroup>
+
+                      <optgroup label="Groupe">
+                        <option value="CU">Chef d'unité ({{ assurance.cu|number_format('0','','.') }})</option>
+                        <option value="equipegroupe">Equipe de groupe ({{ assurance.equipegroupe|number_format('0','','.') }})</option>
+                        <option value="AumonierGroupe">Aumonier de groupe ({{ assurance.equipegroupe|number_format('0','','.') }})</option>
+                        <option value="CG">Chef de groupe ({{ assurance.cg|number_format('0','','.') }})</option>
+                      </optgroup>
+
+                      <optgroup label="District">
+                        <option value="ED">Equipe de district ({{ assurance.equipedistrict|number_format('0','','.') }})</option>
+                        <option value="AumonierDistrict">Aumonier de district ({{ assurance.equipedistrict|number_format('0','','.') }})</option>
+                        <option value="CD">CD ({{ assurance.cd|number_format('0','','.') }})</option>
+                      </optgroup>
+
+                      <optgroup label="Regional">
+                        <option value="ER">Equipe Régionale ({{ assurance.equiperegionale|number_format('0','','.') }})</option>
+                        <option value="AumonierRegional">Aumonier régional ({{ assurance.equiperegionale|number_format('0','','.') }})</option>
+                        <option value="Regional">Regional ({{ assurance.cr|number_format('0','','.') }})</option>
+                      </optgroup>
+
+                      <optgroup label="Equipe nationale">
+                        <option value="Aine">Ainé ({{ assurance.aine|number_format('0','','.') }})</option>
+                        <option value="CND">CND ({{ assurance.cnd|number_format('0','','.') }})</option>
+                        <option value="CAC">Commissaires aux comptes ({{ assurance.cac|number_format('0','','.') }})</option>
+                        <option value="EN">Equipe Nationale ({{ assurance.equipenationale|number_format('0','','.') }})</option>
+                        <option value="AumonierNational">Aumonier National ({{ assurance.equipenationale|number_format('0','','.') }})</option>
+                        <option value="CN">Commissaire National ({{ assurance.cn|number_format('0','','.') }})</option>
+                      </optgroup>
                     </select>
                   </div>
                 </div>

@@ -113,3 +113,11 @@ monolog:
             path:  '%kernel.logs_dir%/../../app/Resources/views/default/notification.json'
             formatter: json
             channels: [notification]
+
+ensepar_html2pdf:
+    orientation: L
+    format: A4
+    lang: fr
+    unicode: true
+    encoding: UTF-8
+    margin: [10,10,10,10]

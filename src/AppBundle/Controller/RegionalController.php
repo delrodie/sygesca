@@ -269,7 +269,7 @@ class RegionalController extends Controller
             'assurance' => $assurance,
             'region'  => $region,
         ));
-        $html2pdf = $this->get('html2pdf_factory')->create('L', 'A4', 'fr', true, 'UTF-8', array(10, 10, 10, 10));
+        $html2pdf = $this->get('html2pdf_factory')->create('L', 'A4', 'fr', true, 'UTF-8', array(10, 10, 10, 10));//dump($html2pdf);die();
         $html2pdf->pdf->SetAuthor('ASCCI');
         $html2pdf->pdf->SetTitle($ref);
         $html2pdf->pdf->SetSubject('Borderau cotisation nationale');

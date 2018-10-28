@@ -67,14 +67,6 @@ class ScoutType extends AbstractType
                       //'placeholder' => 'Sans la mention DISTRICT'
                   )
             ))
-            ->add('nationalite', TextType::class, array(
-                  'attr'  => array(
-                      'class' => 'form-control',
-                      'autocomplete'  => 'off',
-                      //'placeholder' => 'Sans la mention DISTRICT'
-                  ),
-                  'required' => false,
-            ))
             ->add('contact', TextType::class, array(
                   'attr'  => array(
                       'class' => 'form-control',
