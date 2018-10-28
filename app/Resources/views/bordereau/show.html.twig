@@ -1,64 +1,106 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Bordereau</h1>
+    <div class="pageheader">
+        <h3>
+            <i class="fa fa-home"></i>Gestion des Bordereaux</h3>
+        <div class="breadcrumb-wrapper">
+            <span class="label"></span>
+            <ol class="breadcrumb">
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Gestion</a></li>
+                <li class="active">Bordereaux</li>
+            </ol>
+        </div>
+    </div>
+    <div id="page-content">
+        <br>
+        <!-- Message -->
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            {% if flash_message %}
+                <div class="row">
+                    <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2">
+                        <div class="alert alert-info media fade in">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            <div class="media-left">
+                  <span class="icon-wrap icon-wrap-xs icon-circle alert-icon">
+                    <i class="fa fa-check fa-lg"></i>
+                  </span>
+                            </div>
+                            <div class="media-body">
+                                <p></p>
+                                <h4 class="alert-title" style="color: green">
+                                    {{ flash_message }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <!-- \Message -->
+        <br>
+        <div class="row">
+            <div class="col-xs-3 col-xs-offset-9">
+                <a href="#" title="">
+                    <button class="btn btn-default btn-labeled fa fa-user-plus">Ajouter un nouveau bordereau</button>
+                </a>
+            </div>
+        </div>
+        <br>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ bordereau.id }}</td>
-            </tr>
-            <tr>
-                <th>Numero</th>
-                <td>{{ bordereau.numero }}</td>
-            </tr>
-            <tr>
-                <th>Montant</th>
-                <td>{{ bordereau.montant }}</td>
-            </tr>
-            <tr>
-                <th>Valide</th>
-                <td>{% if bordereau.valide %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Cotisants</th>
-                <td>{% if bordereau.cotisants %}{{ bordereau.cotisants|join(', ') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ bordereau.slug }}</td>
-            </tr>
-            <tr>
-                <th>Publiepar</th>
-                <td>{{ bordereau.publiePar }}</td>
-            </tr>
-            <tr>
-                <th>Modifiepar</th>
-                <td>{{ bordereau.modifiePar }}</td>
-            </tr>
-            <tr>
-                <th>Publiele</th>
-                <td>{{ bordereau.publieLe }}</td>
-            </tr>
-            <tr>
-                <th>Modifiele</th>
-                <td>{{ bordereau.modifieLe }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Bordereau</h3>
+            </div>
+            <div class="panel-body">
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ bordereau.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Numero</th>
+                        <td>{{ bordereau.numero }}</td>
+                    </tr>
+                    <tr>
+                        <th>Montant</th>
+                        <td>{{ bordereau.montant }}</td>
+                    </tr>
+                    <tr>
+                        <th>Valide</th>
+                        <td>{% if bordereau.valide %}Yes{% else %}No{% endif %}</td>
+                    </tr>
 
-    <ul>
-        <li>
-            <a href="{{ path('bordereau_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('bordereau_edit', { 'id': bordereau.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                    <tr>
+                        <th>Slug</th>
+                        <td>{{ bordereau.slug }}</td>
+                    </tr>
+                    <tr>
+                        <th>Publiepar</th>
+                        <td>{{ bordereau.publiePar }}</td>
+                    </tr>
+                    <tr>
+                        <th>Modifiepar</th>
+                        <td>{{ cotisation }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div><ul>
+                <li>
+                    {{ form_start(delete_form) }}
+                    <input type="hidden" name="cotisation" value="{{ cotisation }}">
+                    <input type="submit" value="Delete" class="btn btn-danger btn-lg">
+                    {{ form_end(delete_form) }}
+                </li>
+            </ul>
+        </div>
+
+    </div>
 {% endblock %}
+
+
+
+

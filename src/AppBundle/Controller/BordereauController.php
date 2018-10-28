@@ -138,16 +138,17 @@ class BordereauController extends Controller
     /**
      * Finds and displays a bordereau entity.
      *
-     * @Route("/{id}", name="bordereau_show")
+     * @Route("/{id}/{cotisation}", name="bordereau_show")
      * @Method("GET")
      */
-    public function showAction(Bordereau $bordereau)
+    public function showAction(Bordereau $bordereau, $cotisation)
     {
         $deleteForm = $this->createDeleteForm($bordereau);
 
         return $this->render('bordereau/show.html.twig', array(
             'bordereau' => $bordereau,
             'delete_form' => $deleteForm->createView(),
+            'cotisation' => $cotisation
         ));
     }
 
@@ -189,13 +190,15 @@ class BordereauController extends Controller
     /**
      * Deletes a bordereau entity.
      *
-     * @Route("/{id}", name="bordereau_delete")
-     * @Method("DELETE")
+     * @Route("/{id}/", name="bordereau_delete")
+     * @Method({"DELETE", "GET"})
      */
     public function deleteAction(Request $request, Bordereau $bordereau)
     {
         $form = $this->createDeleteForm($bordereau);
         $form->handleRequest($request);
+
+        $cotisation = $request->get('cotisation'); //dump($cotisation);die();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -203,7 +206,7 @@ class BordereauController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('bordereau_index');
+        return $this->redirectToRoute('bordereau_index', array('cotisation'=>$cotisation));
     }
 
     /**

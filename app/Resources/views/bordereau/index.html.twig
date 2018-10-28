@@ -94,7 +94,8 @@
                         <a href="{{ path('impression_bordereau_valide', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Imprimer" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                       {% else %}
                         {% if valid %}
-                          <a href="{{ path('bordereau_edit', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Détails"><i class="fa fa-check"></i></a> |
+                          <a href="{{ path('bordereau_edit', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Détails"><i class="fa fa-check"></i></a>  |
+                          <a href="{{ absolute_url(path('bordereau_show', {'id': bordereau.id, 'cotisation': cotisation})) }}"><i class="fa fa-trash"></i></a> |
                         {% endif %}
                         <a href="{{ path('impression_bordereau_non_valide', { 'id': bordereau.id, 'cotisation': cotisation }) }}" title="Visualiser" target="_blank"><i class="fa fa-search"></i></a>
                       {% endif %}
