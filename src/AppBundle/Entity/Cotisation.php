@@ -142,6 +142,13 @@ class Cotisation
     private $cu;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="statut", type="boolean", nullable=true)
+     */
+    private $statut;
+
+    /**
      * @var string
      *
      * @Gedmo\Slug(fields={"annee"})
@@ -768,5 +775,29 @@ class Cotisation
     public function getCg()
     {
         return $this->cg;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param boolean $statut
+     *
+     * @return Cotisation
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return boolean
+     */
+    public function getStatut()
+    {
+        return $this->statut;
     }
 }

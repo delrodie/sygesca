@@ -99,7 +99,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        $cotisations = $em->getRepository('AppBundle:Cotisation')->findAll();
+        $cotisations = $em->getRepository('AppBundle:Cotisation')->findByAnneDESC();
 
         return $this->render('default/cotisation_liste.html.twig', array(
             'cotisations' => $cotisations,

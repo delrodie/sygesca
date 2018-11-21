@@ -115,11 +115,21 @@ class RegionalController extends Controller
           $nombre_adherant = count($session->get('adhesion'));
        }
 
+       //Verification pour savoir si c'est la cotisation de l'année encours
+        $annee = $em->getRepository('AppBundle:Cotisation')->findBy(array('annee'=>$cotisation, 'statut'=>1), array('id'=>'DESC'),1,0);
+       if ($annee){
+           $actif = true;
+       }else{
+           $actif = false;
+       }
+
+
 
        return $this->render('default/bordereau_scouts_adherants.html.twig', array(
           'adherants'  => $adherants,
           'cotisation'  => $cotisation,
           'nombre_adherant' => $nombre_adherant,
+           'actif' => $actif
        ));
     }
 

@@ -90,9 +90,15 @@
                     <td class="text-center">{{ adherant.sexe }}</td>
                     <td class="text-left">{{ adherant.branche }}</td>
                     <td class="text-center">
-                      <a href="{{ path('adherant_cotisation', {'scout': adherant.id, 'cotisation': cotisation})}}" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Ajouter au bordereau">
-                        <i class="fa fa-plus"></i>
-                      </a>
+                        {% if actif %}
+                            <a href="{{ path('adherant_cotisation', {'scout': adherant.id, 'cotisation': cotisation})}}" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Ajouter au bordereau">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        {% else %}
+                            <a href="#" class="btn-link add-tooltip" data-placement="left" data-toggle="tooltip" data-original-title="Veuillez voir l'année encours">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

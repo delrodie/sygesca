@@ -124,25 +124,40 @@
               </div>
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label class="control-label">CG et équipe de groupe  <span style="color: red">*</span></label>
-                  {{ form_widget(edit_form.equipegroupe) }}
-                  {{ form_errors(edit_form.equipegroupe) }}
+                  <label class="control-label">CG  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.cg) }}
+                  {{ form_errors(edit_form.cg) }}
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label class="control-label">Chef d'unité, Adjoint et Assistant  <span style="color: red">*</span></label>
-                  {{ form_widget(edit_form.cu) }}
-                  {{ form_errors(edit_form.cu) }}
+                  <label class="control-label">Equipe de groupe  <span style="color: red">*</span></label>
+                  {{ form_widget(edit_form.equipegroupe) }}
+                  {{ form_errors(edit_form.equipegroupe) }}
                 </div>
               </div>
             </div>
             <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label">Chef d'unité, Adjoint et Assistant  <span style="color: red">*</span></label>
+                    {{ form_widget(edit_form.cu) }}
+                    {{ form_errors(edit_form.cu) }}
+                </div>
+              </div>
               <div class="col-sm-5">
                 <div class="form-group">
                   <label class="control-label">Jeunes  <span style="color: red">*</span></label>
                   {{ form_widget(edit_form.jeune) }}
                   {{ form_errors(edit_form.jeune) }}
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="form-group"><br><br>
+                  <label class="control-label">statut  </label>
+                    {{ form_widget(edit_form.statut) }}
+                    {{ form_errors(edit_form.statut) }}
                 </div>
               </div>
             </div>

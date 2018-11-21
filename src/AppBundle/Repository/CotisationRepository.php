@@ -52,4 +52,15 @@ class CotisationRepository extends \Doctrine\ORM\EntityRepository
         }
 
     }
+
+    /**
+     * Liste decroissante des cotisations
+     */
+    public function findByAnneDESC()
+    {
+        return $this->createQueryBuilder('c')
+                    ->orderBy('c.annee', 'DESC')
+                    ->getQuery()->getResult()
+            ;
+    }
 }

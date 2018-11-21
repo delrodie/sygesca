@@ -58,4 +58,17 @@ class BordereauRepository extends \Doctrine\ORM\EntityRepository
      }
 
    }
+
+   /**
+    * Liste des bordereaux concernés par l'année de cotisation
+    */
+   public function findByCotisation($cotisation)
+   {
+       return $this->createQueryBuilder('b')
+                    ->leftJoin('b.cotisation', 'c')
+                    ->where('c.annee = :cotisation')
+                    ->setParameter('cotisation', $cotisation)
+                    ->getQuery()->getResult()
+           ;
+   }
 }

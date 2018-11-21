@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -114,6 +115,9 @@ class CotisationType extends AbstractType
                       'placeholder' => 'Montant de la cotisation des jeunes'
                   )
             ))
+            ->add('statut', CheckboxType::class, [
+                'required' => false
+            ])
             //->add('slug')->add('publiePar')->add('modifiePar')->add('publieLe')->add('modifieLe')
             ;
     }

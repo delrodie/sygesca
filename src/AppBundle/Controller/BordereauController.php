@@ -43,7 +43,8 @@ class BordereauController extends Controller
           } elseif (($gestionnaire->getRegion()->getId() === 1)) {
             $finance = $em->getRepository('AppBundle:Gestionnaire')->getFinance($gestionnaire->getId());
             if ($finance) {
-              $bordereaus = $em->getRepository('AppBundle:Bordereau')->findAll();
+              //$bordereaus = $em->getRepository('AppBundle:Bordereau')->findAll();
+              $bordereaus = $em->getRepository('AppBundle:Bordereau')->findByCotisation($cotisation);
               $valid = true;
             } else {
               throw new AccessDeniedException();
@@ -52,7 +53,7 @@ class BordereauController extends Controller
           } else{
             $regionID = $gestionnaire->getRegion()->getId();
             $region = $em->getRepository('AppBundle:Region')->findOneById($regionID);
-            $bordereaux = $em->getRepository('AppBundle:Bordereau')->findAll();
+            $bordereaux = $em->getRepository('AppBundle:Bordereau')->findByCotisation($cotisation);
             //dump($bordereaux);die();
             if ($bordereaux === []) {
               $bordereaus = $bordereaux;
@@ -70,7 +71,7 @@ class BordereauController extends Controller
             $valid = false;
           }
         }else {
-          $bordereaus = $em->getRepository('AppBundle:Bordereau')->findAll();
+          $bordereaus = $em->getRepository('AppBundle:Bordereau')->findByCotisation($cotisation);
           $valid = true;
         }//dump($bordereaus);die();
 
