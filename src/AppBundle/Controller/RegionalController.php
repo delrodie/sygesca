@@ -176,7 +176,7 @@ class RegionalController extends Controller
         $session->set('chefUnite',$chefUnite);
 
         $cotisant = $em->getRepository('AppBundle:Scout')->findOneById($scout);
-        $this->addFlash('notice', $cotisant->getNom()." ".$cotisant->getPrenoms()." a été ajouté avec succès au bordereau.");
+        $this->addFlash('notice', $adhesion[$scout]." ".$cotisant->getNom()." ".$cotisant->getPrenoms()." a été ajouté avec succès au bordereau.");
 
         return $this->redirectToRoute('bordereau_scouts_adherants', array('cotisation' => $cotisation));
 
@@ -195,7 +195,7 @@ class RegionalController extends Controller
         $em = $this->getDoctrine()->getManager();
         $adherant = $em->getRepository('AppBundle:Scout')->findOneById($scout);
         $cotisants = $em->getRepository('AppBundle:Scout')->findArray(array_keys($session->get('adhesion')));
-        $assurance = $em->getRepository('AppBundle:Cotisation')->findOneBy(array('annee'  => $cotisation));
+        $assurance = $em->getRepository('AppBundle:Cotisation')->findOneBy(array('annee'  => $cotisation)); //dump($assurance);die();
         $adherants = $session->get('adhesion');
 
         return $this->render('default/borderau_save_adherant.html.twig', array(

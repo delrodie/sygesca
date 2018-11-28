@@ -54,7 +54,7 @@
                               {% set montant = assurance.equipegroupe %}
                           {% elseif (fonction == 'CG') %}
                               {% set montant = assurance.cg %}
-                          {% elseif ((fonction == 'equipedistrict') or (fonction == 'AumonierDistrict')) %}
+                          {% elseif ((fonction == 'ED') or (fonction == 'AumonierDistrict')) %}
                               {% set montant = assurance.equipedistrict %}
                           {% elseif (fonction == 'CD') %}
                               {% set montant = assurance.cd %}

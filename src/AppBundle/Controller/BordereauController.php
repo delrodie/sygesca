@@ -244,7 +244,7 @@ class BordereauController extends Controller
 
         foreach ($cotisants as $cotisant) {
 
-          $fonction = $adherants[$cotisant->getId()];
+          $fonction = $adherants[$cotisant->getId()]; //dump($fonction);die();
           if (($fonction === 'Louveteau') or ($fonction === 'Eclaireur') or ($fonction === 'Cheminot') or ($fonction === 'Routier'))
               $montant = $assurance->getJeune();
           elseif ($fonction === 'CU')
@@ -253,7 +253,7 @@ class BordereauController extends Controller
               $montant = $assurance->getCg();
           elseif (($fonction === 'equipegroupe') or ($fonction === 'AumonierGroupe'))
               $montant = $assurance->getEquipegroupe();
-          elseif (($fonction === 'equipedistrict') or ($fonction === 'AumonierDistrict'))
+          elseif (($fonction === 'ED') or ($fonction === 'AumonierDistrict'))
               $montant = $assurance->getEquipedistrict();
           elseif ($fonction === 'CD')
               $montant = $assurance->getDistrict();
