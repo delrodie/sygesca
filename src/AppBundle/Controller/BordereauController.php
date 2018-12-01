@@ -256,7 +256,7 @@ class BordereauController extends Controller
           elseif (($fonction === 'ED') or ($fonction === 'AumonierDistrict'))
               $montant = $assurance->getEquipedistrict();
           elseif ($fonction === 'CD')
-              $montant = $assurance->getDistrict();
+              $montant = $assurance->getCd();
           elseif (($fonction === 'ER') or ($fonction === 'AumonierRegional'))
               $montant = $assurance->getEquiperegionale();
           elseif ($fonction === 'Regional')
