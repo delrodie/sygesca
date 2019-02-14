@@ -241,7 +241,7 @@ class StatistiquesController extends Controller
             $nombre = $em->getRepository('AppBundle:Scout')->getNbTotalCotisantParregion($region, $annee);
         }
 
-        return $this->render('statistiques/nombres.html.twig', array(
+        return $this->render('statistiques/nombres2.html.twig', array(
             'nombre' => $nombre,
         ));
     }
